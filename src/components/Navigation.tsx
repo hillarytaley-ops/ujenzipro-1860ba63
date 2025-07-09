@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Building2, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
@@ -22,13 +22,12 @@ const Navigation = () => {
   return (
     <header className="bg-white shadow-sm border-b sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <Building2 className="h-8 w-8 text-blue-600" />
-          <h1 className="text-2xl font-bold">
-            <span className="text-black">Build</span>
-            <span className="text-red-600">Connect</span>
-            <span className="text-green-600">254</span>
-          </h1>
+        <Link to="/" className="flex items-center">
+          <img 
+            src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
+            alt="BuildConnect254 Logo" 
+            className="h-12 w-12"
+          />
         </Link>
 
         {/* Desktop Navigation */}
