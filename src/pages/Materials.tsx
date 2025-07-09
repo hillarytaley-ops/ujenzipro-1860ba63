@@ -15,7 +15,7 @@ const Materials = () => {
       location: "Nairobi",
       price: "KSh 650",
       rating: 4.8,
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop",
       category: "Cement"
     },
     {
@@ -24,7 +24,7 @@ const Materials = () => {
       location: "Ruiru",
       price: "KSh 85/meter",
       rating: 4.7,
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1581092795442-8d4b7d9a7c18?w=400&h=300&fit=crop",
       category: "Steel"
     },
     {
@@ -33,7 +33,7 @@ const Materials = () => {
       location: "Mombasa",
       price: "KSh 1,200/sqm",
       rating: 4.9,
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1615971677499-5467e7d2de2d?w=400&h=300&fit=crop",
       category: "Tiles"
     },
     {
@@ -42,7 +42,7 @@ const Materials = () => {
       location: "Kasarani",
       price: "KSh 3,500/tonne",
       rating: 4.5,
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
       category: "Aggregates"
     },
     {
@@ -51,7 +51,7 @@ const Materials = () => {
       location: "Nakuru",
       price: "KSh 850/sheet",
       rating: 4.6,
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1582728549062-1b9a4785b013?w=400&h=300&fit=crop",
       category: "Roofing"
     },
     {
@@ -60,7 +60,7 @@ const Materials = () => {
       location: "Thika",
       price: "KSh 4,200",
       rating: 4.7,
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=300&fit=crop",
       category: "Paint"
     }
   ];
@@ -141,8 +141,12 @@ const Materials = () => {
             {materials.map((material, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                    <span className="text-gray-500">Material Image</span>
+                  <div className="aspect-video bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                    <img 
+                      src={material.image} 
+                      alt={material.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
