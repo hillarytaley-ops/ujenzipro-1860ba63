@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Building2, Users, ShoppingCart, Search, Star, MessageCircle } from "lucide-react";
-import { useState } from "react";
+import { useState } from "react";  
 
 const Index = () => {
   const [userType, setUserType] = useState<'builder' | 'seller' | null>(null);
