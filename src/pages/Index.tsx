@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,7 +15,7 @@ const Index = () => {
     },
     {
       icon: Users,
-      title: "Connect with Professionals",
+      title: "Connect with Professionals", 
       description: "Network with trusted builders and reliable material suppliers"
     },
     {
@@ -40,7 +39,7 @@ const Index = () => {
     },
     {
       name: "Mary Wanjiku",
-      role: "Hardware Store Owner, Nakuru",
+      role: "Hardware Store Owner, Nakuru", 
       content: "This platform has expanded my customer base beyond my wildest dreams. Highly recommended!",
       rating: 5
     }
@@ -56,7 +55,7 @@ const Index = () => {
           <Badge className="mb-4 bg-orange-100 text-orange-800 border-orange-200">
             🇰🇪 Connecting Kenya's Construction Industry
           </Badge>
-          <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-5xl font-bold mb-6 leading-tight" style={{ color: 'rgb(6, 96, 96)' }}>
             Connect, Build and 
             <span className="text-blue-600"> Succeed Together.</span>
           </h1>
