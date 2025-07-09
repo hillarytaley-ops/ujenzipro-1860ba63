@@ -2,12 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Users, ShoppingCart, Search, Star, MessageCircle } from "lucide-react";
-import { useState } from "react";  
+import { Search, Users, ShoppingCart, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const Index = () => {
-  const [userType, setUserType] = useState<'builder' | 'seller' | null>(null);
-
   const features = [
     {
       icon: Search,
@@ -48,19 +48,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Building2 className="h-8 w-8 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">BuildConnect254</h1>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Button variant="outline">Sign In</Button>
-            <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16 text-center">
@@ -69,8 +57,8 @@ const Index = () => {
             🇰🇪 Connecting Kenya's Construction Industry
           </Badge>
           <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Connect. Build. 
-            <span className="text-blue-600"> Grow Together.</span>
+            Connect, Build and 
+            <span className="text-blue-600"> Succeed Together.</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             The premier platform connecting builders with trusted construction material suppliers across Kenya. 
@@ -78,21 +66,16 @@ const Index = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button 
-              size="lg" 
-              className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4"
-              onClick={() => setUserType('builder')}
-            >
-              I'm a Builder
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-orange-500 text-orange-600 hover:bg-orange-50 text-lg px-8 py-4"
-              onClick={() => setUserType('seller')}
-            >
-              I'm a Seller
-            </Button>
+            <Link to="/builders">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4">
+                I'm a Builder
+              </Button>
+            </Link>
+            <Link to="/suppliers">
+              <Button size="lg" variant="outline" className="border-orange-500 text-orange-600 hover:bg-orange-50 text-lg px-8 py-4">
+                I'm a Supplier
+              </Button>
+            </Link>
           </div>
 
           {/* Quick Stats */}
@@ -217,52 +200,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Building2 className="h-6 w-6" />
-                <h3 className="text-lg font-semibold">BuildConnect254</h3>
-              </div>
-              <p className="text-gray-400">
-                Connecting Kenya's construction industry, one project at a time.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">For Builders</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Find Materials</li>
-                <li>Request Quotes</li>
-                <li>Compare Prices</li>
-                <li>Read Reviews</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">For Suppliers</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>List Products</li>
-                <li>Reach Customers</li>
-                <li>Manage Orders</li>
-                <li>Grow Business</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Help Center</li>
-                <li>Contact Us</li>
-                <li>Terms of Service</li>
-                <li>Privacy Policy</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 BuildConnect254. All rights reserved. Made with ❤️ in Kenya.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
