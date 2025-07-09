@@ -14,7 +14,7 @@ const Materials = () => {
       location: "Nairobi", 
       price: "KSh 650",
       rating: 4.8,
-      image: "https://images.unsplash.com/photo-1621905252472-e8f7a4d44f8e?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop",
       category: "Cement"
     },
     {
@@ -23,7 +23,7 @@ const Materials = () => {
       location: "Ruiru",
       price: "KSh 85/meter",
       rating: 4.7,
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=300&fit=crop",
       category: "Steel"
     },
     {
@@ -32,7 +32,7 @@ const Materials = () => {
       location: "Mombasa",
       price: "KSh 1,200/sqm",
       rating: 4.9,
-      image: "https://images.unsplash.com/photo-1615971677499-5467e7d2de2d?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=400&h=300&fit=crop",
       category: "Tiles"
     },
     {
@@ -41,7 +41,7 @@ const Materials = () => {
       location: "Kasarani",
       price: "KSh 3,500/tonne",
       rating: 4.5,
-      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1431576901776-e539bd916ba2?w=400&h=300&fit=crop",
       category: "Aggregates"
     },
     {
@@ -50,7 +50,7 @@ const Materials = () => {
       location: "Nakuru",
       price: "KSh 850/sheet",
       rating: 4.6,
-      image: "https://images.unsplash.com/photo-1582728549062-1b9a4785b013?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?w=400&h=300&fit=crop",
       category: "Roofing"
     },
     {
@@ -59,7 +59,7 @@ const Materials = () => {
       location: "Thika",
       price: "KSh 4,200",
       rating: 4.7,
-      image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1459767129954-1b1c1f9b9ace?w=400&h=300&fit=crop",
       category: "Paint"
     }
   ];
