@@ -71,8 +71,8 @@ const Index = () => {
           <Badge className="mb-4 bg-orange-100 text-orange-800 border-orange-200">
             🇰🇪 Connecting Kenya's Construction Industry
           </Badge>
-          <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Connect, Build and <span className="text-blue-600">Succeed</span>
+          <h1 className="text-5xl font-bold text-olive-500 mb-6 leading-tight">
+            Connect, Build and Succeed
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             The premier platform connecting builders with trusted construction material suppliers across Kenya. 
