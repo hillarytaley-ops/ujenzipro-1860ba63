@@ -78,7 +78,7 @@ const Materials = () => {
       <section className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Construction Materials Marketplace</h1>
-          <p className="text-xl mb-8 opacity-90">Find the best prices for quality construction materials</p>
+          <p className="text-xl mb-8 opacity-90">Find the best prices for quality construction materials - whether you're a professional builder or building your dream home</p>
           
           {/* Search Bar */}
           <div className="max-w-3xl mx-auto">
@@ -182,6 +182,37 @@ const Materials = () => {
             <Button variant="outline" size="lg">
               Load More Materials
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Who Can Buy Section */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Who Can Buy?</h2>
+          <p className="text-lg text-gray-600 mb-12">Our marketplace serves everyone in the construction ecosystem</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🏗️</span>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Professional Builders</h3>
+              <p className="text-gray-600">Construction companies and contractors working on large-scale projects</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🏠</span>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Homeowners</h3>
+              <p className="text-gray-600">Private individuals building or renovating their homes</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🔨</span>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">DIY Enthusiasts</h3>
+              <p className="text-gray-600">Individuals working on home improvement and personal projects</p>
+            </div>
           </div>
         </div>
       </section>
