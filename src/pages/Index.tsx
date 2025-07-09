@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -52,11 +53,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Building2 className="h-8 w-8 text-blue-600" />
-            <h1 className="text-2xl font-bold">
-              <span className="text-black">Build</span>
-              <span className="text-red-600">Connect</span>
-              <span className="text-green-600">254</span>
-            </h1>
+            <h1 className="text-2xl font-bold text-gray-900">BuildConnect254</h1>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="outline">Sign In</Button>
@@ -71,8 +68,9 @@ const Index = () => {
           <Badge className="mb-4 bg-orange-100 text-orange-800 border-orange-200">
             🇰🇪 Connecting Kenya's Construction Industry
           </Badge>
-          <h1 className="text-5xl font-bold text-olive-500 mb-6 leading-tight">
-            Connect, Build and Succeed
+          <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            Connect. Build. 
+            <span className="text-blue-600"> Grow Together.</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             The premier platform connecting builders with trusted construction material suppliers across Kenya. 
@@ -120,10 +118,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose 
-              <span className="text-black"> Build</span>
-              <span className="text-red-600">Connect</span>
-              <span className="text-green-600">254</span>?
+              Why Choose BuildConnect254?
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               We make it easy for builders and suppliers to find each other, 
@@ -229,11 +224,7 @@ const Index = () => {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Building2 className="h-6 w-6" />
-                <h3 className="text-lg font-semibold">
-                  <span className="text-white">Build</span>
-                  <span className="text-red-500">Connect</span>
-                  <span className="text-green-500">254</span>
-                </h3>
+                <h3 className="text-lg font-semibold">BuildConnect254</h3>
               </div>
               <p className="text-gray-400">
                 Connecting Kenya's construction industry, one project at a time.
