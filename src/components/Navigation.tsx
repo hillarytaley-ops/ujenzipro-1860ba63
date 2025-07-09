@@ -26,7 +26,7 @@ const Navigation = () => {
           <img 
             src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
             alt="BuildConnect254 Logo" 
-            className="h-12 w-12"
+            className="h-16 w-16 object-contain hover:scale-105 transition-transform duration-200 drop-shadow-md"
           />
         </Link>
 
