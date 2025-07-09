@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -73,8 +72,7 @@ const Index = () => {
             🇰🇪 Connecting Kenya's Construction Industry
           </Badge>
           <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Connect. Build. 
-            <span className="text-blue-600"> Grow Together.</span>
+            Connect, Build and <span className="text-blue-600">Succeed</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             The premier platform connecting builders with trusted construction material suppliers across Kenya. 
