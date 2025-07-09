@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Users, Target, Award, Globe } from "lucide-react";
@@ -9,7 +8,7 @@ const About = () => {
   const values = [
     {
       icon: Target,
-      title: "Our Mission",
+      title: "Our Mission", 
       description: "To revolutionize Kenya's construction industry by creating seamless connections between builders and suppliers, fostering growth and innovation."
     },
     {
@@ -61,7 +60,7 @@ const About = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-green-600 text-white py-20">
+      <section className="bg-gradient-to-r from-black to-red-600 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <Badge className="mb-4 bg-white/20 text-white border-white/30">
             🇰🇪 Proudly Kenyan
@@ -108,8 +107,8 @@ const About = () => {
             {values.map((value, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-fit">
-                    <value.icon className="h-8 w-8 text-blue-600" />
+                  <div className="mx-auto mb-4 p-4 bg-red-100 rounded-full w-fit">
+                    <value.icon className="h-8 w-8 text-red-600" />
                   </div>
                   <CardTitle className="text-xl">{value.title}</CardTitle>
                 </CardHeader>
@@ -134,7 +133,7 @@ const About = () => {
                     <Users className="h-12 w-12 text-gray-400" />
                   </div>
                   <CardTitle className="text-lg">{member.name}</CardTitle>
-                  <CardDescription className="text-blue-600 font-medium">
+                  <CardDescription className="text-red-600 font-medium">
                     {member.role}
                   </CardDescription>
                 </CardHeader>
@@ -148,7 +147,7 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-blue-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-green-600 to-black text-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Our Impact</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
