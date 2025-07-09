@@ -48,7 +48,7 @@ const Suppliers = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-orange-600 to-red-600 text-white py-16">
+      <section className="bg-gradient-to-r from-black to-red-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Reliable Material Suppliers</h1>
           <p className="text-xl mb-8 opacity-90">Source quality construction materials from verified suppliers nationwide</p>
@@ -62,7 +62,7 @@ const Suppliers = () => {
                 className="pl-10 py-6 text-lg bg-white"
               />
             </div>
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 px-8">
+            <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8">
               Search
             </Button>
           </div>
@@ -77,7 +77,7 @@ const Suppliers = () => {
             {["Cement", "Steel", "Tiles", "Paint", "Timber", "Hardware", "Plumbing", "Electrical"].map((category, index) => (
               <Card key={index} className="text-center cursor-pointer hover:shadow-md transition-shadow">
                 <CardContent className="py-6">
-                  <Package className="h-8 w-8 mx-auto mb-2 text-orange-600" />
+                  <Package className="h-8 w-8 mx-auto mb-2 text-black" />
                   <p className="text-sm font-medium">{category}</p>
                 </CardContent>
               </Card>
@@ -91,7 +91,7 @@ const Suppliers = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-orange-600">500+</div>
+              <div className="text-3xl font-bold text-black">500+</div>
               <div className="text-gray-600">Verified Suppliers</div>
             </div>
             <div>
@@ -99,11 +99,11 @@ const Suppliers = () => {
               <div className="text-gray-600">Products Listed</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600">47</div>
+              <div className="text-3xl font-bold text-red-600">47</div>
               <div className="text-gray-600">Counties Served</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600">24/7</div>
+              <div className="text-3xl font-bold text-black">24/7</div>
               <div className="text-gray-600">Customer Support</div>
             </div>
           </div>
@@ -149,7 +149,7 @@ const Suppliers = () => {
                       </Badge>
                     ))}
                   </div>
-                  <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                  <Button className="w-full bg-red-600 hover:bg-red-700">
                     View Catalog
                   </Button>
                 </CardContent>
@@ -160,11 +160,11 @@ const Suppliers = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-green-600 py-16 text-white">
+      <section className="bg-gradient-to-r from-green-600 to-black py-16 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Become a Supplier</h2>
           <p className="text-xl mb-8 opacity-90">List your products and reach thousands of builders across Kenya</p>
-          <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-4">
+          <Button size="lg" className="bg-white text-black hover:bg-gray-100 text-lg px-8 py-4">
             Register as Supplier
           </Button>
         </div>
