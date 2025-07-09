@@ -48,7 +48,7 @@ const Builders = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+      <section className="bg-gradient-to-r from-black to-red-800 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Find Trusted Builders in Kenya</h1>
           <p className="text-xl mb-8 opacity-90">Connect with verified construction professionals across the country</p>
@@ -62,7 +62,7 @@ const Builders = () => {
                 className="pl-10 py-6 text-lg bg-white"
               />
             </div>
-            <Button size="lg" className="bg-orange-600 hover:bg-orange-700 px-8">
+            <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8">
               Search
             </Button>
           </div>
@@ -74,7 +74,7 @@ const Builders = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-blue-600">1,000+</div>
+              <div className="text-3xl font-bold text-black">1,000+</div>
               <div className="text-gray-600">Registered Builders</div>
             </div>
             <div>
@@ -82,11 +82,11 @@ const Builders = () => {
               <div className="text-gray-600">Completed Projects</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-600">47</div>
+              <div className="text-3xl font-bold text-red-600">47</div>
               <div className="text-gray-600">Counties Covered</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600">95%</div>
+              <div className="text-3xl font-bold text-black">95%</div>
               <div className="text-gray-600">Client Satisfaction</div>
             </div>
           </div>
@@ -132,7 +132,7 @@ const Builders = () => {
                       </Badge>
                     ))}
                   </div>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                  <Button className="w-full bg-red-600 hover:bg-red-700">
                     View Profile
                   </Button>
                 </CardContent>
@@ -143,11 +143,11 @@ const Builders = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-green-600 to-blue-600 py-16 text-white">
+      <section className="bg-gradient-to-r from-green-600 to-black py-16 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Are You a Builder?</h2>
           <p className="text-xl mb-8 opacity-90">Join BuildConnect254 and expand your business reach</p>
-          <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-4">
+          <Button size="lg" className="bg-white text-black hover:bg-gray-100 text-lg px-8 py-4">
             Register as Builder
           </Button>
         </div>
