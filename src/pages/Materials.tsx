@@ -9,12 +9,12 @@ import Footer from "@/components/Footer";
 const Materials = () => {
   const materials = [
     {
-      name: "Portland Cement 50kg",
+      name: "Bamburi Cement 50kg",
       supplier: "Bamburi Cement",
       location: "Nairobi", 
       price: "KSh 650",
       rating: 4.8,
-      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop",
+      image: "https://sl.bing.net/eGRsDYCp2Xc",
       category: "Cement"
     },
     {
