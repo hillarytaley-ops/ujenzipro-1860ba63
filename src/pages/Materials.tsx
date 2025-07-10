@@ -14,7 +14,7 @@ const Materials = () => {
       location: "Nairobi", 
       price: "KSh 650",
       rating: 4.8,
-      image: "https://sl.bing.net/eGRsDYCp2Xc",
+      image: "https://bamburigroup.com/wp-content/uploads/2025/03/buy-bamburi-Nguvu-cement-2.jpg",
       category: "Cement"
     },
     {
