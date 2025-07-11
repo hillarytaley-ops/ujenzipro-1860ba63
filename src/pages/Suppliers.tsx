@@ -13,131 +13,163 @@ const Suppliers = () => {
 
   const suppliers = [
     {
-      name: "Nairobi Hardware Supplies",
-      location: "Nairobi",
-      rating: 4.7,
-      products: 250,
-      categories: ["Cement", "Steel", "Tiles"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Coastal Building Materials", 
-      location: "Mombasa",
-      rating: 4.8,
-      products: 180,
-      categories: ["Aggregates", "Roofing", "Paint"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Rift Valley Suppliers",
-      location: "Nakuru",
-      rating: 4.6,
-      products: 320,
-      categories: ["Timber", "Hardware", "Plumbing"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Western Kenya Materials",
-      location: "Kisumu", 
-      rating: 4.9,
-      products: 200,
-      categories: ["Electrical", "Insulation", "Tools"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Eldoret Construction Hub",
-      location: "Eldoret",
-      rating: 4.5,
-      products: 285,
-      categories: ["Cement", "Roofing", "Steel"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Kericho Building Depot",
-      location: "Kericho",
-      rating: 4.7,
-      products: 195,
-      categories: ["Timber", "Paint", "Hardware"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Naivasha Stone Quarries",
-      location: "Naivasha",
+      name: "Bamburi Cement",
+      location: "Nairobi", 
       rating: 4.8,
       products: 150,
+      categories: ["Cement", "Concrete", "Building Solutions"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Simba Cement",
+      location: "Nairobi",
+      rating: 4.7,
+      products: 120,
+      categories: ["Cement", "Lime", "Concrete Products"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "ARM Cement",
+      location: "Nairobi",
+      rating: 4.6,
+      products: 110,
+      categories: ["Cement", "Steel", "Construction Materials"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Devki Steel Mills",
+      location: "Ruiru",
+      rating: 4.9,
+      products: 200,
+      categories: ["Steel", "Iron Sheets", "Wire Products"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Kenbro Industries",
+      location: "Nairobi",
+      rating: 4.5,
+      products: 180,
+      categories: ["Tiles", "Ceramics", "Sanitary Ware"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Crown Paints Kenya",
+      location: "Nairobi",
+      rating: 4.7,
+      products: 300,
+      categories: ["Paint", "Coatings", "Construction Chemicals"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Sadolin Paints",
+      location: "Nairobi",
+      rating: 4.6,
+      products: 250,
+      categories: ["Paint", "Wood Finishes", "Industrial Coatings"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Athi River Steel Plant",
+      location: "Athi River",
+      rating: 4.4,
+      products: 160,
+      categories: ["Steel", "Iron Bars", "Construction Steel"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Kenya Ceramic Company",
+      location: "Nairobi",
+      rating: 4.5,
+      products: 140,
+      categories: ["Tiles", "Ceramics", "Roofing Tiles"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Tilemaster Kenya",
+      location: "Mombasa",
+      rating: 4.3,
+      products: 190,
+      categories: ["Tiles", "Marble", "Granite"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Chandaria Industries (Kenpipe)",
+      location: "Nairobi",
+      rating: 4.6,
+      products: 170,
+      categories: ["Pipes", "Plumbing", "Water Systems"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Homa Lime Company",
+      location: "Homa Bay",
+      rating: 4.4,
+      products: 90,
+      categories: ["Lime", "Aggregates", "Mining Products"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "East African Portland Cement",
+      location: "Athi River",
+      rating: 4.5,
+      products: 130,
+      categories: ["Cement", "Lime", "Aggregates"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Kenblest Steel Fabricators",
+      location: "Nairobi",
+      rating: 4.7,
+      products: 220,
+      categories: ["Steel Fabrication", "Structural Steel", "Metalwork"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Royal Mabati Factory",
+      location: "Nairobi",
+      rating: 4.8,
+      products: 180,
+      categories: ["Iron Sheets", "Roofing", "Steel Products"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Basco Products Kenya",
+      location: "Nairobi",
+      rating: 4.6,
+      products: 160,
+      categories: ["Paint", "Adhesives", "Sealants"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Kengen Quarries",
+      location: "Machakos",
+      rating: 4.3,
+      products: 80,
       categories: ["Aggregates", "Stone", "Sand"],
       image: "/placeholder.svg"
     },
     {
-      name: "Nyahururu Timber Mills",
-      location: "Nyahururu",
-      rating: 4.6,
-      products: 120,
-      categories: ["Timber", "Plywood", "Doors"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Thika Steel Works",
-      location: "Thika",
+      name: "Kaluworks Company",
+      location: "Nairobi",
       rating: 4.5,
-      products: 160,
-      categories: ["Steel", "Iron Sheets", "Wire"],
+      products: 200,
+      categories: ["Aluminum", "Roofing", "Windows & Doors"],
       image: "/placeholder.svg"
     },
     {
-      name: "Machakos Hardware Store",
-      location: "Machakos",
+      name: "General Plastics Limited",
+      location: "Nairobi",
       rating: 4.4,
-      products: 140,
-      categories: ["Hardware", "Tools", "Plumbing"],
+      products: 150,
+      categories: ["Plastic Products", "Pipes", "Water Tanks"],
       image: "/placeholder.svg"
     },
     {
-      name: "Nyeri Building Supplies",
-      location: "Nyeri",
+      name: "Tile & Carpet Centre",
+      location: "Nairobi",
       rating: 4.6,
-      products: 175,
-      categories: ["Cement", "Tiles", "Paint"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Meru Construction Materials",
-      location: "Meru",
-      rating: 4.3,
-      products: 130,
-      categories: ["Timber", "Hardware", "Roofing"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Garissa Builders Mart",
-      location: "Garissa",
-      rating: 4.2,
-      products: 110,
-      categories: ["Cement", "Steel", "Hardware"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Kakamega Building Center",
-      location: "Kakamega",
-      rating: 4.5,
-      products: 165,
-      categories: ["Timber", "Paint", "Electrical"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Kitale Agricultural Hardware",
-      location: "Kitale",
-      rating: 4.4,
-      products: 145,
-      categories: ["Tools", "Hardware", "Plumbing"],
-      image: "/placeholder.svg"
-    },
-    {
-      name: "Embu Stone & Cement Co.",
-      location: "Embu",
-      rating: 4.7,
-      products: 185,
-      categories: ["Stone", "Cement", "Aggregates"],
+      products: 240,
+      categories: ["Tiles", "Carpets", "Flooring Solutions"],
       image: "/placeholder.svg"
     }
   ];
@@ -226,11 +258,11 @@ const Suppliers = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-black">1,200+</div>
+              <div className="text-3xl font-bold text-black">500+</div>
               <div className="text-gray-600">Verified Suppliers</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600">25,000+</div>
+              <div className="text-3xl font-bold text-green-600">15,000+</div>
               <div className="text-gray-600">Products Listed</div>
             </div>
             <div>
