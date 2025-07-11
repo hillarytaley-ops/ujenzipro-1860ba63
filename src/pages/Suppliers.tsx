@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +18,7 @@ const Suppliers = () => {
     },
     {
       name: "Coastal Building Materials",
-      location: "Mombasa",
+      location: "Mombasa", 
       rating: 4.8,
       products: 180,
       categories: ["Aggregates", "Roofing", "Paint"],
@@ -110,6 +109,17 @@ const Suppliers = () => {
     }
   ];
 
+  const categories = [
+    { name: "Cement", image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=150&h=150&fit=crop" },
+    { name: "Steel", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Tiles", image: "https://images.unsplash.com/photo-1585128792020-803d29415281?w=150&h=150&fit=crop" },
+    { name: "Paint", image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=150&h=150&fit=crop" },
+    { name: "Timber", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=150&h=150&fit=crop" },
+    { name: "Hardware", image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=150&h=150&fit=crop" },
+    { name: "Plumbing", image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=150&h=150&fit=crop" },
+    { name: "Electrical", image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=150&h=150&fit=crop" }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
@@ -141,11 +151,17 @@ const Suppliers = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center mb-8">Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {["Cement", "Steel", "Tiles", "Paint", "Timber", "Hardware", "Plumbing", "Electrical"].map((category, index) => (
+            {categories.map((category, index) => (
               <Card key={index} className="text-center cursor-pointer hover:shadow-md transition-shadow">
                 <CardContent className="py-6">
-                  <Package className="h-8 w-8 mx-auto mb-2 text-black" />
-                  <p className="text-sm font-medium">{category}</p>
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-lg overflow-hidden bg-gray-100">
+                    <img 
+                      src={category.image} 
+                      alt={category.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform"
+                    />
+                  </div>
+                  <p className="text-sm font-medium">{category.name}</p>
                 </CardContent>
               </Card>
             ))}
