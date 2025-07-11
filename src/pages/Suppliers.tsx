@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,8 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Search, MapPin, Star, Package, Store } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SupplierRegistrationForm from "@/components/SupplierRegistrationForm";
+import { useState } from "react";
 
 const Suppliers = () => {
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+
   const suppliers = [
     {
       name: "Nairobi Hardware Supplies",
@@ -18,8 +21,8 @@ const Suppliers = () => {
       image: "/placeholder.svg"
     },
     {
-      name: "Coastal Building Materials",
-      location: "Mombasa", 
+      name: "Coastal Building Materials", 
+      location: "Mombasa",
       rating: 4.8,
       products: 180,
       categories: ["Aggregates", "Roofing", "Paint"],
@@ -35,7 +38,7 @@ const Suppliers = () => {
     },
     {
       name: "Western Kenya Materials",
-      location: "Kisumu",
+      location: "Kisumu", 
       rating: 4.9,
       products: 200,
       categories: ["Electrical", "Insulation", "Tools"],
@@ -149,6 +152,25 @@ const Suppliers = () => {
     { name: "Plumbing", image: "https://images.unsplash.com/photo-1621905252472-e8be3d5a2c8d?w=150&h=150&fit=crop" },
     { name: "Electrical", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=150&h=150&fit=crop" }
   ];
+
+  if (showRegistrationForm) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="container mx-auto px-4 py-8">
+          <Button 
+            variant="outline" 
+            onClick={() => setShowRegistrationForm(false)}
+            className="mb-6"
+          >
+            ← Back to Suppliers
+          </Button>
+          <SupplierRegistrationForm />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -277,7 +299,11 @@ const Suppliers = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Become a Supplier</h2>
           <p className="text-xl mb-8 opacity-90">List your products and reach thousands of builders across Kenya</p>
-          <Button size="lg" className="bg-white text-black hover:bg-gray-100 text-lg px-8 py-4">
+          <Button 
+            size="lg" 
+            className="bg-white text-black hover:bg-gray-100 text-lg px-8 py-4"
+            onClick={() => setShowRegistrationForm(true)}
+          >
             Register as Supplier
           </Button>
         </div>
