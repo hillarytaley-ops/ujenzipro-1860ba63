@@ -18,7 +18,7 @@ const Suppliers = () => {
       rating: 4.8,
       products: 150,
       categories: ["Cement", "Concrete", "Building Solutions"],
-      logo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=80&h=80&fit=crop&crop=center"
+      logo: "https://sl.bing.net/cQRoNrqCKWq"
     },
     {
       name: "Simba Cement",
