@@ -110,14 +110,14 @@ const Suppliers = () => {
   ];
 
   const categories = [
-    { name: "Cement", image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=150&h=150&fit=crop" },
-    { name: "Steel", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
-    { name: "Tiles", image: "https://images.unsplash.com/photo-1585128792020-803d29415281?w=150&h=150&fit=crop" },
-    { name: "Paint", image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=150&h=150&fit=crop" },
-    { name: "Timber", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=150&h=150&fit=crop" },
-    { name: "Hardware", image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=150&h=150&fit=crop" },
-    { name: "Plumbing", image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=150&h=150&fit=crop" },
-    { name: "Electrical", image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=150&h=150&fit=crop" }
+    { name: "Cement", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Steel", image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=150&h=150&fit=crop" },
+    { name: "Tiles", image: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=150&h=150&fit=crop" },
+    { name: "Paint", image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=150&h=150&fit=crop" },
+    { name: "Timber", image: "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=150&h=150&fit=crop" },
+    { name: "Hardware", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Plumbing", image: "https://images.unsplash.com/photo-1621905252472-e8be3d5a2c8d?w=150&h=150&fit=crop" },
+    { name: "Electrical", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=150&h=150&fit=crop" }
   ];
 
   return (
