@@ -9,12 +9,12 @@ import Footer from "@/components/Footer";
 const Materials = () => {
   const materials = [
     {
-      name: "Portland Cement 50kg",
+      name: "Bamburi Cement 50kg",
       supplier: "Bamburi Cement",
       location: "Nairobi", 
       price: "KSh 650",
       rating: 4.8,
-      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop",
+      image: "https://th.bing.com/th/id/R.5e8d53c480233b927defb6801133dc6b?rik=AYcqFyeLC5tjCw&riu=http%3a%2f%2fwww.kengenfoundation.co.ke%2fwp-content%2fuploads%2f2014%2f03%2fBamburi-Cement-Ltd-logo.jpg&ehk=hCKvBJDehepbY9lqnL3XQ7Ux6Y%2fyNti1ieoGuAGBAKE%3d&risl=&pid=ImgRaw&r=0",
       category: "Cement"
     },
     {
