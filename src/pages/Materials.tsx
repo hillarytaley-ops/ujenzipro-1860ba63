@@ -23,7 +23,7 @@ const Materials = () => {
       location: "Ruiru",
       price: "KSh 85/meter",
       rating: 4.7,
-      image:"https://metalexponents.com/wp-content/uploads/2020/12/High-Ductility.jpg",
+      image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=300&fit=crop",
       category: "Steel"
     },
     {
@@ -32,7 +32,7 @@ const Materials = () => {
       location: "Mombasa",
       price: "KSh 1,200/sqm",
       rating: 4.9,
-      image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=400&h=300&fit=crop",
+      image: "https://tse2.mm.bing.net/th/id/OIP.40qwclKORLc6XF2y9jo47wHaGv?rs=1&pid=ImgDetMain&o=7&rm=3",
       category: "Tiles"
     },
     {
