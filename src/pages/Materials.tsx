@@ -14,7 +14,7 @@ const Materials = () => {
       location: "Nairobi", 
       price: "KSh 650",
       rating: 4.8,
-      image: "https://th.bing.com/th/id/R.5e8d53c480233b927defb6801133dc6b?rik=AYcqFyeLC5tjCw&riu=http%3a%2f%2fwww.kengenfoundation.co.ke%2fwp-content%2fuploads%2f2014%2f03%2fBamburi-Cement-Ltd-logo.jpg&ehk=hCKvBJDehepbY9lqnL3XQ7Ux6Y%2fyNti1ieoGuAGBAKE%3d&risl=&pid=ImgRaw&r=0",
+      image: "https://bamburigroup.com/wp-content/uploads/2025/03/buy-bamburi-Nguvu-cement-2.jpg",
       category: "Cement"
     },
     {
@@ -23,7 +23,7 @@ const Materials = () => {
       location: "Ruiru",
       price: "KSh 85/meter",
       rating: 4.7,
-      image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=300&fit=crop",
+      image: "https://image.made-in-china.com/2f0j00UWskhnaClFce/Steel-Bars-Prices-Iron-Rebar-for-Construction-Customizable-Size-Quick-Delivery-From-Stock.jpg",
       category: "Steel"
     },
     {
