@@ -1,8 +1,9 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, MapPin, Star, Package, Truck, Store, User } from "lucide-react";
+import { Search, MapPin, Star, Package, Store } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -71,41 +72,70 @@ const Suppliers = () => {
       products: 120,
       categories: ["Timber", "Plywood", "Doors"],
       image: "/placeholder.svg"
-    }
-  ];
-
-  const buyers = [
-    {
-      name: "Kipchoge Construction Ltd",
-      location: "Eldoret",
-      rating: 4.8,
-      projectsCompleted: 45,
-      lookingFor: ["Cement", "Steel", "Roofing"],
-      budget: "2M - 5M KES"
     },
     {
-      name: "Rift Valley Builders",
-      location: "Nakuru",
-      rating: 4.7,
-      projectsCompleted: 32,
-      lookingFor: ["Timber", "Hardware", "Paint"],
-      budget: "1M - 3M KES"
+      name: "Thika Steel Works",
+      location: "Thika",
+      rating: 4.5,
+      products: 160,
+      categories: ["Steel", "Iron Sheets", "Wire"],
+      image: "/placeholder.svg"
     },
     {
-      name: "Highland Contractors",
-      location: "Kericho",
-      rating: 4.9,
-      projectsCompleted: 28,
-      lookingFor: ["Aggregates", "Tiles", "Plumbing"],
-      budget: "500K - 2M KES"
+      name: "Machakos Hardware Store",
+      location: "Machakos",
+      rating: 4.4,
+      products: 140,
+      categories: ["Hardware", "Tools", "Plumbing"],
+      image: "/placeholder.svg"
     },
     {
-      name: "Lake View Properties",
-      location: "Naivasha",
+      name: "Nyeri Building Supplies",
+      location: "Nyeri",
       rating: 4.6,
-      projectsCompleted: 38,
-      lookingFor: ["Stone", "Cement", "Electrical"],
-      budget: "3M - 8M KES"
+      products: 175,
+      categories: ["Cement", "Tiles", "Paint"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Meru Construction Materials",
+      location: "Meru",
+      rating: 4.3,
+      products: 130,
+      categories: ["Timber", "Hardware", "Roofing"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Garissa Builders Mart",
+      location: "Garissa",
+      rating: 4.2,
+      products: 110,
+      categories: ["Cement", "Steel", "Hardware"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Kakamega Building Center",
+      location: "Kakamega",
+      rating: 4.5,
+      products: 165,
+      categories: ["Timber", "Paint", "Electrical"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Kitale Agricultural Hardware",
+      location: "Kitale",
+      rating: 4.4,
+      products: 145,
+      categories: ["Tools", "Hardware", "Plumbing"],
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Embu Stone & Cement Co.",
+      location: "Embu",
+      rating: 4.7,
+      products: 185,
+      categories: ["Stone", "Cement", "Aggregates"],
+      image: "/placeholder.svg"
     }
   ];
 
@@ -174,11 +204,11 @@ const Suppliers = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-black">800+</div>
+              <div className="text-3xl font-bold text-black">1,200+</div>
               <div className="text-gray-600">Verified Suppliers</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600">15,000+</div>
+              <div className="text-3xl font-bold text-green-600">25,000+</div>
               <div className="text-gray-600">Products Listed</div>
             </div>
             <div>
@@ -197,7 +227,7 @@ const Suppliers = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">Featured Suppliers</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Material Suppliers Across Kenya</h2>
             <Button variant="outline">View All Suppliers</Button>
           </div>
           
@@ -234,58 +264,6 @@ const Suppliers = () => {
                   </div>
                   <Button className="w-full bg-red-600 hover:bg-red-700">
                     View Catalog
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Active Buyers Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">Active Buyers Looking for Materials</h2>
-            <Button variant="outline">View All Buyers</Button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {buyers.map((buyer, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                    <User className="h-8 w-8 text-green-600" />
-                  </div>
-                  <CardTitle className="text-lg">{buyer.name}</CardTitle>
-                  <CardDescription className="flex items-center justify-center gap-1">
-                    <MapPin className="h-4 w-4" />
-                    {buyer.location}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <div className="flex items-center justify-center gap-1 mb-2">
-                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                    <span className="font-semibold">{buyer.rating}</span>
-                  </div>
-                  <div className="text-sm text-gray-600 mb-4">
-                    {buyer.projectsCompleted} projects completed
-                  </div>
-                  <div className="mb-4">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Looking for:</p>
-                    <div className="flex flex-wrap gap-1 justify-center">
-                      {buyer.lookingFor.map((item, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs border-green-500 text-green-700">
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="text-sm text-gray-600 mb-4">
-                    Budget: {buyer.budget}
-                  </div>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
-                    Contact Buyer
                   </Button>
                 </CardContent>
               </Card>
