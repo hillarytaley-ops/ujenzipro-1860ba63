@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -73,8 +74,8 @@ const Materials = () => {
     <div className="min-h-screen bg-gray-50">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
+      {/* Hero Section - Kenyan Flag Colors */}
+      <section className="bg-gradient-to-br from-black via-red-600 to-green-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Construction Materials Marketplace</h1>
           <p className="text-xl mb-8 opacity-90">Find the best prices for quality construction materials - whether you're a professional builder or building your dream home</p>
@@ -89,7 +90,7 @@ const Materials = () => {
                   className="pl-10 py-6 text-lg bg-white"
                 />
               </div>
-              <Button size="lg" className="bg-orange-600 hover:bg-orange-700 px-8">
+              <Button size="lg" className="bg-red-600 hover:bg-red-700 px-8">
                 Search
               </Button>
             </div>
@@ -100,7 +101,7 @@ const Materials = () => {
                 <Badge 
                   key={index} 
                   variant={index === 0 ? "default" : "secondary"} 
-                  className="cursor-pointer hover:bg-blue-100 px-4 py-2"
+                  className="cursor-pointer hover:bg-green-100 hover:text-green-800 px-4 py-2"
                 >
                   {category}
                 </Badge>
@@ -134,7 +135,7 @@ const Materials = () => {
       </section>
 
       {/* Materials Grid */}
-      <section className="py-16">
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-green-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {materials.map((material, index) => (
@@ -170,7 +171,7 @@ const Materials = () => {
                     <div className="text-xl font-bold text-green-600">{material.price}</div>
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm">Quote</Button>
-                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      <Button size="sm" className="bg-red-600 hover:bg-red-700">
                         Contact
                       </Button>
                     </div>
@@ -182,7 +183,7 @@ const Materials = () => {
           
           {/* Load More Button */}
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="border-green-600 text-green-600 hover:bg-green-50">
               Load More Materials
             </Button>
           </div>
@@ -190,42 +191,42 @@ const Materials = () => {
       </section>
 
       {/* Who Can Buy Section */}
-      <section className="bg-white py-16">
+      <section className="bg-gradient-to-r from-black to-gray-900 text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Who Can Buy?</h2>
-          <p className="text-lg text-gray-600 mb-12">Our marketplace serves everyone in the construction ecosystem</p>
+          <h2 className="text-3xl font-bold mb-4">Who Can Buy?</h2>
+          <p className="text-lg opacity-90 mb-12">Our marketplace serves everyone in the construction ecosystem</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-red-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🏗️</span>
               </div>
               <h3 className="font-semibold text-lg mb-2">Professional Builders</h3>
-              <p className="text-gray-600">Construction companies and contractors working on large-scale projects</p>
+              <p className="opacity-90">Construction companies and contractors working on large-scale projects</p>
             </div>
             <div className="text-center">
-              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-green-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🏠</span>
               </div>
               <h3 className="font-semibold text-lg mb-2">Homeowners</h3>
-              <p className="text-gray-600">Private individuals building or renovating their homes</p>
+              <p className="opacity-90">Private individuals building or renovating their homes</p>
             </div>
             <div className="text-center">
-              <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-red-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🔨</span>
               </div>
               <h3 className="font-semibold text-lg mb-2">DIY Enthusiasts</h3>
-              <p className="text-gray-600">Individuals working on home improvement and personal projects</p>
+              <p className="opacity-90">Individuals working on home improvement and personal projects</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Price Alert CTA */}
-      <section className="bg-blue-50 py-16">
+      <section className="bg-gradient-to-r from-green-600 to-black text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Get Price Alerts</h2>
-          <p className="text-lg text-gray-600 mb-8">Never miss a great deal! Set up alerts for your favorite materials</p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+          <h2 className="text-3xl font-bold mb-4">Get Price Alerts</h2>
+          <p className="text-lg opacity-90 mb-8">Never miss a great deal! Set up alerts for your favorite materials</p>
+          <Button size="lg" className="bg-red-600 hover:bg-red-700">
             Set Up Alerts
           </Button>
         </div>
