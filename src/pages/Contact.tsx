@@ -14,7 +14,7 @@ const Contact = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+      <section className="bg-gradient-to-br from-black via-red-600 to-green-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Get In Touch</h1>
           <p className="text-xl opacity-90">We're here to help you connect, build, and succeed</p>
