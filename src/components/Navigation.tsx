@@ -1,12 +1,36 @@
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { User, Session } from '@supabase/supabase-js';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const location = useLocation();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+      }
+    );
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -18,6 +42,21 @@ const Navigation = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Error signing out",
+        description: error.message
+      });
+    } else {
+      toast({
+        title: "Signed out successfully"
+      });
+    }
+  };
 
   return (
     <header className="bg-white shadow-sm border-b sticky top-0 z-50">
@@ -46,8 +85,33 @@ const Navigation = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <Button variant="outline">Sign In</Button>
-          <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+          {user ? (
+            <div className="flex items-center space-x-4">
+              <span className="text-muted-foreground">
+                Welcome, {user.email}
+              </span>
+              <Button 
+                variant="outline" 
+                onClick={handleSignOut}
+                className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+              >
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Link to="/auth">
+                <Button variant="outline" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground">
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/auth">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -76,8 +140,33 @@ const Navigation = () => {
               </Link>
             ))}
             <div className="pt-4 space-y-2">
-              <Button variant="outline" className="w-full">Sign In</Button>
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">Get Started</Button>
+              {user ? (
+                <div className="space-y-4">
+                  <p className="text-muted-foreground text-center">
+                    Welcome, {user.email}
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    onClick={handleSignOut}
+                    className="w-full text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+                  >
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Link to="/auth">
+                    <Button variant="outline" className="w-full text-primary border-primary hover:bg-primary hover:text-primary-foreground">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/auth">
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                      Get Started
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>
