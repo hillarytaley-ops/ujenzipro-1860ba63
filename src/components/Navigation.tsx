@@ -60,8 +60,25 @@ const Navigation = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header 
+      className="shadow-sm border-b sticky top-0 z-50 relative"
+      style={{
+        backgroundImage: `
+          linear-gradient(135deg, 
+            rgba(0, 0, 0, 0.8) 0%, 
+            rgba(220, 20, 60, 0.7) 25%, 
+            rgba(0, 100, 0, 0.7) 50%, 
+            rgba(255, 255, 255, 0.6) 75%, 
+            rgba(0, 0, 0, 0.8) 100%
+          ),
+          url('/lovable-uploads/6f2d8369-343e-4ef5-afd0-396a496fc825.png')
+        `,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center">
           <img 
             src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
@@ -76,8 +93,8 @@ const Navigation = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                isActive(item.path) ? "text-blue-600" : "text-gray-600"
+              className={`text-sm font-medium transition-colors hover:text-yellow-300 ${
+                isActive(item.path) ? "text-yellow-300 font-bold" : "text-white"
               }`}
             >
               {item.label}
@@ -88,13 +105,13 @@ const Navigation = () => {
         <div className="hidden md:flex items-center space-x-4">
           {user ? (
             <div className="flex items-center space-x-4">
-              <span className="text-muted-foreground">
+              <span className="text-white">
                 Welcome, {user.email}
               </span>
               <Button 
                 variant="outline" 
                 onClick={handleSignOut}
-                className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+                className="text-white border-white hover:bg-white hover:text-black"
               >
                 Sign Out
               </Button>
@@ -102,12 +119,12 @@ const Navigation = () => {
           ) : (
             <>
               <Link to="/auth">
-                <Button variant="outline" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground">
+                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
                   Sign In
                 </Button>
               </Link>
               <Link to="/auth">
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Button className="bg-white text-black hover:bg-gray-100">
                   Get Started
                 </Button>
               </Link>
@@ -117,7 +134,7 @@ const Navigation = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden"
+          className="md:hidden text-white"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
