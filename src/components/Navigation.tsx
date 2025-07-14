@@ -65,11 +65,11 @@ const Navigation = () => {
       style={{
         backgroundImage: `
           linear-gradient(135deg, 
-            rgba(0, 0, 0, 0.4) 0%, 
-            rgba(220, 20, 60, 0.3) 25%, 
-            rgba(0, 100, 0, 0.3) 50%, 
-            rgba(255, 255, 255, 0.2) 75%, 
-            rgba(0, 0, 0, 0.4) 100%
+            rgba(0, 0, 0, 0.7) 0%, 
+            rgba(220, 20, 60, 0.6) 25%, 
+            rgba(0, 100, 0, 0.6) 50%, 
+            rgba(255, 255, 255, 0.5) 75%, 
+            rgba(0, 0, 0, 0.7) 100%
           ),
           url('/lovable-uploads/6f2d8369-343e-4ef5-afd0-396a496fc825.png')
         `,
