@@ -119,12 +119,12 @@ const Navigation = () => {
           ) : (
             <>
               <Link to="/auth">
-                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+                <Button variant="outline" className="text-black bg-white/90 border-white hover:bg-white hover:text-black font-semibold shadow-lg">
                   Sign In
                 </Button>
               </Link>
               <Link to="/auth">
-                <Button className="bg-white text-black hover:bg-gray-100">
+                <Button className="bg-black text-white hover:bg-gray-800 font-semibold shadow-lg">
                   Get Started
                 </Button>
               </Link>
