@@ -70,7 +70,7 @@ const Builders = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-white">
+      <section className="py-12 bg-powder-blue">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -94,7 +94,7 @@ const Builders = () => {
       </section>
 
       {/* Builders Directory */}
-      <section className="py-16">
+      <section className="py-16 bg-powder-blue">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Featured Builders</h2>
