@@ -60,7 +60,7 @@ const Navigation = () => {
   };
 
   return (
-    <header className="shadow-sm border-b sticky top-0 z-50 bg-black">
+    <header className="shadow-sm border-b sticky top-0 z-50 bg-blue-200">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center">
           <div className="relative">
