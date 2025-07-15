@@ -147,8 +147,16 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-black text-white">
-        <div className="container mx-auto px-4">
+      <section 
+        className="py-20 bg-gradient-to-r from-green-600 to-black text-white relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/7cfcf7b9-f15f-4327-809e-aa6ddc908424.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-4xl font-bold text-center mb-12">Our Impact</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>

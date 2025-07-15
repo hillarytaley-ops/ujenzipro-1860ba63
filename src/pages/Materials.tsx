@@ -222,8 +222,16 @@ const Materials = () => {
       </section>
 
       {/* Price Alert CTA */}
-      <section className="bg-gradient-to-r from-green-600 to-black text-white py-16">
-        <div className="container mx-auto px-4 text-center">
+      <section 
+        className="bg-gradient-to-r from-green-600 to-black text-white py-16 relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/7cfcf7b9-f15f-4327-809e-aa6ddc908424.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl font-bold mb-4">Get Price Alerts</h2>
           <p className="text-lg opacity-90 mb-8">Never miss a great deal! Set up alerts for your favorite materials</p>
           <Button size="lg" className="bg-red-600 hover:bg-red-700">

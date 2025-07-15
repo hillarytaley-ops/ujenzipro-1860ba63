@@ -367,8 +367,16 @@ const Suppliers = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-green-600 to-black py-16 text-white">
-        <div className="container mx-auto px-4 text-center">
+      <section 
+        className="bg-gradient-to-r from-green-600 to-black py-16 text-white relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/7cfcf7b9-f15f-4327-809e-aa6ddc908424.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl font-bold mb-4">Become a Supplier</h2>
           <p className="text-xl mb-8 opacity-90">List your products and reach thousands of builders across Kenya</p>
           <Button 
