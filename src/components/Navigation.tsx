@@ -63,12 +63,36 @@ const Navigation = () => {
     <header className="shadow-sm border-b sticky top-0 z-50 bg-black">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center">
-          <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-20 h-20 flex items-center justify-center">
-            <img 
-              src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
-              alt="BuildConnect254 Logo" 
-              className="w-14 h-14 object-cover rounded-full"
-            />
+          <div className="relative">
+            {/* Circular Text SVG */}
+            <svg width="120" height="120" className="absolute inset-0 -rotate-90">
+              <defs>
+                <path
+                  id="circle-path"
+                  d="M 60, 60 m -50, 0 a 50,50 0 1,1 100,0 a 50,50 0 1,1 -100,0"
+                />
+              </defs>
+              <text fontSize="9" fontWeight="bold" letterSpacing="1">
+                <textPath href="#circle-path" startOffset="0%">
+                  <tspan fill="#000000">BUILD</tspan>
+                  <tspan fill="#DC2626">CONNECT</tspan>
+                  <tspan fill="#16A34A">254</tspan>
+                  <tspan fill="#000000"> • </tspan>
+                  <tspan fill="#DC2626">BUILD</tspan>
+                  <tspan fill="#16A34A">CONNECT</tspan>
+                  <tspan fill="#000000">254</tspan>
+                </textPath>
+              </text>
+            </svg>
+            
+            {/* Logo in center */}
+            <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-20 h-20 flex items-center justify-center relative z-10 mx-5 my-5">
+              <img 
+                src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
+                alt="BuildConnect254 Logo" 
+                className="w-14 h-14 object-cover rounded-full"
+              />
+            </div>
           </div>
         </Link>
 
