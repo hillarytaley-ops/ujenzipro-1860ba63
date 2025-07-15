@@ -112,7 +112,7 @@ const Materials = () => {
       </section>
 
       {/* Filters and View Options */}
-      <section className="py-6 bg-white border-b">
+      <section className="py-6 bg-dark-maroon border-b text-white">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -135,7 +135,7 @@ const Materials = () => {
       </section>
 
       {/* Materials Grid */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-green-50">
+      <section className="py-16 bg-dark-maroon">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {materials.map((material, index) => (
@@ -191,7 +191,7 @@ const Materials = () => {
       </section>
 
       {/* Who Can Buy Section */}
-      <section className="bg-gradient-to-r from-black to-gray-900 text-white py-16">
+      <section className="bg-dark-maroon text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Who Can Buy?</h2>
           <p className="text-lg opacity-90 mb-12">Our marketplace serves everyone in the construction ecosystem</p>

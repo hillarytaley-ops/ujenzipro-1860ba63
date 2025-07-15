@@ -7,7 +7,7 @@ export default function Feedback() {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-16 bg-dark-maroon text-white">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">
             We Value Your Feedback
