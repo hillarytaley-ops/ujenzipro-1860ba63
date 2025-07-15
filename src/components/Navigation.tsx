@@ -65,14 +65,14 @@ const Navigation = () => {
         <Link to="/" className="flex items-center">
           <div className="relative">
             {/* Circular Text SVG */}
-            <svg width="70" height="70" className="absolute inset-0 -rotate-90">
+            <svg width="100" height="100" className="absolute inset-0">
               <defs>
                 <path
                   id="circle-path"
-                  d="M 35, 35 m -28, 0 a 28,28 0 1,1 56,0 a 28,28 0 1,1 -56,0"
+                  d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
                 />
               </defs>
-              <text fontSize="6" fontWeight="bold" letterSpacing="0.3">
+              <text fontSize="8" fontWeight="bold" letterSpacing="0.5">
                 <textPath href="#circle-path" startOffset="0%">
                   <tspan fill="#000000">BUILD</tspan>
                   <tspan fill="#DC2626">CONNECT</tspan>
@@ -87,11 +87,11 @@ const Navigation = () => {
             </svg>
             
             {/* Logo in center */}
-            <div className="bg-white rounded-full p-1.5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-10 h-10 flex items-center justify-center relative z-10 mx-5 my-5">
+            <div className="bg-white rounded-full p-2.5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-16 h-16 flex items-center justify-center relative z-10 mx-5 my-5">
               <img 
                 src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
                 alt="BuildConnect254 Logo" 
-                className="w-7 h-7 object-cover rounded-full"
+                className="w-11 h-11 object-cover rounded-full"
               />
             </div>
           </div>
