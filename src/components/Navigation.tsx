@@ -63,11 +63,13 @@ const Navigation = () => {
     <header className="shadow-sm border-b sticky top-0 z-50 bg-black">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center">
-          <img 
-            src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
-            alt="BuildConnect254 Logo" 
-            className="h-16 w-16 object-contain hover:scale-105 transition-transform duration-200 drop-shadow-md"
-          />
+          <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <img 
+              src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
+              alt="BuildConnect254 Logo" 
+              className="h-12 w-12 object-contain rounded-full"
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
