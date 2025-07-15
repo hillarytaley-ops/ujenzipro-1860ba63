@@ -63,11 +63,11 @@ const Navigation = () => {
     <header className="shadow-sm border-b sticky top-0 z-50 bg-black">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center">
-          <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-16 h-16 flex items-center justify-center">
+          <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-20 h-20 flex items-center justify-center">
             <img 
               src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
               alt="BuildConnect254 Logo" 
-              className="w-10 h-10 object-cover rounded-full"
+              className="w-14 h-14 object-cover rounded-full"
             />
           </div>
         </Link>
