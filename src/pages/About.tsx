@@ -74,7 +74,7 @@ const About = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-20 bg-dark-maroon text-white">
+      <section className="py-20 bg-powder-blue">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-12">Our Story</h2>
@@ -100,7 +100,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-dark-maroon">
+      <section className="py-20 bg-powder-blue">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -122,7 +122,7 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-dark-maroon">
+      <section className="py-20 bg-powder-blue">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Meet Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">

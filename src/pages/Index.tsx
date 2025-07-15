@@ -99,7 +99,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="bg-dark-maroon py-16">
+      <section className="bg-powder-blue py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -130,7 +130,7 @@ const Index = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 bg-dark-maroon">
+      <section className="py-16 bg-powder-blue">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">How It Works</h2>
@@ -164,7 +164,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-dark-maroon">
+      <section className="py-16 bg-powder-blue">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">What Our Users Say</h2>
