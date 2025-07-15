@@ -60,15 +60,7 @@ const Navigation = () => {
   };
 
   return (
-    <header 
-      className="shadow-sm border-b sticky top-0 z-50 relative"
-      style={{
-        backgroundImage: `url('/lovable-uploads/6f2d8369-343e-4ef5-afd0-396a496fc825.png')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
+    <header className="shadow-sm border-b sticky top-0 z-50 bg-black">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center">
           <img 
