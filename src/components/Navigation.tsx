@@ -65,14 +65,14 @@ const Navigation = () => {
         <Link to="/" className="flex items-center">
           <div className="relative">
             {/* Circular Text SVG */}
-            <svg width="120" height="120" className="absolute inset-0 -rotate-90">
+            <svg width="90" height="90" className="absolute inset-0 -rotate-90">
               <defs>
                 <path
                   id="circle-path"
-                  d="M 60, 60 m -50, 0 a 50,50 0 1,1 100,0 a 50,50 0 1,1 -100,0"
+                  d="M 45, 45 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0"
                 />
               </defs>
-              <text fontSize="9" fontWeight="bold" letterSpacing="1">
+              <text fontSize="8" fontWeight="bold" letterSpacing="0.5">
                 <textPath href="#circle-path" startOffset="0%">
                   <tspan fill="#000000">BUILD</tspan>
                   <tspan fill="#DC2626">CONNECT</tspan>
@@ -81,16 +81,17 @@ const Navigation = () => {
                   <tspan fill="#DC2626">BUILD</tspan>
                   <tspan fill="#16A34A">CONNECT</tspan>
                   <tspan fill="#000000">254</tspan>
+                  <tspan fill="#DC2626"> • </tspan>
                 </textPath>
               </text>
             </svg>
             
             {/* Logo in center */}
-            <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-20 h-20 flex items-center justify-center relative z-10 mx-5 my-5">
+            <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-14 h-14 flex items-center justify-center relative z-10 mx-4 my-4">
               <img 
                 src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
                 alt="BuildConnect254 Logo" 
-                className="w-14 h-14 object-cover rounded-full"
+                className="w-10 h-10 object-cover rounded-full"
               />
             </div>
           </div>
