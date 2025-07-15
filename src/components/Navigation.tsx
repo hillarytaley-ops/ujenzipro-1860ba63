@@ -125,7 +125,7 @@ const Navigation = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white bg-black/50 p-2 rounded-lg border border-white/30 backdrop-blur-sm hover:bg-black/70 transition-all duration-200"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
