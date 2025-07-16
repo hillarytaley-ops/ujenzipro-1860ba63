@@ -96,8 +96,8 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-lg mb-1">Office Address</h3>
                         <p className="text-gray-600">
-                          ABC Place, 5th Floor<br />
-                          Waiyaki Way, Westlands<br />
+                          Libra House, Suite No. 3<br />
+                          P.O BOX 73329-00200<br />
                           Nairobi, Kenya
                         </p>
                       </div>
@@ -114,7 +114,7 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-lg mb-1">Phone Numbers</h3>
                         <p className="text-gray-600">
-                          +254 700 123 456<br />
+                          +254726749849<br />
                           +254 733 987 654
                         </p>
                       </div>
