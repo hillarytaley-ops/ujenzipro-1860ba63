@@ -60,7 +60,15 @@ const About = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-black to-red-600 text-white py-20">
+      <section 
+        className="text-white py-20 relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="container mx-auto px-4 text-center">
           <Badge className="mb-4 bg-white/20 text-white border-white/30">
             🇰🇪 Proudly Kenyan
@@ -148,9 +156,9 @@ const About = () => {
 
       {/* Stats Section */}
       <section 
-        className="py-20 bg-gradient-to-r from-green-600 to-black text-white relative"
+        className="py-20 text-white relative"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/7cfcf7b9-f15f-4327-809e-aa6ddc908424.png')`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'

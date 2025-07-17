@@ -14,7 +14,15 @@ const Contact = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-black via-red-600 to-green-600 text-white py-16">
+      <section 
+        className="text-white py-16 relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Get In Touch</h1>
           <p className="text-xl opacity-90">We're here to help you connect, build, and succeed</p>

@@ -241,7 +241,15 @@ const Suppliers = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-black to-red-600 text-white py-16">
+      <section 
+        className="text-white py-16 relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Reliable Material Suppliers</h1>
           <p className="text-xl mb-8 opacity-90">Source quality construction materials from verified suppliers nationwide</p>
@@ -368,9 +376,9 @@ const Suppliers = () => {
 
       {/* CTA Section */}
       <section 
-        className="bg-gradient-to-r from-green-600 to-black py-16 text-white relative"
+        className="py-16 text-white relative"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/7cfcf7b9-f15f-4327-809e-aa6ddc908424.png')`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
