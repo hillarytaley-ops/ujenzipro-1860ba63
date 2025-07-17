@@ -50,10 +50,11 @@ const Index = () => {
     <div 
       className="min-h-screen relative"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/e2233f15-caa6-45be-b6cb-0531b0e0baa6.png')`,
-        backgroundSize: 'cover',
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/7a56d657-b18e-45cb-9f19-3ab4d8f4ce49.png')`,
+        backgroundSize: 'contain',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#1a1a1a'
       }}
     >
       <Navigation />
