@@ -47,7 +47,15 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-red-900 to-green-900">
+    <div 
+      className="min-h-screen relative"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/e2233f15-caa6-45be-b6cb-0531b0e0baa6.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <Navigation />
 
       {/* Hero Section */}
