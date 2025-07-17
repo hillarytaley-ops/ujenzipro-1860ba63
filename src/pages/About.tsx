@@ -74,8 +74,16 @@ const About = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-20 bg-powder-blue">
-        <div className="container mx-auto px-4">
+      <section 
+        className="py-20 bg-powder-blue relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/b99a32ee-1fb9-4e30-87dd-581d0d19c2aa.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-12">Our Story</h2>
             <div className="prose prose-lg mx-auto text-gray-600">

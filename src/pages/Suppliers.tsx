@@ -263,8 +263,16 @@ const Suppliers = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-12 bg-powder-blue">
-        <div className="container mx-auto px-4">
+      <section 
+        className="py-12 bg-powder-blue relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/b99a32ee-1fb9-4e30-87dd-581d0d19c2aa.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-2xl font-bold text-center mb-8">Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
             {categories.map((category, index) => (

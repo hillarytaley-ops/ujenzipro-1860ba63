@@ -112,8 +112,16 @@ const Materials = () => {
       </section>
 
       {/* Filters and View Options */}
-      <section className="py-6 bg-powder-blue border-b">
-        <div className="container mx-auto px-4">
+      <section 
+        className="py-6 bg-powder-blue border-b relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/b99a32ee-1fb9-4e30-87dd-581d0d19c2aa.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <Button variant="outline" size="sm">

@@ -99,8 +99,16 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="bg-powder-blue py-8">
-        <div className="container mx-auto px-4">
+      <section 
+        className="bg-powder-blue py-8 relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/b99a32ee-1fb9-4e30-87dd-581d0d19c2aa.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
               Why Choose BuildConnect254?
