@@ -22,16 +22,8 @@ const Contact = () => {
       </section>
 
       {/* Contact Section */}
-      <section 
-        className="py-16 bg-powder-blue relative"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/b99a32ee-1fb9-4e30-87dd-581d0d19c2aa.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-16 bg-powder-blue">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             
             {/* Contact Form */}

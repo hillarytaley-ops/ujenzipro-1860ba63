@@ -70,16 +70,8 @@ const Builders = () => {
       </section>
 
       {/* Stats Section */}
-      <section 
-        className="py-12 bg-powder-blue relative"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/b99a32ee-1fb9-4e30-87dd-581d0d19c2aa.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-12 bg-powder-blue">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-black">1,000+</div>
