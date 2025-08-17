@@ -73,7 +73,7 @@ const Navigation = () => {
                   d="M 42.5, 42.5 m -22, 0 a 22,22 0 1,1 44,0 a 22,22 0 1,1 -44,0"
                 />
               </defs>
-              <text fontSize="5.5" fontWeight="bold" letterSpacing="0.3">
+              <text fontSize="4.8" fontWeight="bold" letterSpacing="0.2">
                 <textPath href="#circle-path" startOffset="0%">
                   <tspan fill="#000000">BUILD</tspan>
                   <tspan fill="#DC2626">CONNECT</tspan>
