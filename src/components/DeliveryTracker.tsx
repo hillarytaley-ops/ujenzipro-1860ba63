@@ -5,8 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Clock, Truck, CheckCircle, Package, Phone } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { MapPin, Clock, Truck, CheckCircle, Package, Phone, Building } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import ProjectManager from './ProjectManager';
 
 type DeliveryStatus = 'pending' | 'picked_up' | 'in_transit' | 'out_for_delivery' | 'delivered' | 'cancelled';
 
@@ -25,6 +28,20 @@ interface Delivery {
   driver_phone?: string;
   vehicle_number?: string;
   special_instructions?: string;
+  project_id?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  location?: string;
+  start_date?: string;
+  end_date?: string;
+  status: string;
+  owner_id: string;
   created_at: string;
   updated_at: string;
 }
@@ -51,6 +68,9 @@ const DeliveryTracker: React.FC = () => {
   const [delivery, setDelivery] = useState<Delivery | null>(null);
   const [updates, setUpdates] = useState<DeliveryUpdate[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projectDeliveries, setProjectDeliveries] = useState<Delivery[]>([]);
+  const [showProjectManager, setShowProjectManager] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -122,7 +142,14 @@ const DeliveryTracker: React.FC = () => {
     try {
       const { data, error } = await supabase
         .from('deliveries')
-        .select('*')
+        .select(`
+          *,
+          projects (
+            id,
+            name,
+            location
+          )
+        `)
         .eq('tracking_number', trackingNumber.trim())
         .single();
 
@@ -154,6 +181,38 @@ const DeliveryTracker: React.FC = () => {
     }
   };
 
+  const fetchProjectDeliveries = async (projectId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('deliveries')
+        .select('*')
+        .eq('project_id', projectId)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching project deliveries:', error);
+        toast({
+          title: "Error",
+          description: "Failed to fetch project deliveries",
+          variant: "destructive",
+        });
+      } else {
+        setProjectDeliveries(data as Delivery[]);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleProjectSelect = (project: Project | null) => {
+    setSelectedProject(project);
+    if (project) {
+      fetchProjectDeliveries(project.id);
+    } else {
+      setProjectDeliveries([]);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString();
   };
@@ -161,18 +220,27 @@ const DeliveryTracker: React.FC = () => {
   const StatusIcon = delivery ? statusConfig[delivery.status].icon : Package;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Package className="h-6 w-6" />
-            Delivery Tracker
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Package className="h-6 w-6" />
+              Delivery Tracker
+            </div>
+            <Button 
+              variant="outline" 
+              onClick={() => setShowProjectManager(!showProjectManager)}
+            >
+              <Building className="h-4 w-4 mr-2" />
+              {showProjectManager ? 'Hide' : 'Show'} Projects
+            </Button>
           </CardTitle>
           <CardDescription>
-            Track your building materials delivery in real-time
+            Track building materials deliveries across multiple construction projects
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <div className="flex gap-2">
             <Input
               placeholder="Enter tracking number (e.g., TRK20250817-1234)"
@@ -185,8 +253,80 @@ const DeliveryTracker: React.FC = () => {
               {loading ? 'Tracking...' : 'Track'}
             </Button>
           </div>
+
+          {selectedProject && (
+            <div className="p-4 bg-muted/20 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-semibold">{selectedProject.name}</h3>
+                  {selectedProject.location && (
+                    <p className="text-sm text-muted-foreground flex items-center gap-1">
+                      <MapPin className="h-3 w-3" />
+                      {selectedProject.location}
+                    </p>
+                  )}
+                </div>
+                <Badge variant="outline">
+                  {projectDeliveries.length} deliveries
+                </Badge>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
+
+      {showProjectManager && (
+        <ProjectManager 
+          onProjectSelect={handleProjectSelect}
+          selectedProject={selectedProject}
+        />
+      )}
+
+      {selectedProject && projectDeliveries.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Project Deliveries</CardTitle>
+            <CardDescription>
+              All deliveries for {selectedProject.name}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {projectDeliveries.map((projectDelivery) => (
+                <Card key={projectDelivery.id} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-start">
+                        <h4 className="font-medium">{projectDelivery.material_type}</h4>
+                        <Badge className={`${statusConfig[projectDelivery.status].color} text-white`}>
+                          {statusConfig[projectDelivery.status].label}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        #{projectDelivery.tracking_number}
+                      </p>
+                      <p className="text-sm">
+                        {projectDelivery.quantity} units • {projectDelivery.weight_kg} kg
+                      </p>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => {
+                          setTrackingNumber(projectDelivery.tracking_number);
+                          trackDelivery();
+                        }}
+                      >
+                        Track This Delivery
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {delivery && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -201,6 +341,22 @@ const DeliveryTracker: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              {delivery.project_id && (
+                <div>
+                  <h4 className="font-semibold text-sm text-muted-foreground flex items-center gap-1">
+                    <Building className="h-4 w-4" />
+                    PROJECT
+                  </h4>
+                  <p className="text-lg">{(delivery as any).projects?.name || 'Unknown Project'}</p>
+                  {(delivery as any).projects?.location && (
+                    <p className="text-sm text-muted-foreground flex items-center gap-1">
+                      <MapPin className="h-3 w-3" />
+                      {(delivery as any).projects.location}
+                    </p>
+                  )}
+                </div>
+              )}
+              
               <div>
                 <h4 className="font-semibold text-sm text-muted-foreground">MATERIAL</h4>
                 <p className="text-lg">{delivery.material_type}</p>

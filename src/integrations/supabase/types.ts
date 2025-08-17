@@ -26,6 +26,7 @@ export type Database = {
           id: string
           material_type: string
           pickup_address: string
+          project_id: string | null
           quantity: number
           special_instructions: string | null
           status: string
@@ -46,6 +47,7 @@ export type Database = {
           id?: string
           material_type: string
           pickup_address: string
+          project_id?: string | null
           quantity: number
           special_instructions?: string | null
           status?: string
@@ -66,6 +68,7 @@ export type Database = {
           id?: string
           material_type?: string
           pickup_address?: string
+          project_id?: string | null
           quantity?: number
           special_instructions?: string | null
           status?: string
@@ -75,7 +78,15 @@ export type Database = {
           vehicle_number?: string | null
           weight_kg?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "deliveries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       delivery_updates: {
         Row: {
@@ -148,6 +159,45 @@ export type Database = {
           rating?: number | null
           subject?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          location: string | null
+          name: string
+          owner_id: string
+          start_date: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          name: string
+          owner_id: string
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          name?: string
+          owner_id?: string
+          start_date?: string | null
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }

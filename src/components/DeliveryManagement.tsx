@@ -75,12 +75,14 @@ const DeliveryManagement: React.FC = () => {
     pickup_address: '',
     delivery_address: '',
     builder_id: '',
+    project_id: '',
     estimated_delivery: '',
     driver_name: '',
     driver_phone: '',
     vehicle_number: '',
     special_instructions: ''
   });
+  const [projects, setProjects] = useState<any[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -92,6 +94,7 @@ const DeliveryManagement: React.FC = () => {
       fetchDeliveries();
       if (userRole === 'supplier') {
         fetchBuilders();
+        fetchProjects();
       }
       
       // Set up real-time subscription
@@ -172,6 +175,23 @@ const DeliveryManagement: React.FC = () => {
     }
   };
 
+  const fetchProjects = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching projects:', error);
+      } else {
+        setProjects(data || []);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const fetchDeliveries = async () => {
     try {
       const { data, error } = await supabase
@@ -217,6 +237,7 @@ const DeliveryManagement: React.FC = () => {
         tracking_number: trackingData,
         supplier_id: user.id,
         builder_id: newDelivery.builder_id || null,
+        project_id: newDelivery.project_id || null,
         material_type: newDelivery.material_type,
         quantity: parseInt(newDelivery.quantity),
         weight_kg: parseFloat(newDelivery.weight_kg),
@@ -251,6 +272,7 @@ const DeliveryManagement: React.FC = () => {
         pickup_address: '',
         delivery_address: '',
         builder_id: '',
+        project_id: '',
         estimated_delivery: '',
         driver_name: '',
         driver_phone: '',
@@ -501,6 +523,22 @@ const DeliveryManagement: React.FC = () => {
                           onChange={(e) => setNewDelivery({...newDelivery, weight_kg: e.target.value})}
                           placeholder="Total weight"
                         />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="project_id">Assign to Project (Optional)</Label>
+                        <Select value={newDelivery.project_id} onValueChange={(value) => setNewDelivery({...newDelivery, project_id: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a project" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="">No project assigned</SelectItem>
+                            {projects.map((project) => (
+                              <SelectItem key={project.id} value={project.id}>
+                                {project.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="builder_id">Assign to Builder (Optional)</Label>
