@@ -66,11 +66,11 @@ const Navigation = () => {
         <Link to="/" className="flex items-center">
           <div className="relative">
             {/* Circular Text SVG */}
-            <svg width="85" height="85" className="absolute inset-0">
+            <svg width="80" height="80" className="absolute inset-0">
               <defs>
                 <path
                   id="circle-path"
-                  d="M 42.5, 42.5 m -15, 0 a 15,15 0 1,1 30,0 a 15,15 0 1,1 -30,0"
+                  d="M 40, 40 m -15, 0 a 15,15 0 1,1 30,0 a 15,15 0 1,1 -30,0"
                 />
               </defs>
               <text fontSize="4.8" fontWeight="bold" letterSpacing="0.2">
