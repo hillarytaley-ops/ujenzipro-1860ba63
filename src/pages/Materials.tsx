@@ -71,7 +71,7 @@ const Materials = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-construction">
       <Navigation />
 
       {/* Hero Section - Kenyan Flag Colors */}
@@ -90,7 +90,7 @@ const Materials = () => {
                   className="pl-10 py-6 text-lg bg-white"
                 />
               </div>
-              <Button size="lg" className="bg-red-600 hover:bg-red-700 px-8">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 px-8">
                 Search
               </Button>
             </div>
@@ -112,7 +112,7 @@ const Materials = () => {
       </section>
 
       {/* Filters and View Options */}
-      <section className="py-6 bg-powder-blue border-b">
+      <section className="py-6 bg-muted border-b">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -135,13 +135,13 @@ const Materials = () => {
       </section>
 
       {/* Materials Grid */}
-      <section className="py-16 bg-powder-blue">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {materials.map((material, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="aspect-video bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                  <div className="aspect-video bg-muted rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={material.image} 
                       alt={material.name}
@@ -171,7 +171,7 @@ const Materials = () => {
                     <div className="text-xl font-bold text-green-600">{material.price}</div>
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm">Quote</Button>
-                      <Button size="sm" className="bg-red-600 hover:bg-red-700">
+                      <Button size="sm" className="bg-primary hover:bg-primary/90">
                         Contact
                       </Button>
                     </div>
@@ -191,13 +191,13 @@ const Materials = () => {
       </section>
 
       {/* Who Can Buy Section */}
-      <section className="bg-powder-blue py-16">
+      <section className="bg-accent py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Who Can Buy?</h2>
           <p className="text-lg opacity-90 mb-12">Our marketplace serves everyone in the construction ecosystem</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="bg-red-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🏗️</span>
               </div>
               <h3 className="font-semibold text-lg mb-2">Professional Builders</h3>
@@ -211,7 +211,7 @@ const Materials = () => {
               <p className="opacity-90">Private individuals building or renovating their homes</p>
             </div>
             <div className="text-center">
-              <div className="bg-red-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🔨</span>
               </div>
               <h3 className="font-semibold text-lg mb-2">DIY Enthusiasts</h3>
@@ -234,7 +234,7 @@ const Materials = () => {
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl font-bold mb-4">Get Price Alerts</h2>
           <p className="text-lg opacity-90 mb-8">Never miss a great deal! Set up alerts for your favorite materials</p>
-          <Button size="lg" className="bg-red-600 hover:bg-red-700">
+          <Button size="lg" className="bg-primary hover:bg-primary/90">
             Set Up Alerts
           </Button>
         </div>

@@ -56,7 +56,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-construction">
       <Navigation />
 
       {/* Hero Section */}
@@ -82,11 +82,11 @@ const About = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-20 bg-powder-blue">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-12">Our Story</h2>
-            <div className="prose prose-lg mx-auto text-gray-600">
+            <div className="prose prose-lg mx-auto text-foreground">
               <p className="text-xl leading-relaxed mb-6">
                 BuildConnect254 was born from a simple observation: Kenya's construction industry needed 
                 not just better connections, but complete project visibility. As builders struggled to find 
@@ -110,15 +110,15 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-powder-blue">
+      <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {values.map((value, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="mx-auto mb-4 p-4 bg-red-100 rounded-full w-fit">
-                    <value.icon className="h-8 w-8 text-red-600" />
+                  <div className="mx-auto mb-4 p-4 bg-construction-orange/20 rounded-full w-fit">
+                    <value.icon className="h-8 w-8 text-construction-orange" />
                   </div>
                   <CardTitle className="text-xl">{value.title}</CardTitle>
                 </CardHeader>
@@ -132,23 +132,23 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-powder-blue">
+      <section className="py-20 bg-accent">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Meet Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {team.map((member, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-                    <Users className="h-12 w-12 text-gray-400" />
+                  <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
+                    <Users className="h-12 w-12 text-muted-foreground" />
                   </div>
                   <CardTitle className="text-lg">{member.name}</CardTitle>
-                  <CardDescription className="text-red-600 font-medium">
+                  <CardDescription className="text-primary font-medium">
                     {member.role}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600">{member.description}</p>
+                  <p className="text-sm text-muted-foreground">{member.description}</p>
                 </CardContent>
               </Card>
             ))}

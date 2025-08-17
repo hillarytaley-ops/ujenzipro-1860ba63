@@ -78,7 +78,7 @@ const Index = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link to="/builders">
-              <Button size="lg" className="bg-black hover:bg-gray-800 text-white text-lg px-8 py-4">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-4">
                 I'm a Builder
               </Button>
             </Link>
@@ -108,7 +108,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="bg-powder-blue py-8">
+      <section className="bg-muted py-8">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -139,7 +139,7 @@ const Index = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 bg-powder-blue">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">How It Works</h2>
@@ -155,7 +155,7 @@ const Index = () => {
               <p className="text-gray-200">Sign up and create a detailed profile showcasing your business</p>
             </div>
             <div className="text-center">
-              <div className="bg-red-700 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold">
+              <div className="bg-primary text-primary-foreground rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold">
                 2
               </div>
               <h3 className="font-semibold text-lg mb-2 text-white">Search & Connect</h3>
@@ -173,7 +173,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-powder-blue">
+      <section className="py-16 bg-accent">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">What Our Users Say</h2>

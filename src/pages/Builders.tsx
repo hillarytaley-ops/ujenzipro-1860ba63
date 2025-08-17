@@ -44,7 +44,7 @@ const Builders = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-construction">
       <Navigation />
 
       {/* Hero Section */}
@@ -78,7 +78,7 @@ const Builders = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-powder-blue">
+      <section className="py-12 bg-muted">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -102,7 +102,7 @@ const Builders = () => {
       </section>
 
       {/* Builders Directory */}
-      <section className="py-16 bg-powder-blue">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Featured Builders</h2>
@@ -113,7 +113,7 @@ const Builders = () => {
             {builders.map((builder, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
                     <Building className="h-8 w-8 text-gray-600" />
                   </div>
                   <CardTitle className="text-lg">{builder.name}</CardTitle>
@@ -140,7 +140,7 @@ const Builders = () => {
                       </Badge>
                     ))}
                   </div>
-                  <Button className="w-full bg-red-600 hover:bg-red-700">
+                  <Button className="w-full bg-primary hover:bg-primary/90">
                     View Profile
                   </Button>
                 </CardContent>
@@ -163,7 +163,7 @@ const Builders = () => {
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl font-bold mb-4">Are You a Builder?</h2>
           <p className="text-xl mb-8 opacity-90">Join BuildConnect254 and expand your business reach</p>
-          <Button size="lg" className="bg-white text-black hover:bg-gray-100 text-lg px-8 py-4">
+          <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/80 text-lg px-8 py-4">
             Register as Builder
           </Button>
         </div>

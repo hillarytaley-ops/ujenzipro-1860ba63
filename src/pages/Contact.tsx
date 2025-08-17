@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-construction">
       <Navigation />
 
       {/* Hero Section */}
@@ -30,7 +30,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 bg-powder-blue">
+      <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             

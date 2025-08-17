@@ -44,8 +44,12 @@ export default {
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
-				'dark-maroon': 'hsl(var(--dark-maroon))',
-				'powder-blue': 'hsl(var(--powder-blue))',
+				// Construction-themed colors
+				'construction-orange': 'hsl(var(--construction-orange))',
+				'construction-blue': 'hsl(var(--construction-blue))',
+				'earth-brown': 'hsl(var(--earth-brown))',
+				'concrete-gray': 'hsl(var(--concrete-gray))',
+				'safety-yellow': 'hsl(var(--safety-yellow))',
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
 					foreground: 'hsl(var(--popover-foreground))'
@@ -64,6 +68,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-construction': 'var(--gradient-construction)',
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-hero': 'var(--gradient-hero)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

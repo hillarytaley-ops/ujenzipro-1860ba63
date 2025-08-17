@@ -219,7 +219,7 @@ const Suppliers = () => {
 
   if (showRegistrationForm) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-construction">
         <Navigation />
         <div className="container mx-auto px-4 py-8">
           <Button 
@@ -237,7 +237,7 @@ const Suppliers = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-construction">
       <Navigation />
 
       {/* Hero Section */}
@@ -271,14 +271,14 @@ const Suppliers = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-12 bg-powder-blue">
+      <section className="py-12 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center mb-8">Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
             {categories.map((category, index) => (
               <Card key={index} className="text-center cursor-pointer hover:shadow-md transition-shadow">
                 <CardContent className="py-6">
-                  <div className="w-16 h-16 mx-auto mb-3 rounded-lg overflow-hidden bg-gray-100">
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-lg overflow-hidden bg-muted">
                     <img 
                       src={category.image} 
                       alt={category.name}
@@ -294,7 +294,7 @@ const Suppliers = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-powder-blue">
+      <section className="py-12 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -318,7 +318,7 @@ const Suppliers = () => {
       </section>
 
       {/* Suppliers Directory */}
-      <section className="py-16 bg-powder-blue">
+      <section className="py-16 bg-accent">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Material Suppliers Across Kenya</h2>
@@ -329,7 +329,7 @@ const Suppliers = () => {
             {suppliers.map((supplier, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center overflow-hidden">
                     {supplier.logo ? (
                       <img 
                         src={supplier.logo} 
@@ -364,7 +364,7 @@ const Suppliers = () => {
                       </Badge>
                     ))}
                   </div>
-                  <Button className="w-full bg-red-600 hover:bg-red-700">
+                  <Button className="w-full bg-primary hover:bg-primary/90">
                     View Catalog
                   </Button>
                 </CardContent>
