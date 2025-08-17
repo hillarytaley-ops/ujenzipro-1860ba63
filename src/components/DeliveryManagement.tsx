@@ -8,6 +8,8 @@ import RoleAssignment from './RoleAssignment';
 import CameraControls from './CameraControls';
 import QRScanner from './QRScanner';
 import LiveStreamMonitor from './LiveStreamMonitor';
+import CameraSetup from './CameraSetup';
+import PhysicalCameraViewer from './PhysicalCameraViewer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -350,6 +352,13 @@ const DeliveryManagement: React.FC = () => {
     return new Date(dateString).toLocaleDateString();
   };
 
+  const handleCameraConnected = (camera: any) => {
+    toast({ 
+      title: "Camera Connected", 
+      description: `${camera.name} is now available for streaming` 
+    });
+  };
+
   if (loading) {
     return <div className="p-6">Loading...</div>;
   }
@@ -372,11 +381,13 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="tracker" className="flex items-center gap-2">
             <Eye className="h-4 w-4" />
             Track Delivery
           </TabsTrigger>
+          <TabsTrigger value="camera-setup">Camera Setup</TabsTrigger>
+          <TabsTrigger value="physical-camera">Physical Camera</TabsTrigger>
           <TabsTrigger value="camera">AI Camera</TabsTrigger>
           <TabsTrigger value="qr-scanner">QR Scanner</TabsTrigger>
           <TabsTrigger value="monitor">Live Monitor</TabsTrigger>
@@ -390,6 +401,21 @@ const DeliveryManagement: React.FC = () => {
 
           <TabsContent value="tracker">
             <DeliveryTracker />
+          </TabsContent>
+
+          <TabsContent value="camera-setup">
+            <CameraSetup onCameraConnected={handleCameraConnected} />
+          </TabsContent>
+
+          <TabsContent value="physical-camera">
+            <PhysicalCameraViewer 
+              onQRCodeScanned={(data) => {
+                toast({ description: `QR Code Detected: ${data}` });
+              }}
+              onMaterialDetected={(material) => {
+                toast({ description: `Material Detected: ${material.type}` });
+              }}
+            />
           </TabsContent>
 
           <TabsContent value="camera">
