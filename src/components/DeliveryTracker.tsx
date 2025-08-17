@@ -183,6 +183,7 @@ const DeliveryTracker: React.FC = () => {
 
   const fetchProjectDeliveries = async (projectId: string) => {
     try {
+      // RLS policies will ensure users only see deliveries they have access to
       const { data, error } = await supabase
         .from('deliveries')
         .select('*')
@@ -198,6 +199,13 @@ const DeliveryTracker: React.FC = () => {
         });
       } else {
         setProjectDeliveries(data as Delivery[]);
+        if (data.length === 0) {
+          toast({
+            title: "No Deliveries",
+            description: "No deliveries found for this project that you have access to.",
+            variant: "default",
+          });
+        }
       }
     } catch (error) {
       console.error('Error:', error);

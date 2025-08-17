@@ -68,6 +68,7 @@ const ProjectManager: React.FC<ProjectManagerProps> = ({ onProjectSelect, select
 
   const fetchProjects = async () => {
     try {
+      // The RLS policies will automatically filter projects based on user role and access
       const { data, error } = await supabase
         .from('projects')
         .select('*')
@@ -82,6 +83,14 @@ const ProjectManager: React.FC<ProjectManagerProps> = ({ onProjectSelect, select
         });
       } else {
         setProjects(data as Project[]);
+        // Show message if no projects are available for this user
+        if (data.length === 0) {
+          toast({
+            title: "No Projects",
+            description: "You don't have access to any projects yet.",
+            variant: "default",
+          });
+        }
       }
     } catch (error) {
       console.error('Error:', error);
@@ -293,7 +302,10 @@ const ProjectManager: React.FC<ProjectManagerProps> = ({ onProjectSelect, select
           {projects.length === 0 ? (
             <div className="text-center py-8">
               <Building className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No projects found. Create your first project to get started.</p>
+              <p className="text-muted-foreground">
+                No projects available. 
+                {user ? ' As a builder, you only see projects with deliveries assigned to you.' : ' Please log in to view projects.'}
+              </p>
             </div>
           ) : (
             <Table>

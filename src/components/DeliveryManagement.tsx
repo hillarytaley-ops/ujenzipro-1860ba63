@@ -177,6 +177,7 @@ const DeliveryManagement: React.FC = () => {
 
   const fetchProjects = async () => {
     try {
+      // RLS policies will automatically filter projects based on user role and access
       const { data, error } = await supabase
         .from('projects')
         .select('*')
@@ -194,9 +195,17 @@ const DeliveryManagement: React.FC = () => {
 
   const fetchDeliveries = async () => {
     try {
+      // RLS policies will automatically filter deliveries based on user role and access
       const { data, error } = await supabase
         .from('deliveries')
-        .select('*')
+        .select(`
+          *,
+          projects (
+            id,
+            name,
+            location
+          )
+        `)
         .order('created_at', { ascending: false });
 
       if (error) {
