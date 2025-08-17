@@ -381,13 +381,17 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className={`grid w-full ${user && (userRole === 'admin' || userRole === 'supplier') ? 'grid-cols-6' : 'grid-cols-4'}`}>
           <TabsTrigger value="tracker" className="flex items-center gap-2">
             <Eye className="h-4 w-4" />
             Track Delivery
           </TabsTrigger>
-          <TabsTrigger value="camera-setup">Camera Setup</TabsTrigger>
-          <TabsTrigger value="physical-camera">Physical Camera</TabsTrigger>
+          {user && (userRole === 'admin' || userRole === 'supplier') && (
+            <>
+              <TabsTrigger value="camera-setup">Camera Setup</TabsTrigger>
+              <TabsTrigger value="physical-camera">Physical Camera</TabsTrigger>
+            </>
+          )}
           <TabsTrigger value="camera">AI Camera</TabsTrigger>
           <TabsTrigger value="qr-scanner">QR Scanner</TabsTrigger>
           <TabsTrigger value="monitor">Live Monitor</TabsTrigger>

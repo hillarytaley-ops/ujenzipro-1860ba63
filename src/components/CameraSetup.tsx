@@ -8,8 +8,9 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { Camera, Plus, Settings, Wifi, WifiOff, Eye, Trash2 } from 'lucide-react';
+import { Camera, Plus, Settings, Wifi, WifiOff, Eye, Trash2, Lock } from 'lucide-react';
 import { physicalCameraService, CameraConfig } from '@/services/PhysicalCameraService';
+import { supabase } from '@/integrations/supabase/client';
 
 interface CameraSetupProps {
   onCameraConnected: (camera: CameraConfig) => void;
@@ -18,6 +19,8 @@ interface CameraSetupProps {
 const CameraSetup: React.FC<CameraSetupProps> = ({ onCameraConnected }) => {
   const [cameras, setCameras] = useState<CameraConfig[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     type: 'ip' as const,
@@ -31,26 +34,60 @@ const CameraSetup: React.FC<CameraSetupProps> = ({ onCameraConnected }) => {
   });
 
   useEffect(() => {
-    // Load existing cameras
-    setCameras(physicalCameraService.getCameras());
+    checkAuthorization();
+  }, []);
 
-    // Listen for camera events
-    physicalCameraService.on('camera-connected', (camera: CameraConfig) => {
-      setCameras(prev => [...prev.filter(c => c.id !== camera.id), camera]);
-      onCameraConnected(camera);
-      toast.success(`Camera "${camera.name}" connected successfully`);
-    });
+  useEffect(() => {
+    if (isAuthorized) {
+      // Load existing cameras
+      setCameras(physicalCameraService.getCameras());
 
-    physicalCameraService.on('camera-disconnected', (camera: CameraConfig) => {
-      setCameras(prev => prev.map(c => c.id === camera.id ? camera : c));
-      toast.info(`Camera "${camera.name}" disconnected`);
-    });
+      // Listen for camera events
+      physicalCameraService.on('camera-connected', (camera: CameraConfig) => {
+        setCameras(prev => [...prev.filter(c => c.id !== camera.id), camera]);
+        onCameraConnected(camera);
+        toast.success(`Camera "${camera.name}" connected successfully`);
+      });
 
-    physicalCameraService.on('camera-error', (camera: CameraConfig) => {
-      setCameras(prev => prev.map(c => c.id === camera.id ? camera : c));
-      toast.error(`Camera "${camera.name}" connection error`);
-    });
-  }, [onCameraConnected]);
+      physicalCameraService.on('camera-disconnected', (camera: CameraConfig) => {
+        setCameras(prev => prev.map(c => c.id === camera.id ? camera : c));
+        toast.info(`Camera "${camera.name}" disconnected`);
+      });
+
+      physicalCameraService.on('camera-error', (camera: CameraConfig) => {
+        setCameras(prev => prev.map(c => c.id === camera.id ? camera : c));
+        toast.error(`Camera "${camera.name}" connection error`);
+      });
+    }
+  }, [isAuthorized, onCameraConnected]);
+
+  const checkAuthorization = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        setIsAuthorized(false);
+        setLoading(false);
+        return;
+      }
+
+      // Check if user has admin or supplier role
+      const { data: roleData, error: roleError } = await supabase
+        .rpc('get_user_role', { _user_id: user.id });
+      
+      if (roleError) {
+        console.error('Error checking authorization:', roleError);
+        setIsAuthorized(false);
+      } else {
+        setIsAuthorized(roleData === 'admin' || roleData === 'supplier');
+      }
+    } catch (error) {
+      console.error('Authorization check error:', error);
+      setIsAuthorized(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleAddCamera = async () => {
     if (!formData.name || !formData.connectionUrl) {
@@ -124,6 +161,36 @@ const CameraSetup: React.FC<CameraSetupProps> = ({ onCameraConnected }) => {
         return 'bg-gray-500';
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Checking authorization...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthorized) {
+    return (
+      <div className="space-y-6">
+        <Card>
+          <CardContent className="text-center py-12">
+            <Lock className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+            <h3 className="text-lg font-medium mb-2">Access Restricted</h3>
+            <p className="text-muted-foreground mb-4">
+              Camera setup is only available to authorized personnel (Admins and Suppliers).
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Please contact your administrator if you need access to camera management features.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
