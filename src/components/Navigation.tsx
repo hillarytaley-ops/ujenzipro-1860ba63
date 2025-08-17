@@ -65,34 +65,8 @@ const Navigation = () => {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center">
           <div className="relative">
-            {/* Circular Text SVG */}
-            <svg width="90" height="90" className="absolute inset-0">
-              <defs>
-                <path
-                  id="circle-path"
-                  d="M 45, 45 m -15, 0 a 15,15 0 1,1 30,0 a 15,15 0 1,1 -30,0"
-                />
-              </defs>
-              <text fontSize="4.8" fontWeight="bold" letterSpacing="0.2">
-                <textPath href="#circle-path" startOffset="0%">
-                  <tspan fill="#000000">BUILD</tspan>
-                  <tspan fill="#DC2626">CONNECT</tspan>
-                  <tspan fill="#16A34A">254</tspan>
-                  <tspan fill="#000000"> • </tspan>
-                  <tspan fill="#DC2626">KENYA</tspan>
-                  <tspan fill="#16A34A"> • </tspan>
-                  <tspan fill="#000000">BUILD</tspan>
-                  <tspan fill="#DC2626">CONNECT</tspan>
-                  <tspan fill="#16A34A">254</tspan>
-                  <tspan fill="#000000"> • </tspan>
-                  <tspan fill="#DC2626">KENYA</tspan>
-                  <tspan fill="#16A34A"> • </tspan>
-                </textPath>
-              </text>
-            </svg>
-            
             {/* Logo in center */}
-            <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-12 h-12 flex items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-12 h-12 flex items-center justify-center z-10">
               <img 
                 src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
                 alt="BuildConnect254 Logo" 
