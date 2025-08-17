@@ -60,7 +60,7 @@ const DeliveryManagement: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [userRole, setUserRole] = useState<UserRole | null>(null);
   const [user, setUser] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState('deliveries');
+  const [activeTab, setActiveTab] = useState('tracker'); // Default to tracker (public)
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [newDelivery, setNewDelivery] = useState({
     material_type: '',
@@ -350,304 +350,290 @@ const DeliveryManagement: React.FC = () => {
     return <div className="p-6">Loading...</div>;
   }
 
-  if (!user) {
-    return (
-      <div className="max-w-4xl mx-auto p-6">
-        <Alert>
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            You must be logged in to access delivery management.{' '}
-            <Link to="/auth" className="underline">
-              Sign in here
-            </Link>
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
-  if (!userRole) {
-    return (
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
-        <Alert>
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            Your user role is not configured. Please assign yourself a role below to access delivery features.
-          </AlertDescription>
-        </Alert>
-        <RoleAssignment />
-      </div>
-    );
-  }
-
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold">Delivery Management</h1>
+        <h1 className="text-3xl font-bold">Delivery Tracking</h1>
         <p className="text-muted-foreground">
-          {userRole === 'supplier' 
-            ? 'Manage and track your material deliveries to construction sites'
-            : 'View your assigned material deliveries'
-          }
+          Track building materials deliveries in real-time
         </p>
-        <div className="mt-2">
-          <Badge variant="outline" className="capitalize">
-            <User className="h-3 w-3 mr-1" />
-            {userRole}
-          </Badge>
-        </div>
+        {user && userRole && (
+          <div className="mt-2">
+            <Badge variant="outline" className="capitalize">
+              <User className="h-3 w-3 mr-1" />
+              {userRole}
+            </Badge>
+          </div>
+        )}
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList>
-          <TabsTrigger value="deliveries" className="flex items-center gap-2">
-            <Package className="h-4 w-4" />
-            Deliveries
-          </TabsTrigger>
           <TabsTrigger value="tracker" className="flex items-center gap-2">
             <Eye className="h-4 w-4" />
             Track Delivery
           </TabsTrigger>
+          {user && userRole && (
+            <TabsTrigger value="deliveries" className="flex items-center gap-2">
+              <Package className="h-4 w-4" />
+              Manage Deliveries
+            </TabsTrigger>
+          )}
         </TabsList>
-
-        <TabsContent value="deliveries" className="space-y-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h2 className="text-2xl font-semibold">
-                {userRole === 'supplier' ? 'Your Deliveries' : 'Assigned Deliveries'}
-              </h2>
-              <p className="text-muted-foreground">
-                {userRole === 'supplier' 
-                  ? 'Create and manage material deliveries'
-                  : 'Track deliveries assigned to you'
-                }
-              </p>
-            </div>
-            {userRole === 'supplier' && (
-              <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-                <DialogTrigger asChild>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create Delivery
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>Create New Delivery</DialogTitle>
-                  </DialogHeader>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="material_type">Material Type</Label>
-                      <Input
-                        id="material_type"
-                        value={newDelivery.material_type}
-                        onChange={(e) => setNewDelivery({...newDelivery, material_type: e.target.value})}
-                        placeholder="e.g., Concrete, Steel, Lumber"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="quantity">Quantity</Label>
-                      <Input
-                        id="quantity"
-                        type="number"
-                        value={newDelivery.quantity}
-                        onChange={(e) => setNewDelivery({...newDelivery, quantity: e.target.value})}
-                        placeholder="Number of units"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="weight_kg">Weight (kg)</Label>
-                      <Input
-                        id="weight_kg"
-                        type="number"
-                        step="0.1"
-                        value={newDelivery.weight_kg}
-                        onChange={(e) => setNewDelivery({...newDelivery, weight_kg: e.target.value})}
-                        placeholder="Total weight"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="builder_id">Assign to Builder (Optional)</Label>
-                      <Select value={newDelivery.builder_id} onValueChange={(value) => setNewDelivery({...newDelivery, builder_id: value})}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a builder" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="">No builder assigned</SelectItem>
-                          {builders.map((builder) => (
-                            <SelectItem key={builder.id} value={builder.id}>
-                              {builder.email}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="estimated_delivery">Estimated Delivery</Label>
-                      <Input
-                        id="estimated_delivery"
-                        type="datetime-local"
-                        value={newDelivery.estimated_delivery}
-                        onChange={(e) => setNewDelivery({...newDelivery, estimated_delivery: e.target.value})}
-                      />
-                    </div>
-                    <div className="col-span-2 space-y-2">
-                      <Label htmlFor="pickup_address">Pickup Address</Label>
-                      <Textarea
-                        id="pickup_address"
-                        value={newDelivery.pickup_address}
-                        onChange={(e) => setNewDelivery({...newDelivery, pickup_address: e.target.value})}
-                        placeholder="Full pickup address"
-                      />
-                    </div>
-                    <div className="col-span-2 space-y-2">
-                      <Label htmlFor="delivery_address">Delivery Address</Label>
-                      <Textarea
-                        id="delivery_address"
-                        value={newDelivery.delivery_address}
-                        onChange={(e) => setNewDelivery({...newDelivery, delivery_address: e.target.value})}
-                        placeholder="Full delivery address"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="driver_name">Driver Name</Label>
-                      <Input
-                        id="driver_name"
-                        value={newDelivery.driver_name}
-                        onChange={(e) => setNewDelivery({...newDelivery, driver_name: e.target.value})}
-                        placeholder="Driver's name"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="driver_phone">Driver Phone</Label>
-                      <Input
-                        id="driver_phone"
-                        value={newDelivery.driver_phone}
-                        onChange={(e) => setNewDelivery({...newDelivery, driver_phone: e.target.value})}
-                        placeholder="Driver's phone number"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="vehicle_number">Vehicle Number</Label>
-                      <Input
-                        id="vehicle_number"
-                        value={newDelivery.vehicle_number}
-                        onChange={(e) => setNewDelivery({...newDelivery, vehicle_number: e.target.value})}
-                        placeholder="Vehicle registration number"
-                      />
-                    </div>
-                    <div className="col-span-2 space-y-2">
-                      <Label htmlFor="special_instructions">Special Instructions</Label>
-                      <Textarea
-                        id="special_instructions"
-                        value={newDelivery.special_instructions}
-                        onChange={(e) => setNewDelivery({...newDelivery, special_instructions: e.target.value})}
-                        placeholder="Any special delivery instructions"
-                      />
-                    </div>
-                  </div>
-                  <Button onClick={createDelivery} className="w-full">
-                    Create Delivery
-                  </Button>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
-
-          <Card>
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Tracking #</TableHead>
-                    <TableHead>Material</TableHead>
-                    <TableHead>Quantity</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Pickup</TableHead>
-                    <TableHead>Delivery</TableHead>
-                    <TableHead>Driver</TableHead>
-                    {userRole === 'supplier' && <TableHead>Actions</TableHead>}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {deliveries.map((delivery) => (
-                    <TableRow key={delivery.id}>
-                      <TableCell className="font-mono text-sm">
-                        {delivery.tracking_number}
-                      </TableCell>
-                      <TableCell>
-                        <div>
-                          <p className="font-medium">{delivery.material_type}</p>
-                          <p className="text-sm text-muted-foreground">{delivery.weight_kg}kg</p>
-                        </div>
-                      </TableCell>
-                      <TableCell>{delivery.quantity} units</TableCell>
-                      <TableCell>
-                        <Badge className={`${statusConfig[delivery.status].color} text-white`}>
-                          {statusConfig[delivery.status].label}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="max-w-[200px]">
-                        <p className="text-sm truncate">{delivery.pickup_address}</p>
-                      </TableCell>
-                      <TableCell className="max-w-[200px]">
-                        <p className="text-sm truncate">{delivery.delivery_address}</p>
-                      </TableCell>
-                      <TableCell>
-                        {delivery.driver_name ? (
-                          <div>
-                            <p className="text-sm">{delivery.driver_name}</p>
-                            {delivery.driver_phone && (
-                              <p className="text-xs text-muted-foreground">{delivery.driver_phone}</p>
-                            )}
-                          </div>
-                        ) : (
-                          <span className="text-sm text-muted-foreground">Not assigned</span>
-                        )}
-                      </TableCell>
-                      {userRole === 'supplier' && (
-                        <TableCell>
-                          <Select
-                            value={delivery.status}
-                            onValueChange={(value: DeliveryStatus) => updateDeliveryStatus(delivery.id, value)}
-                          >
-                            <SelectTrigger className="w-40">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="pending">Pending</SelectItem>
-                              <SelectItem value="picked_up">Picked Up</SelectItem>
-                              <SelectItem value="in_transit">In Transit</SelectItem>
-                              <SelectItem value="out_for_delivery">Out for Delivery</SelectItem>
-                              <SelectItem value="delivered">Delivered</SelectItem>
-                              <SelectItem value="cancelled">Cancelled</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </TableCell>
-                      )}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-              {deliveries.length === 0 && (
-                <div className="text-center py-8">
-                  <Package className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">No deliveries found</p>
-                  <p className="text-sm text-muted-foreground">
-                    {userRole === 'supplier' 
-                      ? 'Create your first delivery to get started'
-                      : 'No deliveries have been assigned to you yet'
-                    }
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
 
         <TabsContent value="tracker">
           <DeliveryTracker />
         </TabsContent>
+
+        {user && userRole ? (
+          <TabsContent value="deliveries" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="text-2xl font-semibold">
+                  {userRole === 'supplier' ? 'Your Deliveries' : 'Assigned Deliveries'}
+                </h2>
+                <p className="text-muted-foreground">
+                  {userRole === 'supplier' 
+                    ? 'Create and manage material deliveries'
+                    : 'Track deliveries assigned to you'
+                  }
+                </p>
+              </div>
+              {userRole === 'supplier' && (
+                <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Delivery
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Create New Delivery</DialogTitle>
+                    </DialogHeader>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="material_type">Material Type</Label>
+                        <Input
+                          id="material_type"
+                          value={newDelivery.material_type}
+                          onChange={(e) => setNewDelivery({...newDelivery, material_type: e.target.value})}
+                          placeholder="e.g., Concrete, Steel, Lumber"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="quantity">Quantity</Label>
+                        <Input
+                          id="quantity"
+                          type="number"
+                          value={newDelivery.quantity}
+                          onChange={(e) => setNewDelivery({...newDelivery, quantity: e.target.value})}
+                          placeholder="Number of units"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="weight_kg">Weight (kg)</Label>
+                        <Input
+                          id="weight_kg"
+                          type="number"
+                          step="0.1"
+                          value={newDelivery.weight_kg}
+                          onChange={(e) => setNewDelivery({...newDelivery, weight_kg: e.target.value})}
+                          placeholder="Total weight"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="builder_id">Assign to Builder (Optional)</Label>
+                        <Select value={newDelivery.builder_id} onValueChange={(value) => setNewDelivery({...newDelivery, builder_id: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a builder" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="">No builder assigned</SelectItem>
+                            {builders.map((builder) => (
+                              <SelectItem key={builder.id} value={builder.id}>
+                                {builder.email}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="estimated_delivery">Estimated Delivery</Label>
+                        <Input
+                          id="estimated_delivery"
+                          type="datetime-local"
+                          value={newDelivery.estimated_delivery}
+                          onChange={(e) => setNewDelivery({...newDelivery, estimated_delivery: e.target.value})}
+                        />
+                      </div>
+                      <div className="col-span-2 space-y-2">
+                        <Label htmlFor="pickup_address">Pickup Address</Label>
+                        <Textarea
+                          id="pickup_address"
+                          value={newDelivery.pickup_address}
+                          onChange={(e) => setNewDelivery({...newDelivery, pickup_address: e.target.value})}
+                          placeholder="Full pickup address"
+                        />
+                      </div>
+                      <div className="col-span-2 space-y-2">
+                        <Label htmlFor="delivery_address">Delivery Address</Label>
+                        <Textarea
+                          id="delivery_address"
+                          value={newDelivery.delivery_address}
+                          onChange={(e) => setNewDelivery({...newDelivery, delivery_address: e.target.value})}
+                          placeholder="Full delivery address"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="driver_name">Driver Name</Label>
+                        <Input
+                          id="driver_name"
+                          value={newDelivery.driver_name}
+                          onChange={(e) => setNewDelivery({...newDelivery, driver_name: e.target.value})}
+                          placeholder="Driver's name"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="driver_phone">Driver Phone</Label>
+                        <Input
+                          id="driver_phone"
+                          value={newDelivery.driver_phone}
+                          onChange={(e) => setNewDelivery({...newDelivery, driver_phone: e.target.value})}
+                          placeholder="Driver's phone number"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="vehicle_number">Vehicle Number</Label>
+                        <Input
+                          id="vehicle_number"
+                          value={newDelivery.vehicle_number}
+                          onChange={(e) => setNewDelivery({...newDelivery, vehicle_number: e.target.value})}
+                          placeholder="Vehicle registration number"
+                        />
+                      </div>
+                      <div className="col-span-2 space-y-2">
+                        <Label htmlFor="special_instructions">Special Instructions</Label>
+                        <Textarea
+                          id="special_instructions"
+                          value={newDelivery.special_instructions}
+                          onChange={(e) => setNewDelivery({...newDelivery, special_instructions: e.target.value})}
+                          placeholder="Any special delivery instructions"
+                        />
+                      </div>
+                    </div>
+                    <Button onClick={createDelivery} className="w-full">
+                      Create Delivery
+                    </Button>
+                  </DialogContent>
+                </Dialog>
+              )}
+            </div>
+
+            <Card>
+              <CardContent className="p-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Tracking #</TableHead>
+                      <TableHead>Material</TableHead>
+                      <TableHead>Quantity</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Pickup</TableHead>
+                      <TableHead>Delivery</TableHead>
+                      <TableHead>Driver</TableHead>
+                      {userRole === 'supplier' && <TableHead>Actions</TableHead>}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {deliveries.map((delivery) => (
+                      <TableRow key={delivery.id}>
+                        <TableCell className="font-mono text-sm">
+                          {delivery.tracking_number}
+                        </TableCell>
+                        <TableCell>
+                          <div>
+                            <p className="font-medium">{delivery.material_type}</p>
+                            <p className="text-sm text-muted-foreground">{delivery.weight_kg}kg</p>
+                          </div>
+                        </TableCell>
+                        <TableCell>{delivery.quantity} units</TableCell>
+                        <TableCell>
+                          <Badge className={`${statusConfig[delivery.status].color} text-white`}>
+                            {statusConfig[delivery.status].label}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="max-w-[200px]">
+                          <p className="text-sm truncate">{delivery.pickup_address}</p>
+                        </TableCell>
+                        <TableCell className="max-w-[200px]">
+                          <p className="text-sm truncate">{delivery.delivery_address}</p>
+                        </TableCell>
+                        <TableCell>
+                          {delivery.driver_name ? (
+                            <div>
+                              <p className="text-sm">{delivery.driver_name}</p>
+                              {delivery.driver_phone && (
+                                <p className="text-xs text-muted-foreground">{delivery.driver_phone}</p>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-sm text-muted-foreground">Not assigned</span>
+                          )}
+                        </TableCell>
+                        {userRole === 'supplier' && (
+                          <TableCell>
+                            <Select
+                              value={delivery.status}
+                              onValueChange={(value: DeliveryStatus) => updateDeliveryStatus(delivery.id, value)}
+                            >
+                              <SelectTrigger className="w-40">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="pending">Pending</SelectItem>
+                                <SelectItem value="picked_up">Picked Up</SelectItem>
+                                <SelectItem value="in_transit">In Transit</SelectItem>
+                                <SelectItem value="out_for_delivery">Out for Delivery</SelectItem>
+                                <SelectItem value="delivered">Delivered</SelectItem>
+                                <SelectItem value="cancelled">Cancelled</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                {deliveries.length === 0 && (
+                  <div className="text-center py-8">
+                    <Package className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                    <p className="text-muted-foreground">No deliveries found</p>
+                    <p className="text-sm text-muted-foreground">
+                      {userRole === 'supplier' 
+                        ? 'Create your first delivery to get started'
+                        : 'No deliveries have been assigned to you yet'
+                      }
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        ) : (
+          <TabsContent value="deliveries" className="space-y-6">
+            <Alert>
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                You must be logged in as a supplier or builder to manage deliveries.{' '}
+                <Link to="/auth" className="underline">
+                  Sign in here
+                </Link>
+              </AlertDescription>
+            </Alert>
+            <RoleAssignment />
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   );
