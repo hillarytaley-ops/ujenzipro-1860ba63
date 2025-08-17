@@ -7,13 +7,117 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
   }
   public: {
     Tables: {
+      deliveries: {
+        Row: {
+          actual_delivery: string | null
+          builder_id: string | null
+          created_at: string
+          delivery_address: string
+          driver_name: string | null
+          driver_phone: string | null
+          estimated_delivery: string | null
+          id: string
+          material_type: string
+          pickup_address: string
+          quantity: number
+          special_instructions: string | null
+          status: string
+          supplier_id: string | null
+          tracking_number: string
+          updated_at: string
+          vehicle_number: string | null
+          weight_kg: number | null
+        }
+        Insert: {
+          actual_delivery?: string | null
+          builder_id?: string | null
+          created_at?: string
+          delivery_address: string
+          driver_name?: string | null
+          driver_phone?: string | null
+          estimated_delivery?: string | null
+          id?: string
+          material_type: string
+          pickup_address: string
+          quantity: number
+          special_instructions?: string | null
+          status?: string
+          supplier_id?: string | null
+          tracking_number: string
+          updated_at?: string
+          vehicle_number?: string | null
+          weight_kg?: number | null
+        }
+        Update: {
+          actual_delivery?: string | null
+          builder_id?: string | null
+          created_at?: string
+          delivery_address?: string
+          driver_name?: string | null
+          driver_phone?: string | null
+          estimated_delivery?: string | null
+          id?: string
+          material_type?: string
+          pickup_address?: string
+          quantity?: number
+          special_instructions?: string | null
+          status?: string
+          supplier_id?: string | null
+          tracking_number?: string
+          updated_at?: string
+          vehicle_number?: string | null
+          weight_kg?: number | null
+        }
+        Relationships: []
+      }
+      delivery_updates: {
+        Row: {
+          created_at: string
+          delivery_id: string
+          id: string
+          latitude: number | null
+          location: string | null
+          longitude: number | null
+          notes: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_id: string
+          id?: string
+          latitude?: number | null
+          location?: string | null
+          longitude?: number | null
+          notes?: string | null
+          status: string
+        }
+        Update: {
+          created_at?: string
+          delivery_id?: string
+          id?: string
+          latitude?: number | null
+          location?: string | null
+          longitude?: number | null
+          notes?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_updates_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       feedback: {
         Row: {
           created_at: string
@@ -52,7 +156,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_tracking_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
