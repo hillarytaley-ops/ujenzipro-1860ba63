@@ -81,6 +81,12 @@ const Navigation = () => {
                   <tspan fill="#000000"> • </tspan>
                   <tspan fill="#DC2626">KENYA</tspan>
                   <tspan fill="#16A34A"> • </tspan>
+                  <tspan fill="#000000">BUILD</tspan>
+                  <tspan fill="#DC2626">CONNECT</tspan>
+                  <tspan fill="#16A34A">254</tspan>
+                  <tspan fill="#000000"> • </tspan>
+                  <tspan fill="#DC2626">KENYA</tspan>
+                  <tspan fill="#16A34A"> • </tspan>
                 </textPath>
               </text>
             </svg>
