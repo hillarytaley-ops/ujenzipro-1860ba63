@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/components/ui/use-toast';
+
 import { supabase } from '@/integrations/supabase/client';
+import DeliveryTracker from './DeliveryTracker';
+import RoleAssignment from './RoleAssignment';
+import CameraControls from './CameraControls';
+import QRScanner from './QRScanner';
+import LiveStreamMonitor from './LiveStreamMonitor';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Plus, Package, Truck, Clock, MapPin, Phone, Eye, AlertCircle, User } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Link } from 'react-router-dom';
-import DeliveryTracker from './DeliveryTracker';
-import RoleAssignment from './RoleAssignment';
 
 type DeliveryStatus = 'pending' | 'picked_up' | 'in_transit' | 'out_for_delivery' | 'delivered' | 'cancelled';
 type UserRole = 'supplier' | 'builder' | 'admin';
@@ -368,11 +372,14 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList>
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="tracker" className="flex items-center gap-2">
             <Eye className="h-4 w-4" />
             Track Delivery
           </TabsTrigger>
+          <TabsTrigger value="camera">AI Camera</TabsTrigger>
+          <TabsTrigger value="qr-scanner">QR Scanner</TabsTrigger>
+          <TabsTrigger value="monitor">Live Monitor</TabsTrigger>
           {user && userRole && (
             <TabsTrigger value="deliveries" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
@@ -381,9 +388,32 @@ const DeliveryManagement: React.FC = () => {
           )}
         </TabsList>
 
-        <TabsContent value="tracker">
-          <DeliveryTracker />
-        </TabsContent>
+          <TabsContent value="tracker">
+            <DeliveryTracker />
+          </TabsContent>
+
+          <TabsContent value="camera">
+            <CameraControls 
+              onQRCodeScanned={(data) => {
+                toast({ description: `QR Code Detected: ${data}` });
+              }}
+              onMaterialDetected={(material) => {
+                toast({ description: `Material Detected: ${material.type}` });
+              }}
+            />
+          </TabsContent>
+
+          <TabsContent value="qr-scanner">
+            <QRScanner 
+              onMaterialScanned={(material) => {
+                toast({ description: `Material Scanned: ${material.materialType}` });
+              }}
+            />
+          </TabsContent>
+
+          <TabsContent value="monitor">
+            <LiveStreamMonitor />
+          </TabsContent>
 
         {user && userRole ? (
           <TabsContent value="deliveries" className="space-y-6">
