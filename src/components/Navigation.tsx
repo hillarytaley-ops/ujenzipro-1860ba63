@@ -70,7 +70,7 @@ const Navigation = () => {
               <defs>
                 <path
                   id="circle-path"
-                  d="M 42.5, 42.5 m -28, 0 a 28,28 0 1,1 56,0 a 28,28 0 1,1 -56,0"
+                  d="M 42.5, 42.5 m -25, 0 a 25,25 0 1,1 50,0 a 25,25 0 1,1 -50,0"
                 />
               </defs>
               <text fontSize="5.5" fontWeight="bold" letterSpacing="0.3">
@@ -92,7 +92,7 @@ const Navigation = () => {
             </svg>
             
             {/* Logo in center */}
-            <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-12 h-12 flex items-center justify-center relative z-10 mx-4 my-4">
+            <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-12 h-12 flex items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
               <img 
                 src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
                 alt="BuildConnect254 Logo" 
