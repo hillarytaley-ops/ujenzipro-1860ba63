@@ -74,10 +74,13 @@ const Navigation = () => {
                 />
               </defs>
               <text fontSize="6.4" fontWeight="bold" letterSpacing="0.42">
-                <textPath href="#circle-path" startOffset="15%" textLength="55%">
+                <textPath href="#circle-path" startOffset="0%" textLength="100%">
                   <tspan fill="#000000">BUILD</tspan>
                   <tspan fill="#DC2626">CONNECT</tspan>
                   <tspan fill="#16A34A">254</tspan>
+                  <tspan fill="#000000"> • </tspan>
+                  <tspan fill="#DC2626">KENYA</tspan>
+                  <tspan fill="#16A34A"> • </tspan>
                 </textPath>
               </text>
             </svg>
