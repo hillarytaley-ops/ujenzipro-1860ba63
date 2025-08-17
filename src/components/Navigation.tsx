@@ -70,7 +70,7 @@ const Navigation = () => {
               <defs>
                 <path
                   id="circle-path"
-                  d="M 42.5, 42.5 m -30, 0 a 30,30 0 1,1 60,0 a 30,30 0 1,1 -60,0"
+                  d="M 42.5, 42.5 m -15, 0 a 15,15 0 1,1 30,0 a 15,15 0 1,1 -30,0"
                 />
               </defs>
               <text fontSize="4.8" fontWeight="bold" letterSpacing="0.2">
