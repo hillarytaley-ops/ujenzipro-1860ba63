@@ -114,7 +114,7 @@ const Index = () => {
             <h2 className="text-3xl font-bold text-orange-200 mb-4">
               Why Choose BuildConnect254?
             </h2>
-            <p className="text-lg text-orange-100 max-w-2xl mx-auto">
+            <p className="text-lg text-blue-900 max-w-2xl mx-auto">
               We make it easy for builders and suppliers to find each other, 
               negotiate fair prices, and build successful partnerships.
             </p>
@@ -143,7 +143,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-orange-200 mb-4">How It Works</h2>
-            <p className="text-lg text-orange-100">Simple steps to get started</p>
+            <p className="text-lg text-blue-900">Simple steps to get started</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -151,22 +151,22 @@ const Index = () => {
               <div className="bg-black text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold border-2 border-white">
                 1
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-orange-200">Create Your Profile</h3>
-              <p className="text-orange-100">Sign up and create a detailed profile showcasing your business</p>
+              <h3 className="font-semibold text-lg mb-2 text-blue-800">Create Your Profile</h3>
+              <p className="text-blue-900">Sign up and create a detailed profile showcasing your business</p>
             </div>
             <div className="text-center">
               <div className="bg-primary text-primary-foreground rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold">
                 2
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-orange-200">Search & Connect</h3>
-              <p className="text-orange-100">Find materials or customers using our advanced search filters</p>
+              <h3 className="font-semibold text-lg mb-2 text-blue-800">Search & Connect</h3>
+              <p className="text-blue-900">Find materials or customers using our advanced search filters</p>
             </div>
             <div className="text-center">
               <div className="bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold">
                 3
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-orange-200">Build & Grow</h3>
-              <p className="text-orange-100">Complete transactions and build lasting business relationships</p>
+              <h3 className="font-semibold text-lg mb-2 text-blue-800">Build & Grow</h3>
+              <p className="text-blue-900">Complete transactions and build lasting business relationships</p>
             </div>
           </div>
         </div>
