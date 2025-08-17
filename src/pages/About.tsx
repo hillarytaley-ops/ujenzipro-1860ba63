@@ -86,20 +86,20 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-12">Our Story</h2>
-            <div className="prose prose-lg mx-auto text-foreground">
-              <p className="text-xl leading-relaxed mb-6">
+            <div className="prose prose-lg mx-auto">
+              <p className="text-xl leading-relaxed mb-6 text-blue-900">
                 BuildConnect254 was born from a simple observation: Kenya's construction industry needed 
                 not just better connections, but complete project visibility. As builders struggled to find 
                 reliable suppliers and track their material deliveries, while suppliers couldn't efficiently 
                 reach their ideal customers, we saw an opportunity to revolutionize the entire construction workflow.
               </p>
-              <p className="text-lg leading-relaxed mb-6">
+              <p className="text-lg leading-relaxed mb-6 text-blue-900">
                 Founded in 2023 by a team of construction industry veterans and technology experts, 
                 we've quickly grown to become Kenya's leading platform for construction professionals. 
                 Our comprehensive solution goes beyond simple connections - we provide real-time project tracking, 
                 delivery management, and complete transparency throughout the construction supply chain.
               </p>
-              <p className="text-lg leading-relaxed">
+              <p className="text-lg leading-relaxed text-blue-900">
                 Today, we're proud to serve thousands of builders and suppliers across all 47 counties, 
                 facilitating millions of shillings in transactions, tracking thousands of deliveries, 
                 and providing complete project visibility that's helping build the Kenya of tomorrow.
