@@ -43,7 +43,7 @@ interface ProgressUpdate {
 
 const LiveStreamMonitor: React.FC<LiveStreamProps> = ({ 
   siteId = "site-001", 
-  siteName = "BuildConnect Construction Site" 
+  siteName = "JengaPro Construction Site" 
 }) => {
   const [streams, setStreams] = useState<StreamData[]>([
     {
