@@ -11,9 +11,8 @@ const Footer = () => {
             <div className="flex items-center space-x-2 mb-4">
               <Building2 className="h-6 w-6" />
               <h3 className="text-lg font-semibold">
-                <span className="text-white">Build</span>
-                <span className="text-red-400">Connect</span>
-                <span className="text-green-400">254</span>
+                <span className="text-white">Jenga</span>
+                <span className="text-green-400">Pro</span>
               </h3>
             </div>
             <p className="text-gray-400">
