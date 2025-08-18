@@ -162,7 +162,7 @@ const Builders = () => {
       >
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl font-bold mb-4">Are You a Builder?</h2>
-          <p className="text-xl mb-8 opacity-90">Join BuildConnect254 and expand your business reach</p>
+          <p className="text-xl mb-8 opacity-90">Join JengaPro and expand your business reach</p>
           <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/80 text-lg px-8 py-4">
             Register as Builder
           </Button>

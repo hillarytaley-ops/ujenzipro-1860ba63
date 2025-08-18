@@ -73,7 +73,7 @@ const About = () => {
           <Badge className="mb-4 bg-white/20 text-white border-white/30">
             🇰🇪 Proudly Kenyan
           </Badge>
-          <h1 className="text-5xl font-bold mb-6">About BuildConnect254</h1>
+          <h1 className="text-5xl font-bold mb-6">About JengaPro</h1>
           <p className="text-xl max-w-3xl mx-auto opacity-90">
             We're on a mission to transform Kenya's construction industry by connecting builders 
             with trusted suppliers, making construction projects more efficient, affordable, and successful.
@@ -88,7 +88,7 @@ const About = () => {
             <h2 className="text-4xl font-bold text-center mb-12">Our Story</h2>
             <div className="prose prose-lg mx-auto">
               <p className="text-xl leading-relaxed mb-6 text-blue-900">
-                BuildConnect254 was born from a simple observation: Kenya's construction industry needed 
+                JengaPro was born from a simple observation: Kenya's construction industry needed 
                 not just better connections, but complete project visibility. As builders struggled to find 
                 reliable suppliers and track their material deliveries, while suppliers couldn't efficiently 
                 reach their ideal customers, we saw an opportunity to revolutionize the entire construction workflow.

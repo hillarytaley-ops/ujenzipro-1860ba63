@@ -69,7 +69,7 @@ const Navigation = () => {
             <div className="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-12 h-12 flex items-center justify-center z-10">
               <img 
                 src="/lovable-uploads/6f428ab0-9c8e-425c-960b-8c987371f59e.png" 
-                alt="BuildConnect254 Logo" 
+                alt="JengaPro Logo" 
                 className="w-8 h-8 object-cover rounded-full"
               />
             </div>

@@ -139,8 +139,8 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-lg mb-1">Email Addresses</h3>
                         <p className="text-gray-600">
-                          info@buildconnect254.com<br />
-                          support@buildconnect254.com
+                          info@jengapro.com<br />
+                          support@jengapro.com
                         </p>
                       </div>
                     </div>
@@ -201,7 +201,7 @@ const Contact = () => {
             
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Is there a fee to use BuildConnect254?</CardTitle>
+                <CardTitle className="text-lg">Is there a fee to use JengaPro?</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
