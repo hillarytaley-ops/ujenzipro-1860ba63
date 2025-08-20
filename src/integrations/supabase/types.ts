@@ -149,6 +149,129 @@ export type Database = {
           },
         ]
       }
+      delivery_providers: {
+        Row: {
+          address: string | null
+          availability_schedule: Json | null
+          capacity_kg: number | null
+          contact_person: string | null
+          created_at: string
+          email: string | null
+          hourly_rate: number | null
+          id: string
+          is_active: boolean | null
+          is_verified: boolean | null
+          per_km_rate: number | null
+          phone: string
+          provider_name: string
+          provider_type: string
+          rating: number | null
+          service_areas: string[] | null
+          total_deliveries: number | null
+          updated_at: string
+          user_id: string
+          vehicle_types: string[] | null
+        }
+        Insert: {
+          address?: string | null
+          availability_schedule?: Json | null
+          capacity_kg?: number | null
+          contact_person?: string | null
+          created_at?: string
+          email?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          per_km_rate?: number | null
+          phone: string
+          provider_name: string
+          provider_type?: string
+          rating?: number | null
+          service_areas?: string[] | null
+          total_deliveries?: number | null
+          updated_at?: string
+          user_id: string
+          vehicle_types?: string[] | null
+        }
+        Update: {
+          address?: string | null
+          availability_schedule?: Json | null
+          capacity_kg?: number | null
+          contact_person?: string | null
+          created_at?: string
+          email?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          per_km_rate?: number | null
+          phone?: string
+          provider_name?: string
+          provider_type?: string
+          rating?: number | null
+          service_areas?: string[] | null
+          total_deliveries?: number | null
+          updated_at?: string
+          user_id?: string
+          vehicle_types?: string[] | null
+        }
+        Relationships: []
+      }
+      delivery_requests: {
+        Row: {
+          budget_range: string | null
+          builder_id: string
+          created_at: string
+          delivery_address: string
+          id: string
+          material_type: string
+          pickup_address: string
+          pickup_date: string
+          preferred_time: string | null
+          provider_id: string | null
+          quantity: number
+          special_instructions: string | null
+          status: string | null
+          updated_at: string
+          weight_kg: number | null
+        }
+        Insert: {
+          budget_range?: string | null
+          builder_id: string
+          created_at?: string
+          delivery_address: string
+          id?: string
+          material_type: string
+          pickup_address: string
+          pickup_date: string
+          preferred_time?: string | null
+          provider_id?: string | null
+          quantity: number
+          special_instructions?: string | null
+          status?: string | null
+          updated_at?: string
+          weight_kg?: number | null
+        }
+        Update: {
+          budget_range?: string | null
+          builder_id?: string
+          created_at?: string
+          delivery_address?: string
+          id?: string
+          material_type?: string
+          pickup_address?: string
+          pickup_date?: string
+          preferred_time?: string | null
+          provider_id?: string | null
+          quantity?: number
+          special_instructions?: string | null
+          status?: string | null
+          updated_at?: string
+          weight_kg?: number | null
+        }
+        Relationships: []
+      }
       delivery_updates: {
         Row: {
           created_at: string
