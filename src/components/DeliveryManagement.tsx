@@ -10,7 +10,7 @@ import QRScanner from './QRScanner';
 import LiveStreamMonitor from './LiveStreamMonitor';
 import CameraSetup from './CameraSetup';
 import PhysicalCameraViewer from './PhysicalCameraViewer';
-import DeliveryPortal from './DeliveryPortal';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -413,14 +413,10 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className={`grid w-full ${user && (userRole === 'admin' || userRole === 'supplier') ? 'grid-cols-7' : 'grid-cols-5'}`}>
+        <TabsList className={`grid w-full ${user && (userRole === 'admin' || userRole === 'supplier') ? 'grid-cols-6' : 'grid-cols-4'}`}>
           <TabsTrigger value="tracker" className="flex items-center gap-2">
             <Eye className="h-4 w-4" />
             Track Delivery
-          </TabsTrigger>
-          <TabsTrigger value="delivery-portal" className="flex items-center gap-2">
-            <Truck className="h-4 w-4" />
-            Delivery Portal
           </TabsTrigger>
           {user && (userRole === 'admin' || userRole === 'supplier') && (
             <>
@@ -443,9 +439,6 @@ const DeliveryManagement: React.FC = () => {
             <DeliveryTracker />
           </TabsContent>
 
-          <TabsContent value="delivery-portal">
-            <DeliveryPortal />
-          </TabsContent>
 
           <TabsContent value="camera-setup">
             <CameraSetup onCameraConnected={handleCameraConnected} />
