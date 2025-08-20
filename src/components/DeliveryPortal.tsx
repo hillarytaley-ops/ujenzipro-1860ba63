@@ -210,6 +210,16 @@ const DeliveryPortal = () => {
       return;
     }
 
+    // Only builders/buyers can create delivery requests
+    if (userProfile.role !== 'builder' && userProfile.role !== 'admin') {
+      toast({
+        title: "Access denied",
+        description: "Only builders/buyers can create delivery requests",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
       const { error } = await supabase
         .from('delivery_requests')
@@ -286,7 +296,7 @@ const DeliveryPortal = () => {
         <TabsContent value="providers" className="space-y-4">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
-            {userProfile && (
+            {userProfile && userProfile.role === 'builder' && (
               <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
                 <DialogTrigger asChild>
                   <Button>Request Delivery Service</Button>
