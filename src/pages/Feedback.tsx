@@ -18,8 +18,11 @@ export default function Feedback() {
       >
         <div className="relative z-10">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-white mb-4">
-              We Value Your Feedback
+            <h1 className="text-4xl font-bold mb-4">
+              <span className="text-black">We</span>{' '}
+              <span className="text-red-600">Value</span>{' '}
+              <span className="text-green-600">Your</span>{' '}
+              <span className="text-white">Feedback</span>
             </h1>
             <p className="text-xl text-gray-200 max-w-2xl mx-auto">
               Help us improve by sharing your thoughts, suggestions, or reporting any issues you've encountered.
