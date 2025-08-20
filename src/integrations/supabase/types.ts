@@ -387,6 +387,7 @@ export type Database = {
       }
       projects: {
         Row: {
+          access_code: string | null
           builder_id: string | null
           created_at: string
           description: string | null
@@ -399,6 +400,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          access_code?: string | null
           builder_id?: string | null
           created_at?: string
           description?: string | null
@@ -411,6 +413,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          access_code?: string | null
           builder_id?: string | null
           created_at?: string
           description?: string | null
@@ -717,7 +720,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_access_code: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
