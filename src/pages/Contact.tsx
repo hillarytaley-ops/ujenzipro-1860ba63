@@ -24,7 +24,11 @@ const Contact = () => {
         }}
       >
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">Get In Touch</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            <span className="text-black">Get</span>{' '}
+            <span className="text-red-600">In</span>{' '}
+            <span className="text-green-600">Touch</span>
+          </h1>
           <p className="text-xl opacity-90">We're here to help you connect, build, and succeed</p>
         </div>
       </section>
