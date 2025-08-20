@@ -37,6 +37,7 @@ const Navigation = () => {
     { path: "/builders", label: "Builders" },
     { path: "/suppliers", label: "Suppliers" },
     { path: "/materials", label: "Materials" },
+    { path: "/delivery", label: "Delivery" },
     { path: "/tracking", label: "Tracking" },
     { path: "/about", label: "About" },
     { path: "/contact", label: "Contact" },
