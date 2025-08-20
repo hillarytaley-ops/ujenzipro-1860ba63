@@ -10,238 +10,20 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "13.0.4"
   }
   public: {
     Tables: {
-      deliveries: {
-        Row: {
-          actual_delivery: string | null
-          builder_id: string | null
-          created_at: string
-          delivery_address: string
-          driver_name: string | null
-          driver_phone: string | null
-          estimated_delivery: string | null
-          id: string
-          material_type: string
-          pickup_address: string
-          project_id: string | null
-          quantity: number
-          special_instructions: string | null
-          status: string
-          supplier_id: string | null
-          tracking_number: string
-          updated_at: string
-          vehicle_number: string | null
-          weight_kg: number | null
-        }
-        Insert: {
-          actual_delivery?: string | null
-          builder_id?: string | null
-          created_at?: string
-          delivery_address: string
-          driver_name?: string | null
-          driver_phone?: string | null
-          estimated_delivery?: string | null
-          id?: string
-          material_type: string
-          pickup_address: string
-          project_id?: string | null
-          quantity: number
-          special_instructions?: string | null
-          status?: string
-          supplier_id?: string | null
-          tracking_number: string
-          updated_at?: string
-          vehicle_number?: string | null
-          weight_kg?: number | null
-        }
-        Update: {
-          actual_delivery?: string | null
-          builder_id?: string | null
-          created_at?: string
-          delivery_address?: string
-          driver_name?: string | null
-          driver_phone?: string | null
-          estimated_delivery?: string | null
-          id?: string
-          material_type?: string
-          pickup_address?: string
-          project_id?: string | null
-          quantity?: number
-          special_instructions?: string | null
-          status?: string
-          supplier_id?: string | null
-          tracking_number?: string
-          updated_at?: string
-          vehicle_number?: string | null
-          weight_kg?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "deliveries_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      delivery_updates: {
-        Row: {
-          created_at: string
-          delivery_id: string
-          id: string
-          latitude: number | null
-          location: string | null
-          longitude: number | null
-          notes: string | null
-          status: string
-        }
-        Insert: {
-          created_at?: string
-          delivery_id: string
-          id?: string
-          latitude?: number | null
-          location?: string | null
-          longitude?: number | null
-          notes?: string | null
-          status: string
-        }
-        Update: {
-          created_at?: string
-          delivery_id?: string
-          id?: string
-          latitude?: number | null
-          location?: string | null
-          longitude?: number | null
-          notes?: string | null
-          status?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "delivery_updates_delivery_id_fkey"
-            columns: ["delivery_id"]
-            isOneToOne: false
-            referencedRelation: "deliveries"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      feedback: {
-        Row: {
-          created_at: string
-          email: string
-          id: string
-          message: string
-          name: string | null
-          rating: number | null
-          subject: string
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string
-          email: string
-          id?: string
-          message: string
-          name?: string | null
-          rating?: number | null
-          subject: string
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string
-          email?: string
-          id?: string
-          message?: string
-          name?: string | null
-          rating?: number | null
-          subject?: string
-          user_id?: string | null
-        }
-        Relationships: []
-      }
-      projects: {
-        Row: {
-          created_at: string
-          description: string | null
-          end_date: string | null
-          id: string
-          location: string | null
-          name: string
-          owner_id: string
-          start_date: string | null
-          status: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          description?: string | null
-          end_date?: string | null
-          id?: string
-          location?: string | null
-          name: string
-          owner_id: string
-          start_date?: string | null
-          status?: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          description?: string | null
-          end_date?: string | null
-          id?: string
-          location?: string | null
-          name?: string
-          owner_id?: string
-          start_date?: string | null
-          status?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      user_roles: {
-        Row: {
-          id: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Insert: {
-          id?: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Update: {
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      generate_tracking_number: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      get_user_role: {
-        Args: { _user_id: string }
-        Returns: Database["public"]["Enums"]["app_role"]
-      }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
+      [_ in never]: never
     }
     Enums: {
-      app_role: "supplier" | "builder" | "admin"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -368,8 +150,6 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {
-      app_role: ["supplier", "builder", "admin"],
-    },
+    Enums: {},
   },
 } as const
