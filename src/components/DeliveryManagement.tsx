@@ -416,7 +416,7 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className={`grid w-full ${user && (userRole === 'admin' || userRole === 'supplier') ? 'grid-cols-6' : 'grid-cols-4'}`}>
+        <TabsList className={`grid w-full ${user && (userRole === 'admin' || userRole === 'supplier') ? 'grid-cols-6' : userRole === 'builder' ? 'grid-cols-4' : 'grid-cols-1'}`}>
           <TabsTrigger value="tracker" className="flex items-center gap-2">
             <Eye className="h-4 w-4" />
             Track Delivery
@@ -427,9 +427,13 @@ const DeliveryManagement: React.FC = () => {
               <TabsTrigger value="physical-camera">Physical Camera</TabsTrigger>
             </>
           )}
-          <TabsTrigger value="camera">AI Camera</TabsTrigger>
-          <TabsTrigger value="qr-scanner">QR Scanner</TabsTrigger>
-          <TabsTrigger value="monitor">Live Monitor</TabsTrigger>
+          {user && (userRole === 'admin' || userRole === 'builder') && (
+            <>
+              <TabsTrigger value="camera">AI Camera</TabsTrigger>
+              <TabsTrigger value="qr-scanner">QR Scanner</TabsTrigger>
+              <TabsTrigger value="monitor">Live Monitor</TabsTrigger>
+            </>
+          )}
           {user && userRole && (
             <TabsTrigger value="deliveries" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
