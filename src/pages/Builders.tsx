@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, MapPin, Star, Users, Hammer, Building, FileText } from "lucide-react";
+import { Search, MapPin, ShoppingCart, Building2, Package, FileText } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ReceiptPortal from "@/components/ReceiptPortal";
@@ -56,55 +56,55 @@ const Builders = () => {
     {
       name: "Kamau Construction Ltd",
       location: "Nairobi",
-      rating: 4.8,
-      projects: 45,
-      specialties: ["Residential", "Commercial"],
       type: "Company",
+      projectsActive: 12,
+      materialsNeeded: ["Cement", "Steel Bars", "Roofing Sheets"],
+      budget: "Ksh 2M - 5M",
       image: kamauConstructionImg
     },
     {
-      name: "John Mwangi (Independent)",
+      name: "John Mwangi Construction",
       location: "Kisumu", 
-      rating: 4.6,
-      projects: 15,
-      specialties: ["Residential", "Renovations"],
       type: "Individual",
+      projectsActive: 3,
+      materialsNeeded: ["Bricks", "Sand", "Cement"],
+      budget: "Ksh 500K - 1M",
       image: johnMwangiImg
     },
     {
-      name: "Njeri Construction",
+      name: "Njeri Development Co.",
       location: "Mombasa",
-      rating: 4.9,
-      projects: 28,
-      specialties: ["Residential", "Renovation"],
       type: "Company",
+      projectsActive: 8,
+      materialsNeeded: ["Concrete Blocks", "Paint", "Tiles"],
+      budget: "Ksh 1M - 3M",
       image: njeriConstructionImg
     },
     {
-      name: "Peter Otieno (Contractor)",
+      name: "Peter Otieno Builder",
       location: "Nakuru",
-      rating: 4.7,
-      projects: 22,
-      specialties: ["Home Extensions", "Repairs"],
-      type: "Individual", 
+      type: "Individual",
+      projectsActive: 5,
+      materialsNeeded: ["Iron Sheets", "Timber", "Nails"],
+      budget: "Ksh 300K - 800K",
       image: peterOtienoImg
     },
     {
-      name: "Grace Wanjiku (Builder)",
+      name: "Grace Wanjiku Constructions",
       location: "Eldoret",
-      rating: 4.8,
-      projects: 18,
-      specialties: ["Custom Homes", "Interior Work"],
       type: "Individual",
+      projectsActive: 4,
+      materialsNeeded: ["Doors", "Windows", "Hardware"],
+      budget: "Ksh 600K - 1.2M",
       image: graceWanjikuImg
     },
     {
-      name: "Otieno Contractors Ltd",
+      name: "Otieno Builders Ltd",
       location: "Meru",
-      rating: 4.7,
-      projects: 38,
-      specialties: ["Commercial", "Infrastructure"],
       type: "Company",
+      projectsActive: 15,
+      materialsNeeded: ["Aggregates", "Steel", "Waterproofing"],
+      budget: "Ksh 3M - 8M",
       image: otienoContractorsImg
     }
   ];
@@ -125,20 +125,18 @@ const Builders = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">
-            <span className="text-black">Find</span>{' '}
-            <span className="text-red-600">Trusted</span>{' '}
-            <span className="text-green-600">Builders</span>{' '}
-            <span className="text-white">in</span>{' '}
-            <span className="text-green-600">Kenya</span>
+            <span className="text-black">Material</span>{' '}
+            <span className="text-red-600">Buyers</span>{' '}
+            <span className="text-green-600">Marketplace</span>
           </h1>
-          <p className="text-xl mb-8 opacity-90">Connect with verified construction professionals - from individual craftsmen to large companies</p>
+          <p className="text-xl mb-8 opacity-90">Connect suppliers with builders who need construction materials - from small projects to large developments</p>
           
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto flex gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-              <Input 
-                placeholder="Search builders by name or specialty..." 
+               <Input 
+                placeholder="Search buyers by location or materials needed..." 
                 className="pl-10 py-6 text-lg bg-white"
               />
             </div>
@@ -154,20 +152,20 @@ const Builders = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-black">1,500+</div>
-              <div className="text-gray-600">Registered Builders</div>
+              <div className="text-3xl font-bold text-black">800+</div>
+              <div className="text-gray-600">Active Buyers</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600">5,000+</div>
-              <div className="text-gray-600">Completed Projects</div>
+              <div className="text-3xl font-bold text-green-600">2,500+</div>
+              <div className="text-gray-600">Material Orders</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-red-600">47</div>
               <div className="text-gray-600">Counties Covered</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-black">95%</div>
-              <div className="text-gray-600">Client Satisfaction</div>
+              <div className="text-3xl font-bold text-black">Ksh 50M+</div>
+              <div className="text-gray-600">Monthly Volume</div>
             </div>
           </div>
         </div>
@@ -177,8 +175,8 @@ const Builders = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">Featured Builders & Contractors</h2>
-            <Button variant="outline">View All Builders</Button>
+            <h2 className="text-3xl font-bold text-gray-900">Active Material Buyers</h2>
+            <Button variant="outline">View All Buyers</Button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -200,27 +198,33 @@ const Builders = () => {
                 </CardHeader>
                 <CardContent className="text-center">
                   <div className="flex items-center justify-center gap-1 mb-2">
-                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                    <span className="font-semibold">{builder.rating}</span>
+                    <Building2 className="h-4 w-4 text-primary" />
+                    <span className="font-semibold">{builder.type}</span>
                   </div>
                   <div className="flex items-center justify-center gap-2 mb-4">
                     <div className="flex items-center gap-1 text-sm text-gray-600">
-                      <Hammer className="h-4 w-4" />
-                      {builder.projects} projects
+                      <Package className="h-4 w-4" />
+                      {builder.projectsActive} active projects
                     </div>
                   </div>
-                  <div className="flex flex-wrap gap-1 mb-4 justify-center">
-                    <Badge variant="outline" className="text-xs">
-                      {builder.type}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold text-gray-700 mb-2">Materials Needed:</p>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      {builder.materialsNeeded.map((material, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs">
+                          {material}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <Badge variant="outline" className="text-sm">
+                      Budget: {builder.budget}
                     </Badge>
-                    {builder.specialties.map((specialty, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">
-                        {specialty}
-                      </Badge>
-                    ))}
                   </div>
                   <Button className="w-full bg-primary hover:bg-primary/90">
-                    View Profile
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    Contact Buyer
                   </Button>
                 </CardContent>
               </Card>
@@ -240,10 +244,10 @@ const Builders = () => {
         }}
       >
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl font-bold mb-4">Are You a Builder or Contractor?</h2>
-          <p className="text-xl mb-8 opacity-90">Join UjenziPro as an individual builder or construction company and expand your business reach</p>
+          <h2 className="text-3xl font-bold mb-4">Need Construction Materials?</h2>
+          <p className="text-xl mb-8 opacity-90">Register as a buyer to connect with verified suppliers and get competitive prices for your construction projects</p>
           <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/80 text-lg px-8 py-4">
-            Register Now
+            Register as Buyer
           </Button>
         </div>
       </section>
