@@ -14,7 +14,386 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cameras: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          location: string | null
+          name: string
+          project_id: string | null
+          stream_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          name: string
+          project_id?: string | null
+          stream_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          name?: string
+          project_id?: string | null
+          stream_url?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cameras_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      deliveries: {
+        Row: {
+          actual_delivery_time: string | null
+          builder_id: string | null
+          created_at: string
+          delivery_address: string
+          delivery_date: string | null
+          driver_name: string | null
+          driver_phone: string | null
+          estimated_delivery_time: string | null
+          id: string
+          material_type: string
+          notes: string | null
+          pickup_address: string
+          pickup_date: string | null
+          project_id: string | null
+          quantity: number
+          status: string | null
+          supplier_id: string | null
+          tracking_number: string | null
+          updated_at: string
+          vehicle_details: string | null
+          weight_kg: number | null
+        }
+        Insert: {
+          actual_delivery_time?: string | null
+          builder_id?: string | null
+          created_at?: string
+          delivery_address: string
+          delivery_date?: string | null
+          driver_name?: string | null
+          driver_phone?: string | null
+          estimated_delivery_time?: string | null
+          id?: string
+          material_type: string
+          notes?: string | null
+          pickup_address: string
+          pickup_date?: string | null
+          project_id?: string | null
+          quantity: number
+          status?: string | null
+          supplier_id?: string | null
+          tracking_number?: string | null
+          updated_at?: string
+          vehicle_details?: string | null
+          weight_kg?: number | null
+        }
+        Update: {
+          actual_delivery_time?: string | null
+          builder_id?: string | null
+          created_at?: string
+          delivery_address?: string
+          delivery_date?: string | null
+          driver_name?: string | null
+          driver_phone?: string | null
+          estimated_delivery_time?: string | null
+          id?: string
+          material_type?: string
+          notes?: string | null
+          pickup_address?: string
+          pickup_date?: string | null
+          project_id?: string | null
+          quantity?: number
+          status?: string | null
+          supplier_id?: string | null
+          tracking_number?: string | null
+          updated_at?: string
+          vehicle_details?: string | null
+          weight_kg?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deliveries_builder_id_fkey"
+            columns: ["builder_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deliveries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deliveries_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      delivery_updates: {
+        Row: {
+          created_at: string
+          delivery_id: string | null
+          id: string
+          notes: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_id?: string | null
+          id?: string
+          notes?: string | null
+          status: string
+        }
+        Update: {
+          created_at?: string
+          delivery_id?: string | null
+          id?: string
+          notes?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_updates_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      feedback: {
+        Row: {
+          category: string | null
+          comment: string | null
+          created_at: string
+          delivery_id: string | null
+          id: string
+          rating: number | null
+          user_id: string | null
+        }
+        Insert: {
+          category?: string | null
+          comment?: string | null
+          created_at?: string
+          delivery_id?: string | null
+          id?: string
+          rating?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          category?: string | null
+          comment?: string | null
+          created_at?: string
+          delivery_id?: string | null
+          id?: string
+          rating?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feedback_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          company_name: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          role: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          role?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          role?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          builder_id: string | null
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          location: string | null
+          name: string
+          start_date: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          builder_id?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          name: string
+          start_date?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          builder_id?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          name?: string
+          start_date?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "projects_builder_id_fkey"
+            columns: ["builder_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      suppliers: {
+        Row: {
+          address: string | null
+          company_name: string
+          contact_person: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_verified: boolean | null
+          materials_offered: string[] | null
+          phone: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          address?: string | null
+          company_name: string
+          contact_person?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_verified?: boolean | null
+          materials_offered?: string[] | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          address?: string | null
+          company_name?: string
+          contact_person?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_verified?: boolean | null
+          materials_offered?: string[] | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "suppliers_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tracking_updates: {
+        Row: {
+          created_at: string
+          delivery_id: string | null
+          id: string
+          location: string | null
+          notes: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_id?: string | null
+          id?: string
+          location?: string | null
+          notes?: string | null
+          status: string
+        }
+        Update: {
+          created_at?: string
+          delivery_id?: string | null
+          id?: string
+          location?: string | null
+          notes?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tracking_updates_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
