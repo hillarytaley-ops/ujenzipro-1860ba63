@@ -73,7 +73,10 @@ const About = () => {
           <Badge className="mb-4 bg-white/20 text-white border-white/30">
             🇰🇪 Proudly Kenyan
           </Badge>
-          <h1 className="text-5xl font-bold mb-6">About UjenziPro</h1>
+          <h1 className="text-5xl font-bold mb-6">
+            <span className="text-black">About</span>{' '}
+            <span className="text-red-600">Ujenzi</span><span className="text-green-600">Pro</span>
+          </h1>
           <p className="text-xl max-w-3xl mx-auto opacity-90">
             We're on a mission to transform Kenya's construction industry by connecting builders 
             with trusted suppliers, making construction projects more efficient, affordable, and successful.
