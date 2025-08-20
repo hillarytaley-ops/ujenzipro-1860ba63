@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 UjenziPro. All rights reserved. Made with ❤️ in Kenya.</p>
+          <p>&copy; 2024 UjenzePro. All rights reserved. Made with ❤️ in Kenya.</p>
         </div>
       </div>
     </footer>
