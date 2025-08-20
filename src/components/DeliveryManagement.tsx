@@ -71,6 +71,10 @@ const DeliveryManagement: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('tracker'); // Default to tracker (public)
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [accessCodeInput, setAccessCodeInput] = useState('');
+  const [hasSecurityAccess, setHasSecurityAccess] = useState(false);
+  const [showAccessDialog, setShowAccessDialog] = useState(false);
+  const [userProjects, setUserProjects] = useState<any[]>([]);
   const [newDelivery, setNewDelivery] = useState({
     material_type: '',
     quantity: '',
@@ -98,6 +102,8 @@ const DeliveryManagement: React.FC = () => {
       if (userRole === 'supplier') {
         fetchBuilders();
         fetchProjects();
+      } else if (userRole === 'builder') {
+        fetchUserProjects();
       }
       
       // Set up real-time subscription
@@ -196,6 +202,90 @@ const DeliveryManagement: React.FC = () => {
       }
     } catch (error) {
       console.error('Error:', error);
+    }
+  };
+
+  const fetchUserProjects = async () => {
+    try {
+      // Get user's profile first to get their ID
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('user_id', user?.id)
+        .single();
+
+      if (profileError) {
+        console.error('Error fetching user profile:', profileError);
+        return;
+      }
+
+      // Fetch projects where this builder is assigned
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('builder_id', profileData.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching user projects:', error);
+      } else {
+        setUserProjects(data || []);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const verifyAccessCode = async () => {
+    if (!accessCodeInput.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter an access code",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // Check if the entered code matches any of the user's projects
+      const matchingProject = userProjects.find(project => 
+        project.access_code === accessCodeInput.trim()
+      );
+
+      if (matchingProject) {
+        setHasSecurityAccess(true);
+        setShowAccessDialog(false);
+        setAccessCodeInput('');
+        toast({
+          title: "Access Granted",
+          description: `Access granted for project: ${matchingProject.name}`,
+        });
+      } else {
+        toast({
+          title: "Access Denied",
+          description: "Invalid access code for your projects",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error verifying access code:', error);
+      toast({
+        title: "Error",
+        description: "Failed to verify access code",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleSecureTabAccess = (tabValue: string) => {
+    if (userRole === 'admin') {
+      setActiveTab(tabValue);
+    } else if (userRole === 'builder') {
+      if (hasSecurityAccess) {
+        setActiveTab(tabValue);
+      } else {
+        setShowAccessDialog(true);
+      }
     }
   };
 
@@ -429,9 +519,33 @@ const DeliveryManagement: React.FC = () => {
           )}
           {user && (userRole === 'admin' || userRole === 'builder') && (
             <>
-              <TabsTrigger value="camera">AI Camera</TabsTrigger>
-              <TabsTrigger value="qr-scanner">QR Scanner</TabsTrigger>
-              <TabsTrigger value="monitor">Live Monitor</TabsTrigger>
+              <TabsTrigger 
+                value="camera" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSecureTabAccess('camera');
+                }}
+              >
+                AI Camera
+              </TabsTrigger>
+              <TabsTrigger 
+                value="qr-scanner"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSecureTabAccess('qr-scanner');
+                }}
+              >
+                QR Scanner
+              </TabsTrigger>
+              <TabsTrigger 
+                value="monitor"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSecureTabAccess('monitor');
+                }}
+              >
+                Live Monitor
+              </TabsTrigger>
             </>
           )}
           {user && userRole && (
@@ -751,6 +865,60 @@ const DeliveryManagement: React.FC = () => {
           </TabsContent>
         )}
       </Tabs>
+
+      {/* Security Access Code Dialog */}
+      <Dialog open={showAccessDialog} onOpenChange={setShowAccessDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Enter Project Access Code</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Please enter the 6-digit access code for your project to access AI Camera, QR Scanner, and Live Monitor features.
+            </p>
+            <div className="space-y-2">
+              <Label htmlFor="access_code">Access Code</Label>
+              <Input
+                id="access_code"
+                type="text"
+                value={accessCodeInput}
+                onChange={(e) => setAccessCodeInput(e.target.value)}
+                placeholder="Enter 6-digit code"
+                maxLength={6}
+                className="text-center text-lg tracking-wider"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setShowAccessDialog(false);
+                  setAccessCodeInput('');
+                }}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button onClick={verifyAccessCode} className="flex-1">
+                Verify Code
+              </Button>
+            </div>
+            {userProjects.length > 0 && (
+              <div className="mt-4 p-3 bg-muted rounded-lg">
+                <p className="text-sm font-medium mb-2">Your Projects:</p>
+                <div className="space-y-1">
+                  {userProjects.map((project) => (
+                    <div key={project.id} className="text-xs text-muted-foreground flex justify-between">
+                      <span>{project.name}</span>
+                      <span className="font-mono">Code: {project.access_code}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
