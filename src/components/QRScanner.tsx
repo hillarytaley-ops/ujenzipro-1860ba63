@@ -2,20 +2,35 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Scan, Camera, CheckCircle, Package, Clock } from 'lucide-react';
+import { Scan, Camera, CheckCircle, Package, Clock, Building, Truck } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+
+type ScanMode = 'supplies' | 'receivables';
 
 interface QRScannerProps {
-  onMaterialScanned: (material: ScannedMaterial) => void;
+  onMaterialScanned?: (material: ScannedMaterial) => void;
 }
 
 interface ScannedMaterial {
+  id?: string;
   qrCode: string;
   materialType: string;
   batchNumber: string;
   supplierInfo: string;
+  quantity?: number;
+  unit?: string;
   timestamp: Date;
   verified: boolean;
+  mode: ScanMode;
+  projectId?: string;
+  supplierId?: string;
+  deliveryId?: string;
+  condition?: string;
+  status?: string;
 }
 
 const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
@@ -25,6 +40,13 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [scannedMaterials, setScannedMaterials] = useState<ScannedMaterial[]>([]);
   const [lastScan, setLastScan] = useState<string>('');
+  const [scanMode, setScanMode] = useState<ScanMode>('supplies');
+  const [projectId, setProjectId] = useState<string>('');
+  const [supplierId, setSupplierId] = useState<string>('');
+  const [quantity, setQuantity] = useState<number>(1);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [suppliers, setSuppliers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const startScanning = async () => {
     try {
@@ -69,12 +91,19 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
       materialType: parts[1] || 'Unknown Material',
       batchNumber: parts[2] || 'N/A',
       supplierInfo: parts[0] || 'Unknown Supplier',
+      quantity: quantity,
+      unit: 'pieces',
       timestamp: new Date(),
-      verified: true // In real implementation, verify against database
+      verified: true,
+      mode: scanMode,
+      projectId: scanMode === 'receivables' ? projectId : undefined,
+      supplierId: scanMode === 'supplies' ? supplierId : undefined,
+      condition: scanMode === 'receivables' ? 'good' : undefined,
+      status: scanMode === 'supplies' ? 'available' : undefined
     };
   };
 
-  const simulateQRDetection = () => {
+  const simulateQRDetection = async () => {
     if (!isScanning) return;
 
     // Simulate QR code detection
@@ -93,12 +122,13 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
       // Avoid duplicate scans within 5 seconds
       if (randomQR !== lastScan) {
         const material = parseQRCode(randomQR);
+        await saveMaterialScan(material);
         setScannedMaterials(prev => [material, ...prev.slice(0, 9)]);
-        onMaterialScanned(material);
+        onMaterialScanned?.(material);
         setLastScan(randomQR);
         
         toast.success(`Material scanned: ${material.materialType}`, {
-          description: `Batch: ${material.batchNumber}`
+          description: `Mode: ${scanMode} • Batch: ${material.batchNumber}`
         });
 
         // Reset lastScan after 5 seconds
@@ -107,12 +137,71 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
     }
   };
 
+  // Load projects and suppliers on mount
+  useEffect(() => {
+    loadProjectsAndSuppliers();
+  }, []);
+
   useEffect(() => {
     if (!isScanning) return;
 
     const interval = setInterval(simulateQRDetection, 1000);
     return () => clearInterval(interval);
-  }, [isScanning, lastScan]);
+  }, [isScanning, lastScan, scanMode, projectId, supplierId, quantity]);
+
+  const loadProjectsAndSuppliers = async () => {
+    try {
+      const [projectsResult, suppliersResult] = await Promise.all([
+        supabase.from('projects').select('id, name').order('name'),
+        supabase.from('suppliers').select('id, company_name').order('company_name')
+      ]);
+
+      if (projectsResult.data) setProjects(projectsResult.data);
+      if (suppliersResult.data) setSuppliers(suppliersResult.data);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  };
+
+  const saveMaterialScan = async (material: ScannedMaterial) => {
+    try {
+      setLoading(true);
+      
+      if (material.mode === 'supplies') {
+        const { error } = await supabase.from('scanned_supplies').insert({
+          supplier_id: material.supplierId,
+          qr_code: material.qrCode,
+          material_type: material.materialType,
+          batch_number: material.batchNumber,
+          quantity: material.quantity,
+          unit: material.unit,
+          supplier_info: material.supplierInfo,
+          status: material.status
+        });
+        
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from('scanned_receivables').insert({
+          project_id: material.projectId,
+          qr_code: material.qrCode,
+          material_type: material.materialType,
+          batch_number: material.batchNumber,
+          quantity: material.quantity,
+          unit: material.unit,
+          supplier_info: material.supplierInfo,
+          condition: material.condition,
+          verified: material.verified
+        });
+        
+        if (error) throw error;
+      }
+    } catch (error) {
+      console.error('Error saving scan:', error);
+      toast.error('Failed to save scanned material');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getMaterialIcon = (materialType: string) => {
     const type = materialType.toLowerCase();
@@ -128,12 +217,112 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
 
   return (
     <div className="space-y-6">
+      {/* Scanner Mode Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            {scanMode === 'supplies' ? (
+              <Truck className="h-5 w-5" />
+            ) : (
+              <Building className="h-5 w-5" />
+            )}
+            Scanner Mode Configuration
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="scanMode">Scanning Mode</Label>
+              <Select value={scanMode} onValueChange={(value) => setScanMode(value as ScanMode)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select scanning mode" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="supplies">
+                    <div className="flex items-center gap-2">
+                      <Truck className="h-4 w-4" />
+                      Supplier Scanning
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="receivables">
+                    <div className="flex items-center gap-2">
+                      <Building className="h-4 w-4" />
+                      Building Site Receiving
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="quantity">Quantity</Label>
+              <Input
+                id="quantity"
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
+                placeholder="Enter quantity"
+              />
+            </div>
+          </div>
+
+          {scanMode === 'supplies' && (
+            <div>
+              <Label htmlFor="supplier">Supplier</Label>
+              <Select value={supplierId} onValueChange={setSupplierId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select supplier" />
+                </SelectTrigger>
+                <SelectContent>
+                  {suppliers.map((supplier) => (
+                    <SelectItem key={supplier.id} value={supplier.id}>
+                      {supplier.company_name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
+          {scanMode === 'receivables' && (
+            <div>
+              <Label htmlFor="project">Project</Label>
+              <Select value={projectId} onValueChange={setProjectId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select project" />
+                </SelectTrigger>
+                <SelectContent>
+                  {projects.map((project) => (
+                    <SelectItem key={project.id} value={project.id}>
+                      {project.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
+          <div className="bg-muted p-3 rounded-lg">
+            <p className="text-sm text-muted-foreground">
+              {scanMode === 'supplies' 
+                ? '📦 Scanning materials at supplier location for inventory management'
+                : '🏗️ Scanning received materials at building site for project tracking'
+              }
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* QR Scanner */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Scan className="h-5 w-5" />
             QR Code Material Scanner
+            <Badge variant="outline" className="ml-auto">
+              {scanMode === 'supplies' ? 'Supplier Mode' : 'Receivables Mode'}
+            </Badge>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -177,7 +366,15 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
           {/* Scanner Controls */}
           <div className="flex gap-2">
             {!isScanning ? (
-              <Button onClick={startScanning} className="flex items-center gap-2">
+              <Button 
+                onClick={startScanning} 
+                className="flex items-center gap-2"
+                disabled={
+                  (scanMode === 'supplies' && !supplierId) ||
+                  (scanMode === 'receivables' && !projectId) ||
+                  loading
+                }
+              >
                 <Camera className="h-4 w-4" />
                 Start QR Scanner
               </Button>
@@ -187,7 +384,18 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
                 Stop Scanner
               </Button>
             )}
+            {loading && (
+              <Badge variant="secondary" className="animate-pulse">
+                Saving...
+              </Badge>
+            )}
           </div>
+          
+          {((scanMode === 'supplies' && !supplierId) || (scanMode === 'receivables' && !projectId)) && (
+            <p className="text-sm text-muted-foreground mt-2">
+              Please select a {scanMode === 'supplies' ? 'supplier' : 'project'} before starting the scanner.
+            </p>
+          )}
         </CardContent>
       </Card>
 
@@ -197,7 +405,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CheckCircle className="h-5 w-5 text-green-500" />
-              Scanned Materials
+              Scanned Materials ({scanMode === 'supplies' ? 'Supplier Inventory' : 'Site Receivables'})
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -214,6 +422,9 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
                         <p className="font-medium">{material.materialType}</p>
                         <p className="text-sm text-muted-foreground">
                           {material.supplierInfo} • Batch: {material.batchNumber}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Qty: {material.quantity} {material.unit} • Mode: {material.mode}
                         </p>
                         <p className="text-xs text-muted-foreground font-mono">
                           QR: {material.qrCode}
@@ -260,7 +471,10 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
             • QR codes will be automatically detected and processed
           </p>
           <p className="text-sm text-muted-foreground">
-            • Scanned materials are automatically verified against our database
+            • Select appropriate mode: Supplier (inventory) or Building Site (receiving)
+          </p>
+          <p className="text-sm text-muted-foreground">
+            • Scanned materials are automatically saved to the database
           </p>
         </CardContent>
       </Card>

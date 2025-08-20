@@ -309,6 +309,125 @@ export type Database = {
           },
         ]
       }
+      scanned_receivables: {
+        Row: {
+          batch_number: string | null
+          condition: string | null
+          delivery_id: string | null
+          id: string
+          material_type: string
+          notes: string | null
+          project_id: string | null
+          qr_code: string
+          quantity: number | null
+          received_at: string
+          scanned_by: string | null
+          supplier_info: string | null
+          unit: string | null
+          verified: boolean | null
+        }
+        Insert: {
+          batch_number?: string | null
+          condition?: string | null
+          delivery_id?: string | null
+          id?: string
+          material_type: string
+          notes?: string | null
+          project_id?: string | null
+          qr_code: string
+          quantity?: number | null
+          received_at?: string
+          scanned_by?: string | null
+          supplier_info?: string | null
+          unit?: string | null
+          verified?: boolean | null
+        }
+        Update: {
+          batch_number?: string | null
+          condition?: string | null
+          delivery_id?: string | null
+          id?: string
+          material_type?: string
+          notes?: string | null
+          project_id?: string | null
+          qr_code?: string
+          quantity?: number | null
+          received_at?: string
+          scanned_by?: string | null
+          supplier_info?: string | null
+          unit?: string | null
+          verified?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scanned_receivables_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "scanned_receivables_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scanned_supplies: {
+        Row: {
+          batch_number: string | null
+          id: string
+          material_type: string
+          notes: string | null
+          qr_code: string
+          quantity: number | null
+          scanned_at: string
+          scanned_by: string | null
+          status: string | null
+          supplier_id: string | null
+          supplier_info: string | null
+          unit: string | null
+        }
+        Insert: {
+          batch_number?: string | null
+          id?: string
+          material_type: string
+          notes?: string | null
+          qr_code: string
+          quantity?: number | null
+          scanned_at?: string
+          scanned_by?: string | null
+          status?: string | null
+          supplier_id?: string | null
+          supplier_info?: string | null
+          unit?: string | null
+        }
+        Update: {
+          batch_number?: string | null
+          id?: string
+          material_type?: string
+          notes?: string | null
+          qr_code?: string
+          quantity?: number | null
+          scanned_at?: string
+          scanned_by?: string | null
+          status?: string | null
+          supplier_id?: string | null
+          supplier_info?: string | null
+          unit?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scanned_supplies_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       suppliers: {
         Row: {
           address: string | null
