@@ -124,7 +124,13 @@ const Builders = () => {
         }}
       >
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">Find Trusted Builders in Kenya</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            <span className="text-black">Find</span>{' '}
+            <span className="text-red-600">Trusted</span>{' '}
+            <span className="text-green-600">Builders</span>{' '}
+            <span className="text-white">in</span>{' '}
+            <span className="text-green-600">Kenya</span>
+          </h1>
           <p className="text-xl mb-8 opacity-90">Connect with verified construction professionals - from individual craftsmen to large companies</p>
           
           {/* Search Bar */}
