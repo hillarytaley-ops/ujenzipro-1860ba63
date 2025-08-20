@@ -405,11 +405,10 @@ const DeliveryPortal = () => {
       )}
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="providers">Service Providers</TabsTrigger>
-          <TabsTrigger value="requests">Admin Requests</TabsTrigger>
-          <TabsTrigger value="builder-requests">Builder Requests</TabsTrigger>
-          <TabsTrigger value="apply">Apply as Provider</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="providers">Delivery Providers</TabsTrigger>
+          <TabsTrigger value="builder-requests">Delivery Request</TabsTrigger>
+          <TabsTrigger value="apply">Apply as Delivery</TabsTrigger>
         </TabsList>
 
         <TabsContent value="providers" className="space-y-4">
