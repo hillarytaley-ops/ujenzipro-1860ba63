@@ -2,14 +2,64 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, MapPin, Star, Package, Store } from "lucide-react";
+import { Search, MapPin, Star, Package, Store, FileText } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SupplierRegistrationForm from "@/components/SupplierRegistrationForm";
-import { useState } from "react";
+import ReceiptPortal from "@/components/ReceiptPortal";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Suppliers = () => {
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [supplierId, setSupplierId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkUserRole();
+  }, []);
+
+  const checkUserRole = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('id, role')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (profileError) {
+        console.error('Error fetching user role:', profileError);
+      } else {
+        setUserRole(profileData?.role || null);
+
+        // If user is a supplier, get their supplier ID
+        if (profileData?.role === 'supplier') {
+          const { data: supplierData, error: supplierError } = await supabase
+            .from('suppliers')
+            .select('id')
+            .eq('user_id', profileData.id)
+            .maybeSingle();
+
+          if (supplierError) {
+            console.error('Error fetching supplier ID:', supplierError);
+          } else {
+            setSupplierId(supplierData?.id || null);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error checking user role:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const suppliers = [
     {
@@ -396,6 +446,22 @@ const Suppliers = () => {
           </Button>
         </div>
       </section>
+
+      {/* Receipt Portal for Suppliers */}
+      {userRole === 'supplier' && (
+        <section className="py-16 bg-muted">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center gap-2 mb-6">
+              <FileText className="h-6 w-6 text-primary" />
+              <h2 className="text-3xl font-bold">Receipt Management</h2>
+            </div>
+            <p className="text-muted-foreground mb-6">
+              Upload and manage your material receipts and documentation
+            </p>
+            <ReceiptPortal userRole={userRole} supplierId={supplierId || undefined} />
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

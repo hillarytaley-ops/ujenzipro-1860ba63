@@ -13,7 +13,7 @@ import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import Feedback from "./pages/Feedback";
 import Tracking from "./pages/Tracking";
-import Receipts from "./pages/Receipts";
+
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,7 +34,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/tracking" element={<Tracking />} />
-          <Route path="/receipts" element={<Receipts />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
