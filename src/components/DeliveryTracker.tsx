@@ -73,7 +73,37 @@ const DeliveryTracker: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [projectDeliveries, setProjectDeliveries] = useState<Delivery[]>([]);
   const [showProjectManager, setShowProjectManager] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUser(user);
+        
+        // Get user role from profiles table
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('user_id', user.id)
+          .maybeSingle();
+        
+        if (profileError) {
+          console.error('Error fetching user role:', profileError);
+        } else {
+          setUserRole(profileData?.role || null);
+        }
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+    }
+  };
 
   useEffect(() => {
     if (delivery) {
@@ -238,13 +268,15 @@ const DeliveryTracker: React.FC = () => {
               <Package className="h-6 w-6" />
               Delivery Tracker
             </div>
-            <Button 
-              variant="outline" 
-              onClick={() => setShowProjectManager(!showProjectManager)}
-            >
-              <Building className="h-4 w-4 mr-2" />
-              {showProjectManager ? 'Hide' : 'Show'} Projects
-            </Button>
+{userRole === 'admin' && (
+              <Button 
+                variant="outline" 
+                onClick={() => setShowProjectManager(!showProjectManager)}
+              >
+                <Building className="h-4 w-4 mr-2" />
+                {showProjectManager ? 'Hide' : 'Show'} Projects
+              </Button>
+            )}
           </CardTitle>
           <CardDescription>
             Track building materials deliveries across multiple construction projects
@@ -285,7 +317,7 @@ const DeliveryTracker: React.FC = () => {
         </CardContent>
       </Card>
 
-      {showProjectManager && (
+      {showProjectManager && userRole === 'admin' && (
         <ProjectManager 
           onProjectSelect={handleProjectSelect}
           selectedProject={selectedProject}
