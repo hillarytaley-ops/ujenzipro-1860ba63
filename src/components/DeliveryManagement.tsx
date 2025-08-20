@@ -34,16 +34,18 @@ interface Delivery {
   weight_kg: number;
   pickup_address: string;
   delivery_address: string;
-  estimated_delivery: string;
-  actual_delivery?: string;
+  estimated_delivery_time: string;
+  actual_delivery_time?: string;
   status: DeliveryStatus;
   driver_name?: string;
   driver_phone?: string;
-  vehicle_number?: string;
-  special_instructions?: string;
+  vehicle_details?: string;
+  notes?: string;
   created_at: string;
   updated_at: string;
   builder_id?: string;
+  supplier_id?: string;
+  project_id?: string;
 }
 
 interface Builder {
@@ -126,19 +128,22 @@ const DeliveryManagement: React.FC = () => {
       if (user) {
         setUser(user);
         
-        // Get user role
-        const { data: roleData, error: roleError } = await supabase
-          .rpc('get_user_role', { _user_id: user.id });
+        // Get user role from profiles table
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('user_id', user.id)
+          .maybeSingle();
         
-        if (roleError) {
-          console.error('Error fetching user role:', roleError);
+        if (profileError) {
+          console.error('Error fetching user role:', profileError);
           toast({
             title: "Error",
             description: "Could not determine user role. Please contact support.",
             variant: "destructive",
           });
         } else {
-          setUserRole(roleData);
+          setUserRole((profileData?.role as UserRole) || null);
         }
       }
     } catch (error) {
@@ -150,10 +155,10 @@ const DeliveryManagement: React.FC = () => {
 
   const fetchBuilders = async () => {
     try {
-      // Get builders from user_roles, then fetch their details from auth
+      // Get builders from profiles table
       const { data: roleData, error: roleError } = await supabase
-        .from('user_roles')
-        .select('user_id')
+        .from('profiles')
+        .select('id, full_name, role')
         .eq('role', 'builder');
 
       if (roleError) {
@@ -165,8 +170,8 @@ const DeliveryManagement: React.FC = () => {
         // For now, we'll use user IDs since we can't easily join with auth.users
         // In a real app, you'd want to store user info in a profiles table
         const buildersData = roleData.map(item => ({
-          id: item.user_id,
-          email: `User ${item.user_id.slice(-8)}` // Display last 8 chars of ID
+          id: item.id,
+          email: item.full_name || `User ${item.id.slice(-8)}`
         }));
         setBuilders(buildersData);
       }
@@ -234,16 +239,12 @@ const DeliveryManagement: React.FC = () => {
     }
 
     try {
-      // Generate tracking number
-      const { data: trackingData, error: trackingError } = await supabase
-        .rpc('generate_tracking_number');
-
-      if (trackingError) {
-        throw trackingError;
-      }
+      // Use a simple incrementing approach for tracking numbers since we don't have the function
+      const timestamp = Date.now();
+      const trackingNumber = `JG${timestamp.toString().slice(-8)}`;
 
       const deliveryData = {
-        tracking_number: trackingData,
+        tracking_number: trackingNumber,
         supplier_id: user.id,
         builder_id: newDelivery.builder_id || null,
         project_id: newDelivery.project_id || null,
@@ -252,11 +253,10 @@ const DeliveryManagement: React.FC = () => {
         weight_kg: parseFloat(newDelivery.weight_kg),
         pickup_address: newDelivery.pickup_address,
         delivery_address: newDelivery.delivery_address,
-        estimated_delivery: newDelivery.estimated_delivery || null,
-        driver_name: newDelivery.driver_name || null,
+        estimated_delivery_time: newDelivery.estimated_delivery || null,
         driver_phone: newDelivery.driver_phone || null,
-        vehicle_number: newDelivery.vehicle_number || null,
-        special_instructions: newDelivery.special_instructions || null,
+        vehicle_details: newDelivery.vehicle_number || null,
+        notes: newDelivery.special_instructions || null,
         status: 'pending' as DeliveryStatus
       };
 
@@ -270,7 +270,7 @@ const DeliveryManagement: React.FC = () => {
 
       toast({
         title: "Success",
-        description: `Delivery created with tracking number: ${trackingData}`,
+        description: `Delivery created with tracking number: ${trackingNumber}`,
       });
 
       setShowCreateDialog(false);
@@ -313,7 +313,7 @@ const DeliveryManagement: React.FC = () => {
       const updateData: any = { status: newStatus };
       
       if (newStatus === 'delivered') {
-        updateData.actual_delivery = new Date().toISOString();
+        updateData.actual_delivery_time = new Date().toISOString();
       }
 
       const { error } = await supabase

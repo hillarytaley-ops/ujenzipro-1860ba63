@@ -41,14 +41,15 @@ const RoleAssignment: React.FC = () => {
         return;
       }
 
-      // Insert role for current user (demo purposes)
+      // Update or insert role in profiles table
       const { error } = await supabase
-        .from('user_roles')
+        .from('profiles')
         .upsert([{
           user_id: user.id,
-          role: role
+          role: role,
+          full_name: user.email // fallback for display name
         }], {
-          onConflict: 'user_id,role'
+          onConflict: 'user_id'
         });
 
       if (error) {

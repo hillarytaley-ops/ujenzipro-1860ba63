@@ -21,14 +21,16 @@ interface Delivery {
   weight_kg: number;
   pickup_address: string;
   delivery_address: string;
-  estimated_delivery: string;
-  actual_delivery?: string;
+  estimated_delivery_time: string;
+  actual_delivery_time?: string;
   status: DeliveryStatus;
   driver_name?: string;
   driver_phone?: string;
-  vehicle_number?: string;
-  special_instructions?: string;
+  vehicle_details?: string;
+  notes?: string;
   project_id?: string;
+  builder_id?: string;
+  supplier_id?: string;
   created_at: string;
   updated_at: string;
 }
@@ -41,7 +43,7 @@ interface Project {
   start_date?: string;
   end_date?: string;
   status: string;
-  owner_id: string;
+  builder_id: string;
   created_at: string;
   updated_at: string;
 }
@@ -407,17 +409,17 @@ const DeliveryTracker: React.FC = () => {
                   ESTIMATED DELIVERY
                 </h4>
                 <p className="text-sm">
-                  {delivery.estimated_delivery ? formatDate(delivery.estimated_delivery) : 'TBD'}
+                  {delivery.estimated_delivery_time ? formatDate(delivery.estimated_delivery_time) : 'TBD'}
                 </p>
               </div>
 
-              {delivery.actual_delivery && (
+              {delivery.actual_delivery_time && (
                 <div>
                   <h4 className="font-semibold text-sm text-muted-foreground flex items-center gap-1">
                     <CheckCircle className="h-4 w-4" />
                     DELIVERED
                   </h4>
-                  <p className="text-sm">{formatDate(delivery.actual_delivery)}</p>
+                  <p className="text-sm">{formatDate(delivery.actual_delivery_time)}</p>
                 </div>
               )}
 
@@ -434,16 +436,16 @@ const DeliveryTracker: React.FC = () => {
                       {delivery.driver_phone}
                     </p>
                   )}
-                  {delivery.vehicle_number && (
-                    <p className="text-sm">Vehicle: {delivery.vehicle_number}</p>
+                  {delivery.vehicle_details && (
+                    <p className="text-sm">Vehicle: {delivery.vehicle_details}</p>
                   )}
                 </div>
               )}
 
-              {delivery.special_instructions && (
+              {delivery.notes && (
                 <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground">SPECIAL INSTRUCTIONS</h4>
-                  <p className="text-sm">{delivery.special_instructions}</p>
+                  <h4 className="font-semibold text-sm text-muted-foreground">NOTES</h4>
+                  <p className="text-sm">{delivery.notes}</p>
                 </div>
               )}
             </CardContent>

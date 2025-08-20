@@ -20,7 +20,7 @@ interface Project {
   start_date?: string;
   end_date?: string;
   status: string;
-  owner_id: string;
+  builder_id: string;
   created_at: string;
   updated_at: string;
 }
@@ -115,7 +115,7 @@ const ProjectManager: React.FC<ProjectManagerProps> = ({ onProjectSelect, select
         start_date: newProject.start_date || null,
         end_date: newProject.end_date || null,
         status: newProject.status,
-        owner_id: user.id
+        builder_id: user.id
       };
 
       const { error } = await supabase
