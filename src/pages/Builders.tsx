@@ -10,6 +10,14 @@ import ReceiptPortal from "@/components/ReceiptPortal";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
+// Import builder images
+import kamauConstructionImg from "@/assets/kamau-construction.jpg";
+import johnMwangiImg from "@/assets/john-mwangi.jpg";
+import njeriConstructionImg from "@/assets/njeri-construction.jpg";
+import peterOtienoImg from "@/assets/peter-otieno.jpg";
+import graceWanjikuImg from "@/assets/grace-wanjiku.jpg";
+import otienoContractorsImg from "@/assets/otieno-contractors.jpg";
+
 const Builders = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +60,7 @@ const Builders = () => {
       projects: 45,
       specialties: ["Residential", "Commercial"],
       type: "Company",
-      image: "/placeholder.svg"
+      image: kamauConstructionImg
     },
     {
       name: "John Mwangi (Independent)",
@@ -61,7 +69,7 @@ const Builders = () => {
       projects: 15,
       specialties: ["Residential", "Renovations"],
       type: "Individual",
-      image: "/placeholder.svg"
+      image: johnMwangiImg
     },
     {
       name: "Njeri Construction",
@@ -70,7 +78,7 @@ const Builders = () => {
       projects: 28,
       specialties: ["Residential", "Renovation"],
       type: "Company",
-      image: "/placeholder.svg"
+      image: njeriConstructionImg
     },
     {
       name: "Peter Otieno (Contractor)",
@@ -79,7 +87,7 @@ const Builders = () => {
       projects: 22,
       specialties: ["Home Extensions", "Repairs"],
       type: "Individual", 
-      image: "/placeholder.svg"
+      image: peterOtienoImg
     },
     {
       name: "Grace Wanjiku (Builder)",
@@ -88,7 +96,7 @@ const Builders = () => {
       projects: 18,
       specialties: ["Custom Homes", "Interior Work"],
       type: "Individual",
-      image: "/placeholder.svg"
+      image: graceWanjikuImg
     },
     {
       name: "Otieno Contractors Ltd",
@@ -97,7 +105,7 @@ const Builders = () => {
       projects: 38,
       specialties: ["Commercial", "Infrastructure"],
       type: "Company",
-      image: "/placeholder.svg"
+      image: otienoContractorsImg
     }
   ];
 
@@ -171,8 +179,12 @@ const Builders = () => {
             {builders.map((builder, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
-                    <Building className="h-8 w-8 text-gray-600" />
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
+                    <img 
+                      src={builder.image} 
+                      alt={builder.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <CardTitle className="text-lg">{builder.name}</CardTitle>
                   <CardDescription className="flex items-center justify-center gap-1">
