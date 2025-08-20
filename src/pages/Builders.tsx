@@ -51,14 +51,16 @@ const Builders = () => {
       rating: 4.8,
       projects: 45,
       specialties: ["Residential", "Commercial"],
+      type: "Company",
       image: "/placeholder.svg"
     },
     {
-      name: "Mwangi Builders",
-      location: "Kisumu",
+      name: "John Mwangi (Independent)",
+      location: "Kisumu", 
       rating: 4.6,
-      projects: 32,
-      specialties: ["Infrastructure", "Industrial"],
+      projects: 15,
+      specialties: ["Residential", "Renovations"],
+      type: "Individual",
       image: "/placeholder.svg"
     },
     {
@@ -67,14 +69,34 @@ const Builders = () => {
       rating: 4.9,
       projects: 28,
       specialties: ["Residential", "Renovation"],
+      type: "Company",
       image: "/placeholder.svg"
     },
     {
-      name: "Otieno Contractors",
+      name: "Peter Otieno (Contractor)",
       location: "Nakuru",
+      rating: 4.7,
+      projects: 22,
+      specialties: ["Home Extensions", "Repairs"],
+      type: "Individual", 
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Grace Wanjiku (Builder)",
+      location: "Eldoret",
+      rating: 4.8,
+      projects: 18,
+      specialties: ["Custom Homes", "Interior Work"],
+      type: "Individual",
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Otieno Contractors Ltd",
+      location: "Meru",
       rating: 4.7,
       projects: 38,
       specialties: ["Commercial", "Infrastructure"],
+      type: "Company",
       image: "/placeholder.svg"
     }
   ];
@@ -95,7 +117,7 @@ const Builders = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Find Trusted Builders in Kenya</h1>
-          <p className="text-xl mb-8 opacity-90">Connect with verified construction professionals across the country</p>
+          <p className="text-xl mb-8 opacity-90">Connect with verified construction professionals - from individual craftsmen to large companies</p>
           
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto flex gap-4">
@@ -118,7 +140,7 @@ const Builders = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-black">1,000+</div>
+              <div className="text-3xl font-bold text-black">1,500+</div>
               <div className="text-gray-600">Registered Builders</div>
             </div>
             <div>
@@ -141,11 +163,11 @@ const Builders = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">Featured Builders</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Featured Builders & Contractors</h2>
             <Button variant="outline">View All Builders</Button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {builders.map((builder, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center">
@@ -170,6 +192,9 @@ const Builders = () => {
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-1 mb-4 justify-center">
+                    <Badge variant="outline" className="text-xs">
+                      {builder.type}
+                    </Badge>
                     {builder.specialties.map((specialty, idx) => (
                       <Badge key={idx} variant="secondary" className="text-xs">
                         {specialty}
@@ -197,10 +222,10 @@ const Builders = () => {
         }}
       >
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl font-bold mb-4">Are You a Builder?</h2>
-          <p className="text-xl mb-8 opacity-90">Join JengaPro and expand your business reach</p>
+          <h2 className="text-3xl font-bold mb-4">Are You a Builder or Contractor?</h2>
+          <p className="text-xl mb-8 opacity-90">Join JengaPro as an individual builder or construction company and expand your business reach</p>
           <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/80 text-lg px-8 py-4">
-            Register as Builder
+            Register Now
           </Button>
         </div>
       </section>
