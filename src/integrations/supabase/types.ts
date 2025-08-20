@@ -309,6 +309,82 @@ export type Database = {
           },
         ]
       }
+      receipt_uploads: {
+        Row: {
+          content_type: string | null
+          created_at: string
+          delivery_id: string | null
+          file_name: string
+          file_path: string
+          file_size: number | null
+          id: string
+          notes: string | null
+          receipt_type: string | null
+          scanned_supply_id: string | null
+          shared_with_builder: boolean | null
+          supplier_id: string | null
+          updated_at: string
+          uploaded_at: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          content_type?: string | null
+          created_at?: string
+          delivery_id?: string | null
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          id?: string
+          notes?: string | null
+          receipt_type?: string | null
+          scanned_supply_id?: string | null
+          shared_with_builder?: boolean | null
+          supplier_id?: string | null
+          updated_at?: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          content_type?: string | null
+          created_at?: string
+          delivery_id?: string | null
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          notes?: string | null
+          receipt_type?: string | null
+          scanned_supply_id?: string | null
+          shared_with_builder?: boolean | null
+          supplier_id?: string | null
+          updated_at?: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipt_uploads_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipt_uploads_scanned_supply_id_fkey"
+            columns: ["scanned_supply_id"]
+            isOneToOne: false
+            referencedRelation: "scanned_supplies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipt_uploads_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       scanned_receivables: {
         Row: {
           batch_number: string | null
