@@ -247,7 +247,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
                   <SelectItem value="receivables">
                     <div className="flex items-center gap-2">
                       <Building className="h-4 w-4" />
-                      Building Site Receiving
+                      Site Personnel - Material Receiving
                     </div>
                   </SelectItem>
                 </SelectContent>
@@ -307,7 +307,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
             <p className="text-sm text-muted-foreground">
               {scanMode === 'supplies' 
                 ? '📦 Scanning materials at supplier location for inventory management'
-                : '🏗️ Scanning received materials at building site for project tracking'
+                : '🏗️ Site personnel scan materials upon receipt before storage/usage'
               }
             </p>
           </div>
@@ -471,7 +471,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
             • QR codes will be automatically detected and processed
           </p>
           <p className="text-sm text-muted-foreground">
-            • Select appropriate mode: Supplier (inventory) or Building Site (receiving)
+            • Select appropriate mode: Supplier (inventory) or Site Personnel (receiving)
           </p>
           <p className="text-sm text-muted-foreground">
             • Scanned materials are automatically saved to the database
