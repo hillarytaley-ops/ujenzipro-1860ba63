@@ -121,6 +121,14 @@ const DeliveryTracker: React.FC = () => {
           (payload) => {
             console.log('Real-time update:', payload);
             fetchUpdates(delivery.id);
+            // Show toast notification for new updates
+            if (payload.eventType === 'INSERT') {
+              const newUpdate = payload.new as DeliveryUpdate;
+              toast({
+                title: "🚚 Delivery Update",
+                description: `Status: ${statusConfig[newUpdate.status as DeliveryStatus]?.label || newUpdate.status}`,
+              });
+            }
           }
         )
         .on(
@@ -135,6 +143,11 @@ const DeliveryTracker: React.FC = () => {
             console.log('Delivery status update:', payload);
             if (payload.new && payload.new.status && Object.keys(statusConfig).includes(payload.new.status)) {
               setDelivery(payload.new as Delivery);
+              // Show toast for status changes
+              toast({
+                title: "📦 Delivery Status Changed",
+                description: `Now: ${statusConfig[payload.new.status as DeliveryStatus]?.label}`,
+              });
             }
           }
         )
@@ -144,7 +157,7 @@ const DeliveryTracker: React.FC = () => {
         supabase.removeChannel(channel);
       };
     }
-  }, [delivery]);
+  }, [delivery, toast]);
 
   const fetchUpdates = async (deliveryId: string) => {
     const { data, error } = await supabase
@@ -490,13 +503,30 @@ const DeliveryTracker: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    Updates refresh automatically
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <span className="text-xs text-green-600">Live</span>
+                  </div>
+                </div>
                 {updates.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No tracking updates available yet.</p>
+                  <div className="text-center py-8">
+                    <Package className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
+                    <p className="text-sm text-muted-foreground">No tracking updates available yet.</p>
+                    <p className="text-xs text-muted-foreground mt-1">Updates will appear here automatically</p>
+                  </div>
                 ) : (
                   updates.map((update, index) => (
-                    <div key={update.id} className="flex gap-3">
+                    <div key={update.id} className={`flex gap-3 p-3 rounded-lg transition-all duration-300 ${
+                      index === 0 ? 'bg-primary/5 border border-primary/20' : 'hover:bg-muted/50'
+                    }`}>
                       <div className="flex flex-col items-center">
-                        <div className={`w-3 h-3 rounded-full ${index === 0 ? 'bg-primary' : 'bg-muted'}`} />
+                        <div className={`w-3 h-3 rounded-full ${
+                          index === 0 ? 'bg-primary animate-pulse' : 'bg-muted'
+                        }`} />
                         {index < updates.length - 1 && <div className="w-px h-8 bg-muted mt-2" />}
                       </div>
                       <div className="flex-1 pb-4">
