@@ -10,6 +10,7 @@ import QRScanner from './QRScanner';
 import LiveStreamMonitor from './LiveStreamMonitor';
 import CameraSetup from './CameraSetup';
 import PhysicalCameraViewer from './PhysicalCameraViewer';
+import OrderManagement from './OrderManagement';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -506,74 +507,48 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className={`grid w-full ${user && (userRole === 'admin' || userRole === 'supplier') ? 'grid-cols-6' : userRole === 'builder' ? 'grid-cols-4' : 'grid-cols-1'}`}>
-          <TabsTrigger value="tracker" className="flex items-center gap-2">
-            <Eye className="h-4 w-4" />
-            Track Delivery
-          </TabsTrigger>
+        <TabsList className="grid w-full grid-cols-6">
+          <TabsTrigger value="tracker">Tracking</TabsTrigger>
           {user && (userRole === 'admin' || userRole === 'supplier') && (
-            <>
-              <TabsTrigger value="camera-setup">Camera Setup</TabsTrigger>
-              <TabsTrigger value="physical-camera">Physical Camera</TabsTrigger>
-            </>
-          )}
-          {user && (userRole === 'admin' || userRole === 'builder') && (
-            <>
-              <TabsTrigger 
-                value="camera" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSecureTabAccess('camera');
-                }}
-              >
-                AI Camera
-              </TabsTrigger>
-              <TabsTrigger 
-                value="qr-scanner"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSecureTabAccess('qr-scanner');
-                }}
-              >
-                QR Scanner
-              </TabsTrigger>
-              <TabsTrigger 
-                value="monitor"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSecureTabAccess('monitor');
-                }}
-              >
-                Live Monitor
-              </TabsTrigger>
-            </>
-          )}
-          {user && userRole && (
-            <TabsTrigger value="deliveries" className="flex items-center gap-2">
-              <Package className="h-4 w-4" />
-              Manage Deliveries
+            <TabsTrigger 
+              value="orders"
+              onClick={() => handleSecureTabAccess('orders')}
+            >
+              Orders
             </TabsTrigger>
           )}
+          <TabsTrigger 
+            value="camera"
+            onClick={() => handleSecureTabAccess('camera')}
+          >
+            Cameras
+          </TabsTrigger>
+          <TabsTrigger 
+            value="qr-scanner"
+            onClick={() => handleSecureTabAccess('qr-scanner')}
+          >
+            QR Scanner
+          </TabsTrigger>
+          <TabsTrigger 
+            value="live-monitor"
+            onClick={() => handleSecureTabAccess('live-monitor')}
+          >
+            Live Monitor
+          </TabsTrigger>
+          <TabsTrigger 
+            value="delivery-management"
+            onClick={() => handleSecureTabAccess('delivery-management')}
+          >
+            Manage Deliveries
+          </TabsTrigger>
         </TabsList>
 
           <TabsContent value="tracker">
             <DeliveryTracker />
           </TabsContent>
 
-
-          <TabsContent value="camera-setup">
-            <CameraSetup onCameraConnected={handleCameraConnected} />
-          </TabsContent>
-
-          <TabsContent value="physical-camera">
-            <PhysicalCameraViewer 
-              onQRCodeScanned={(data) => {
-                toast({ description: `QR Code Detected: ${data}` });
-              }}
-              onMaterialDetected={(material) => {
-                toast({ description: `Material Detected: ${material.type}` });
-              }}
-            />
+          <TabsContent value="orders">
+            <OrderManagement />
           </TabsContent>
 
           <TabsContent value="camera">
@@ -595,12 +570,12 @@ const DeliveryManagement: React.FC = () => {
             />
           </TabsContent>
 
-          <TabsContent value="monitor">
+          <TabsContent value="live-monitor">
             <LiveStreamMonitor />
           </TabsContent>
 
         {user && userRole ? (
-          <TabsContent value="deliveries" className="space-y-6">
+          <TabsContent value="delivery-management" className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-2xl font-semibold">
@@ -851,7 +826,7 @@ const DeliveryManagement: React.FC = () => {
             </Card>
           </TabsContent>
         ) : (
-          <TabsContent value="deliveries" className="space-y-6">
+          <TabsContent value="delivery-management" className="space-y-6">
             <Alert>
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>

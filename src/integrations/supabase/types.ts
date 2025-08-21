@@ -149,6 +149,57 @@ export type Database = {
           },
         ]
       }
+      delivery_orders: {
+        Row: {
+          builder_id: string
+          created_at: string
+          delivery_address: string
+          id: string
+          materials: Json
+          notes: string | null
+          order_number: string
+          pickup_address: string
+          project_id: string | null
+          qr_coded_items: number
+          status: string
+          supplier_id: string
+          total_items: number
+          updated_at: string
+        }
+        Insert: {
+          builder_id: string
+          created_at?: string
+          delivery_address: string
+          id?: string
+          materials?: Json
+          notes?: string | null
+          order_number: string
+          pickup_address: string
+          project_id?: string | null
+          qr_coded_items?: number
+          status?: string
+          supplier_id: string
+          total_items?: number
+          updated_at?: string
+        }
+        Update: {
+          builder_id?: string
+          created_at?: string
+          delivery_address?: string
+          id?: string
+          materials?: Json
+          notes?: string | null
+          order_number?: string
+          pickup_address?: string
+          project_id?: string | null
+          qr_coded_items?: number
+          status?: string
+          supplier_id?: string
+          total_items?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       delivery_providers: {
         Row: {
           address: string | null
@@ -345,6 +396,56 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_materials: {
+        Row: {
+          batch_number: string | null
+          created_at: string
+          id: string
+          is_qr_coded: boolean
+          is_scanned: boolean
+          material_type: string
+          order_id: string
+          qr_code: string | null
+          quantity: number
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          batch_number?: string | null
+          created_at?: string
+          id?: string
+          is_qr_coded?: boolean
+          is_scanned?: boolean
+          material_type: string
+          order_id: string
+          qr_code?: string | null
+          quantity: number
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          batch_number?: string | null
+          created_at?: string
+          id?: string
+          is_qr_coded?: boolean
+          is_scanned?: boolean
+          material_type?: string
+          order_id?: string
+          qr_code?: string | null
+          quantity?: number
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_materials_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_orders"
             referencedColumns: ["id"]
           },
         ]
