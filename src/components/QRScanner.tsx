@@ -191,6 +191,9 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
     try {
       setLoading(true);
       
+      const { data: { user } } = await supabase.auth.getUser();
+      const currentUserId = user?.id;
+      
       if (material.mode === 'supplies') {
         const { error } = await supabase.from('scanned_supplies').insert({
           supplier_id: material.supplierId,
@@ -200,10 +203,17 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
           quantity: material.quantity,
           unit: material.unit,
           supplier_info: material.supplierInfo,
-          status: material.status
+          status: material.status,
+          scanned_by: currentUserId,
+          dispatch_status: 'ready_to_dispatch',
+          scanned_for_dispatch: true
         });
         
         if (error) throw error;
+        
+        toast.success('Material scanned for dispatch', {
+          description: `${material.materialType} ready for shipping`
+        });
       } else {
         const { error } = await supabase.from('scanned_receivables').insert({
           project_id: material.projectId,
@@ -214,10 +224,16 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
           unit: material.unit,
           supplier_info: material.supplierInfo,
           condition: material.condition,
-          verified: material.verified
+          verified: material.verified,
+          received_by: currentUserId,
+          received_status: 'received'
         });
         
         if (error) throw error;
+        
+        toast.success('Material received on site', {
+          description: `${material.materialType} confirmed at project location`
+        });
       }
     } catch (error) {
       console.error('Error saving scan:', error);

@@ -11,6 +11,7 @@ import LiveStreamMonitor from './LiveStreamMonitor';
 import CameraSetup from './CameraSetup';
 import PhysicalCameraViewer from './PhysicalCameraViewer';
 import OrderManagement from './OrderManagement';
+import MaterialTrackingDashboard from './MaterialTrackingDashboard';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -507,7 +508,7 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="tracker">Tracking</TabsTrigger>
           {user && (userRole === 'admin' || userRole === 'supplier') && (
             <TabsTrigger 
@@ -517,6 +518,12 @@ const DeliveryManagement: React.FC = () => {
               Orders
             </TabsTrigger>
           )}
+          <TabsTrigger 
+            value="material-tracking"
+            onClick={() => handleSecureTabAccess('material-tracking')}
+          >
+            Material Tracking
+          </TabsTrigger>
           <TabsTrigger 
             value="camera"
             onClick={() => handleSecureTabAccess('camera')}
@@ -549,6 +556,10 @@ const DeliveryManagement: React.FC = () => {
 
           <TabsContent value="orders">
             <OrderManagement />
+          </TabsContent>
+
+          <TabsContent value="material-tracking">
+            <MaterialTrackingDashboard />
           </TabsContent>
 
           <TabsContent value="camera">
