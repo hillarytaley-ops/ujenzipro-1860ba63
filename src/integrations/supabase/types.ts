@@ -536,6 +536,63 @@ export type Database = {
           },
         ]
       }
+      quotation_requests: {
+        Row: {
+          created_at: string
+          delivery_address: string
+          id: string
+          material_name: string
+          preferred_delivery_date: string | null
+          project_description: string | null
+          quantity: number
+          quote_amount: number | null
+          quote_valid_until: string | null
+          requester_id: string
+          special_requirements: string | null
+          status: string
+          supplier_id: string
+          supplier_notes: string | null
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_address: string
+          id?: string
+          material_name: string
+          preferred_delivery_date?: string | null
+          project_description?: string | null
+          quantity: number
+          quote_amount?: number | null
+          quote_valid_until?: string | null
+          requester_id: string
+          special_requirements?: string | null
+          status?: string
+          supplier_id: string
+          supplier_notes?: string | null
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          delivery_address?: string
+          id?: string
+          material_name?: string
+          preferred_delivery_date?: string | null
+          project_description?: string | null
+          quantity?: number
+          quote_amount?: number | null
+          quote_valid_until?: string | null
+          requester_id?: string
+          special_requirements?: string | null
+          status?: string
+          supplier_id?: string
+          supplier_notes?: string | null
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       receipt_uploads: {
         Row: {
           content_type: string | null
