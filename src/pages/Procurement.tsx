@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { QuotationsList } from "@/components/QuotationsList";
 import { PurchaseOrderDialog } from "@/components/PurchaseOrderDialog";
+import { ComprehensivePurchaseOrderForm } from "@/components/ComprehensivePurchaseOrderForm";
 import DeliveryNoteUpload from "@/components/DeliveryNoteUpload";
 import OrderQRManager from "@/components/PurchaseOrderQRManager";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Package, Truck, QrCode } from "lucide-react";
+import { FileText, Package, Truck, QrCode, Plus, Building2 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -28,9 +30,12 @@ const Procurement = () => {
     id: string;
     role: string;
     company_name?: string;
+    full_name?: string;
+    phone?: string;
   } | null>(null);
   const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showComprehensiveForm, setShowComprehensiveForm] = useState(false);
 
   useEffect(() => {
     const getCurrentUser = async () => {
@@ -40,7 +45,7 @@ const Procurement = () => {
         if (user) {
           const { data: profile } = await supabase
             .from('profiles')
-            .select('id, role, company_name')
+            .select('id, role, company_name, full_name, phone')
             .eq('user_id', user.id)
             .single();
           
@@ -189,10 +194,42 @@ const Procurement = () => {
             <TabsContent value="orders" className="space-y-4">
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold">Your Purchase Orders</h2>
-                <PurchaseOrderDialog
-                  supplierName=""
-                  userProfile={userProfile}
-                />
+                <div className="flex gap-2">
+                  <PurchaseOrderDialog
+                    supplierName=""
+                    userProfile={userProfile}
+                  />
+                  <Dialog open={showComprehensiveForm} onOpenChange={setShowComprehensiveForm}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="gap-2">
+                        <Building2 className="h-4 w-4" />
+                        Professional PO Form
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-none w-[95vw] h-[95vh] overflow-hidden p-0">
+                      <DialogHeader className="p-6 pb-2">
+                        <DialogTitle className="flex items-center gap-2">
+                          <Building2 className="h-5 w-5" />
+                          Comprehensive Purchase Order Form
+                        </DialogTitle>
+                        <DialogDescription>
+                          Professional purchase order form for builders and construction companies
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="overflow-y-auto px-6 pb-6">
+                        <ComprehensivePurchaseOrderForm
+                          userProfile={userProfile}
+                          onClose={() => {
+                            setShowComprehensiveForm(false);
+                            if (userProfile) {
+                              fetchPurchaseOrders(userProfile.id);
+                            }
+                          }}
+                        />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </div>
               
               {purchaseOrders.length === 0 ? (
