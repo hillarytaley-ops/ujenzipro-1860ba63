@@ -785,13 +785,17 @@ export type Database = {
           batch_number: string | null
           condition: string | null
           delivery_id: string | null
+          delivery_order_id: string | null
           id: string
+          matched_supply_id: string | null
           material_type: string
           notes: string | null
           project_id: string | null
           qr_code: string
           quantity: number | null
           received_at: string
+          received_by: string | null
+          received_status: string | null
           scanned_by: string | null
           supplier_info: string | null
           unit: string | null
@@ -801,13 +805,17 @@ export type Database = {
           batch_number?: string | null
           condition?: string | null
           delivery_id?: string | null
+          delivery_order_id?: string | null
           id?: string
+          matched_supply_id?: string | null
           material_type: string
           notes?: string | null
           project_id?: string | null
           qr_code: string
           quantity?: number | null
           received_at?: string
+          received_by?: string | null
+          received_status?: string | null
           scanned_by?: string | null
           supplier_info?: string | null
           unit?: string | null
@@ -817,13 +825,17 @@ export type Database = {
           batch_number?: string | null
           condition?: string | null
           delivery_id?: string | null
+          delivery_order_id?: string | null
           id?: string
+          matched_supply_id?: string | null
           material_type?: string
           notes?: string | null
           project_id?: string | null
           qr_code?: string
           quantity?: number | null
           received_at?: string
+          received_by?: string | null
+          received_status?: string | null
           scanned_by?: string | null
           supplier_info?: string | null
           unit?: string | null
@@ -849,6 +861,10 @@ export type Database = {
       scanned_supplies: {
         Row: {
           batch_number: string | null
+          delivery_order_id: string | null
+          dispatch_status: string | null
+          dispatched_at: string | null
+          dispatched_by: string | null
           id: string
           material_type: string
           notes: string | null
@@ -856,6 +872,7 @@ export type Database = {
           quantity: number | null
           scanned_at: string
           scanned_by: string | null
+          scanned_for_dispatch: boolean | null
           status: string | null
           supplier_id: string | null
           supplier_info: string | null
@@ -863,6 +880,10 @@ export type Database = {
         }
         Insert: {
           batch_number?: string | null
+          delivery_order_id?: string | null
+          dispatch_status?: string | null
+          dispatched_at?: string | null
+          dispatched_by?: string | null
           id?: string
           material_type: string
           notes?: string | null
@@ -870,6 +891,7 @@ export type Database = {
           quantity?: number | null
           scanned_at?: string
           scanned_by?: string | null
+          scanned_for_dispatch?: boolean | null
           status?: string | null
           supplier_id?: string | null
           supplier_info?: string | null
@@ -877,6 +899,10 @@ export type Database = {
         }
         Update: {
           batch_number?: string | null
+          delivery_order_id?: string | null
+          dispatch_status?: string | null
+          dispatched_at?: string | null
+          dispatched_by?: string | null
           id?: string
           material_type?: string
           notes?: string | null
@@ -884,6 +910,7 @@ export type Database = {
           quantity?: number | null
           scanned_at?: string
           scanned_by?: string | null
+          scanned_for_dispatch?: boolean | null
           status?: string | null
           supplier_id?: string | null
           supplier_info?: string | null
