@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { QuotationsList } from "@/components/QuotationsList";
 import { PurchaseOrderDialog } from "@/components/PurchaseOrderDialog";
+import DeliveryNoteUpload from "@/components/DeliveryNoteUpload";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Package } from "lucide-react";
+import { FileText, Package, Truck } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -155,7 +156,7 @@ const Procurement = () => {
           </div>
 
           <Tabs defaultValue="quotations" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="quotations" className="gap-2">
                 <FileText className="h-4 w-4" />
                 Quotation Requests
@@ -163,6 +164,10 @@ const Procurement = () => {
               <TabsTrigger value="orders" className="gap-2">
                 <Package className="h-4 w-4" />
                 Purchase Orders
+              </TabsTrigger>
+              <TabsTrigger value="delivery-notes" className="gap-2">
+                <Truck className="h-4 w-4" />
+                Delivery Notes
               </TabsTrigger>
             </TabsList>
 
@@ -233,6 +238,10 @@ const Procurement = () => {
                   ))}
                 </div>
               )}
+            </TabsContent>
+
+            <TabsContent value="delivery-notes">
+              <DeliveryNoteUpload userProfile={userProfile} />
             </TabsContent>
           </Tabs>
         </div>

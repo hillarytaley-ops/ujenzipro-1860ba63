@@ -149,6 +149,54 @@ export type Database = {
           },
         ]
       }
+      delivery_notes: {
+        Row: {
+          content_type: string | null
+          created_at: string
+          delivery_note_number: string
+          dispatch_date: string
+          expected_delivery_date: string | null
+          file_name: string
+          file_path: string
+          file_size: number | null
+          id: string
+          notes: string | null
+          purchase_order_id: string
+          supplier_id: string
+          updated_at: string
+        }
+        Insert: {
+          content_type?: string | null
+          created_at?: string
+          delivery_note_number: string
+          dispatch_date: string
+          expected_delivery_date?: string | null
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          id?: string
+          notes?: string | null
+          purchase_order_id: string
+          supplier_id: string
+          updated_at?: string
+        }
+        Update: {
+          content_type?: string | null
+          created_at?: string
+          delivery_note_number?: string
+          dispatch_date?: string
+          expected_delivery_date?: string | null
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          notes?: string | null
+          purchase_order_id?: string
+          supplier_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       delivery_orders: {
         Row: {
           builder_id: string
