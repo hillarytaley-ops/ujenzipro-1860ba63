@@ -47,6 +47,8 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
   const [projects, setProjects] = useState<any[]>([]);
   const [suppliers, setSuppliers] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [userProfile, setUserProfile] = useState<any>(null);
+  const [hasAccess, setHasAccess] = useState(false);
 
   const startScanning = async () => {
     try {
@@ -137,8 +139,9 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
     }
   };
 
-  // Load projects and suppliers on mount
+  // Load projects and suppliers on mount, and check user access
   useEffect(() => {
+    checkUserAccess();
     loadProjectsAndSuppliers();
   }, []);
 
@@ -148,6 +151,29 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
     const interval = setInterval(simulateQRDetection, 1000);
     return () => clearInterval(interval);
   }, [isScanning, lastScan, scanMode, projectId, supplierId, quantity]);
+
+  const checkUserAccess = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role, company_name')
+          .eq('user_id', user.id)
+          .single();
+
+        setUserProfile(profile);
+        
+        // QR coding/scanning is only for individual builders (not professional builders/companies)
+        // Professional builders/companies use the Purchase Order system instead
+        const isProfessional = profile?.role === 'builder' || profile?.company_name;
+        setHasAccess(!isProfessional);
+      }
+    } catch (error) {
+      console.error('Error checking user access:', error);
+      setHasAccess(false);
+    }
+  };
 
   const loadProjectsAndSuppliers = async () => {
     try {
@@ -214,6 +240,36 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
     }
     return <Package className="h-4 w-4 text-muted-foreground" />;
   };
+
+  // Restrict access for professional builders and companies
+  if (!hasAccess) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Scan className="h-5 w-5" />
+            QR Code Scanner - Access Restricted
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-center py-8">
+          <div className="space-y-4">
+            <div className="text-muted-foreground">
+              <Package className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p className="text-lg font-medium mb-2">
+                QR coding and scanning is only available for individual builders
+              </p>
+              <p className="text-sm">
+                Professional builders and companies should use the Purchase Order system for material management.
+              </p>
+            </div>
+            <Button variant="outline" onClick={() => window.location.href = '/procurement'}>
+              Go to Procurement Dashboard
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <div className="space-y-6">
