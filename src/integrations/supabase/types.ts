@@ -594,6 +594,8 @@ export type Database = {
           items: Json
           payment_terms: string | null
           po_number: string
+          qr_code_generated: boolean | null
+          qr_code_url: string | null
           quotation_request_id: string | null
           special_instructions: string | null
           status: string
@@ -610,6 +612,8 @@ export type Database = {
           items?: Json
           payment_terms?: string | null
           po_number: string
+          qr_code_generated?: boolean | null
+          qr_code_url?: string | null
           quotation_request_id?: string | null
           special_instructions?: string | null
           status?: string
@@ -626,6 +630,8 @@ export type Database = {
           items?: Json
           payment_terms?: string | null
           po_number?: string
+          qr_code_generated?: boolean | null
+          qr_code_url?: string | null
           quotation_request_id?: string | null
           special_instructions?: string | null
           status?: string
