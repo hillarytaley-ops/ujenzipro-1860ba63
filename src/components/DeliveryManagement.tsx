@@ -12,7 +12,7 @@ import CameraSetup from './CameraSetup';
 import PhysicalCameraViewer from './PhysicalCameraViewer';
 import OrderManagement from './OrderManagement';
 import MaterialTrackingDashboard from './MaterialTrackingDashboard';
-import { SupplierDeliveryForm } from './SupplierDeliveryForm';
+import { DeliveryNoteForm } from './DeliveryNoteForm';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -74,7 +74,7 @@ const DeliveryManagement: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('tracker'); // Default to tracker (public)
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [showSupplierDeliveryForm, setShowSupplierDeliveryForm] = useState(false);
+  const [showDeliveryNoteForm, setShowDeliveryNoteForm] = useState(false);
   const [accessCodeInput, setAccessCodeInput] = useState('');
   const [hasSecurityAccess, setHasSecurityAccess] = useState(false);
   const [showAccessDialog, setShowAccessDialog] = useState(false);
@@ -747,25 +747,25 @@ const DeliveryManagement: React.FC = () => {
                     </DialogContent>
                   </Dialog>
                   
-                  <Dialog open={showSupplierDeliveryForm} onOpenChange={setShowSupplierDeliveryForm}>
+                  <Dialog open={showDeliveryNoteForm} onOpenChange={setShowDeliveryNoteForm}>
                     <DialogTrigger asChild>
                       <Button className="gap-2">
                         <FileText className="h-4 w-4" />
-                        Professional Delivery Form
+                        Create Delivery Note
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-none w-[95vw] h-[95vh] overflow-hidden p-0">
                       <DialogHeader className="p-6 pb-2">
                         <DialogTitle className="flex items-center gap-2">
                           <FileText className="h-5 w-5" />
-                          Comprehensive Supplier Delivery Form
+                          Supplier Delivery Note Form
                         </DialogTitle>
                         <p className="text-sm text-muted-foreground">
-                          Complete delivery documentation for professional suppliers
+                          Create delivery notes to send to builders
                         </p>
                       </DialogHeader>
                       <div className="overflow-y-auto px-6 pb-6">
-                        <SupplierDeliveryForm
+                        <DeliveryNoteForm
                           userProfile={{
                             id: user?.id || '',
                             role: userRole || '',
@@ -774,7 +774,7 @@ const DeliveryManagement: React.FC = () => {
                             phone: ''
                           }}
                           onClose={() => {
-                            setShowSupplierDeliveryForm(false);
+                            setShowDeliveryNoteForm(false);
                             fetchDeliveries();
                           }}
                         />
