@@ -12,6 +12,7 @@ import CameraSetup from './CameraSetup';
 import PhysicalCameraViewer from './PhysicalCameraViewer';
 import OrderManagement from './OrderManagement';
 import MaterialTrackingDashboard from './MaterialTrackingDashboard';
+import { SupplierDeliveryForm } from './SupplierDeliveryForm';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -22,7 +23,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Package, Truck, Clock, MapPin, Phone, Eye, AlertCircle, User } from 'lucide-react';
+import { Plus, Package, Truck, Clock, MapPin, Phone, Eye, AlertCircle, User, FileText, Building2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Link } from 'react-router-dom';
 
@@ -73,6 +74,7 @@ const DeliveryManagement: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('tracker'); // Default to tracker (public)
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showSupplierDeliveryForm, setShowSupplierDeliveryForm] = useState(false);
   const [accessCodeInput, setAccessCodeInput] = useState('');
   const [hasSecurityAccess, setHasSecurityAccess] = useState(false);
   const [showAccessDialog, setShowAccessDialog] = useState(false);
@@ -600,149 +602,186 @@ const DeliveryManagement: React.FC = () => {
                 </p>
               </div>
               {userRole === 'supplier' && (
-                <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-                  <DialogTrigger asChild>
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Create Delivery
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                    <DialogHeader>
-                      <DialogTitle>Create New Delivery</DialogTitle>
-                    </DialogHeader>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="material_type">Material Type</Label>
-                        <Input
-                          id="material_type"
-                          value={newDelivery.material_type}
-                          onChange={(e) => setNewDelivery({...newDelivery, material_type: e.target.value})}
-                          placeholder="e.g., Concrete, Steel, Lumber"
+                <div className="flex gap-2">
+                  <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Quick Delivery
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Create New Delivery</DialogTitle>
+                      </DialogHeader>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="material_type">Material Type</Label>
+                          <Input
+                            id="material_type"
+                            value={newDelivery.material_type}
+                            onChange={(e) => setNewDelivery({...newDelivery, material_type: e.target.value})}
+                            placeholder="e.g., Concrete, Steel, Lumber"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="quantity">Quantity</Label>
+                          <Input
+                            id="quantity"
+                            type="number"
+                            value={newDelivery.quantity}
+                            onChange={(e) => setNewDelivery({...newDelivery, quantity: e.target.value})}
+                            placeholder="Number of units"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="weight_kg">Weight (kg)</Label>
+                          <Input
+                            id="weight_kg"
+                            type="number"
+                            step="0.1"
+                            value={newDelivery.weight_kg}
+                            onChange={(e) => setNewDelivery({...newDelivery, weight_kg: e.target.value})}
+                            placeholder="Total weight"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="project_id">Assign to Project (Optional)</Label>
+                          <Select value={newDelivery.project_id} onValueChange={(value) => setNewDelivery({...newDelivery, project_id: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a project" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="">No project assigned</SelectItem>
+                              {projects.map((project) => (
+                                <SelectItem key={project.id} value={project.id}>
+                                  {project.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="builder_id">Assign to Builder (Optional)</Label>
+                          <Select value={newDelivery.builder_id} onValueChange={(value) => setNewDelivery({...newDelivery, builder_id: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a builder" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="">No builder assigned</SelectItem>
+                              {builders.map((builder) => (
+                                <SelectItem key={builder.id} value={builder.id}>
+                                  {builder.email}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="estimated_delivery">Estimated Delivery</Label>
+                          <Input
+                            id="estimated_delivery"
+                            type="datetime-local"
+                            value={newDelivery.estimated_delivery}
+                            onChange={(e) => setNewDelivery({...newDelivery, estimated_delivery: e.target.value})}
+                          />
+                        </div>
+                        <div className="col-span-2 space-y-2">
+                          <Label htmlFor="pickup_address">Pickup Address</Label>
+                          <Textarea
+                            id="pickup_address"
+                            value={newDelivery.pickup_address}
+                            onChange={(e) => setNewDelivery({...newDelivery, pickup_address: e.target.value})}
+                            placeholder="Full pickup address"
+                          />
+                        </div>
+                        <div className="col-span-2 space-y-2">
+                          <Label htmlFor="delivery_address">Delivery Address</Label>
+                          <Textarea
+                            id="delivery_address"
+                            value={newDelivery.delivery_address}
+                            onChange={(e) => setNewDelivery({...newDelivery, delivery_address: e.target.value})}
+                            placeholder="Full delivery address"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="driver_name">Driver Name</Label>
+                          <Input
+                            id="driver_name"
+                            value={newDelivery.driver_name}
+                            onChange={(e) => setNewDelivery({...newDelivery, driver_name: e.target.value})}
+                            placeholder="Driver's name"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="driver_phone">Driver Phone</Label>
+                          <Input
+                            id="driver_phone"
+                            value={newDelivery.driver_phone}
+                            onChange={(e) => setNewDelivery({...newDelivery, driver_phone: e.target.value})}
+                            placeholder="Driver's phone number"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="vehicle_number">Vehicle Number</Label>
+                          <Input
+                            id="vehicle_number"
+                            value={newDelivery.vehicle_number}
+                            onChange={(e) => setNewDelivery({...newDelivery, vehicle_number: e.target.value})}
+                            placeholder="Vehicle registration number"
+                          />
+                        </div>
+                        <div className="col-span-2 space-y-2">
+                          <Label htmlFor="special_instructions">Special Instructions</Label>
+                          <Textarea
+                            id="special_instructions"
+                            value={newDelivery.special_instructions}
+                            onChange={(e) => setNewDelivery({...newDelivery, special_instructions: e.target.value})}
+                            placeholder="Any special delivery instructions"
+                          />
+                        </div>
+                      </div>
+                      <Button onClick={createDelivery} className="w-full">
+                        Create Delivery
+                      </Button>
+                    </DialogContent>
+                  </Dialog>
+                  
+                  <Dialog open={showSupplierDeliveryForm} onOpenChange={setShowSupplierDeliveryForm}>
+                    <DialogTrigger asChild>
+                      <Button className="gap-2">
+                        <FileText className="h-4 w-4" />
+                        Professional Delivery Form
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-none w-[95vw] h-[95vh] overflow-hidden p-0">
+                      <DialogHeader className="p-6 pb-2">
+                        <DialogTitle className="flex items-center gap-2">
+                          <FileText className="h-5 w-5" />
+                          Comprehensive Supplier Delivery Form
+                        </DialogTitle>
+                        <p className="text-sm text-muted-foreground">
+                          Complete delivery documentation for professional suppliers
+                        </p>
+                      </DialogHeader>
+                      <div className="overflow-y-auto px-6 pb-6">
+                        <SupplierDeliveryForm
+                          userProfile={{
+                            id: user?.id || '',
+                            role: userRole || '',
+                            company_name: '',
+                            full_name: '',
+                            phone: ''
+                          }}
+                          onClose={() => {
+                            setShowSupplierDeliveryForm(false);
+                            fetchDeliveries();
+                          }}
                         />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="quantity">Quantity</Label>
-                        <Input
-                          id="quantity"
-                          type="number"
-                          value={newDelivery.quantity}
-                          onChange={(e) => setNewDelivery({...newDelivery, quantity: e.target.value})}
-                          placeholder="Number of units"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="weight_kg">Weight (kg)</Label>
-                        <Input
-                          id="weight_kg"
-                          type="number"
-                          step="0.1"
-                          value={newDelivery.weight_kg}
-                          onChange={(e) => setNewDelivery({...newDelivery, weight_kg: e.target.value})}
-                          placeholder="Total weight"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="project_id">Assign to Project (Optional)</Label>
-                        <Select value={newDelivery.project_id} onValueChange={(value) => setNewDelivery({...newDelivery, project_id: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a project" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="">No project assigned</SelectItem>
-                            {projects.map((project) => (
-                              <SelectItem key={project.id} value={project.id}>
-                                {project.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="builder_id">Assign to Builder (Optional)</Label>
-                        <Select value={newDelivery.builder_id} onValueChange={(value) => setNewDelivery({...newDelivery, builder_id: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a builder" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="">No builder assigned</SelectItem>
-                            {builders.map((builder) => (
-                              <SelectItem key={builder.id} value={builder.id}>
-                                {builder.email}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="estimated_delivery">Estimated Delivery</Label>
-                        <Input
-                          id="estimated_delivery"
-                          type="datetime-local"
-                          value={newDelivery.estimated_delivery}
-                          onChange={(e) => setNewDelivery({...newDelivery, estimated_delivery: e.target.value})}
-                        />
-                      </div>
-                      <div className="col-span-2 space-y-2">
-                        <Label htmlFor="pickup_address">Pickup Address</Label>
-                        <Textarea
-                          id="pickup_address"
-                          value={newDelivery.pickup_address}
-                          onChange={(e) => setNewDelivery({...newDelivery, pickup_address: e.target.value})}
-                          placeholder="Full pickup address"
-                        />
-                      </div>
-                      <div className="col-span-2 space-y-2">
-                        <Label htmlFor="delivery_address">Delivery Address</Label>
-                        <Textarea
-                          id="delivery_address"
-                          value={newDelivery.delivery_address}
-                          onChange={(e) => setNewDelivery({...newDelivery, delivery_address: e.target.value})}
-                          placeholder="Full delivery address"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="driver_name">Driver Name</Label>
-                        <Input
-                          id="driver_name"
-                          value={newDelivery.driver_name}
-                          onChange={(e) => setNewDelivery({...newDelivery, driver_name: e.target.value})}
-                          placeholder="Driver's name"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="driver_phone">Driver Phone</Label>
-                        <Input
-                          id="driver_phone"
-                          value={newDelivery.driver_phone}
-                          onChange={(e) => setNewDelivery({...newDelivery, driver_phone: e.target.value})}
-                          placeholder="Driver's phone number"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="vehicle_number">Vehicle Number</Label>
-                        <Input
-                          id="vehicle_number"
-                          value={newDelivery.vehicle_number}
-                          onChange={(e) => setNewDelivery({...newDelivery, vehicle_number: e.target.value})}
-                          placeholder="Vehicle registration number"
-                        />
-                      </div>
-                      <div className="col-span-2 space-y-2">
-                        <Label htmlFor="special_instructions">Special Instructions</Label>
-                        <Textarea
-                          id="special_instructions"
-                          value={newDelivery.special_instructions}
-                          onChange={(e) => setNewDelivery({...newDelivery, special_instructions: e.target.value})}
-                          placeholder="Any special delivery instructions"
-                        />
-                      </div>
-                    </div>
-                    <Button onClick={createDelivery} className="w-full">
-                      Create Delivery
-                    </Button>
-                  </DialogContent>
-                </Dialog>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               )}
             </div>
 
