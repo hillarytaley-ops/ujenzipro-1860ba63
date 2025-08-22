@@ -257,14 +257,26 @@ const Suppliers = () => {
   ];
 
   const categories = [
-    { name: "Cement", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
-    { name: "Steel", image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=150&h=150&fit=crop" },
-    { name: "Tiles", image: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=150&h=150&fit=crop" },
-    { name: "Paint", image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=150&h=150&fit=crop" },
-    { name: "Timber", image: "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=150&h=150&fit=crop" },
-    { name: "Hardware", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
-    { name: "Plumbing", image: "https://images.unsplash.com/photo-1621905252472-e8be3d5a2c8d?w=150&h=150&fit=crop" },
-    { name: "Electrical", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=150&h=150&fit=crop" }
+    { name: "Cement & Concrete", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Steel & Iron", image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=150&h=150&fit=crop" },
+    { name: "Tiles & Ceramics", image: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=150&h=150&fit=crop" },
+    { name: "Paint & Coatings", image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=150&h=150&fit=crop" },
+    { name: "Timber & Wood", image: "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=150&h=150&fit=crop" },
+    { name: "Hardware & Tools", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Plumbing & Pipes", image: "https://images.unsplash.com/photo-1621905252472-e8be3d5a2c8d?w=150&h=150&fit=crop" },
+    { name: "Electrical & Wiring", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=150&h=150&fit=crop" },
+    { name: "Roofing Materials", image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=150&h=150&fit=crop" },
+    { name: "Windows & Doors", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=150&h=150&fit=crop" },
+    { name: "Insulation", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Flooring", image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=150&h=150&fit=crop" },
+    { name: "Aggregates & Sand", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Waterproofing", image: "https://images.unsplash.com/photo-1558618047-67bc5c4c2a50?w=150&h=150&fit=crop" },
+    { name: "Glass & Glazing", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" },
+    { name: "Safety Equipment", image: "https://images.unsplash.com/photo-1558618020-20d64c1ae3c6?w=150&h=150&fit=crop" },
+    { name: "Masonry & Blocks", image: "https://images.unsplash.com/photo-1459767129954-1b1c1f9b9ace?w=150&h=150&fit=crop" },
+    { name: "Adhesives & Sealants", image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=150&h=150&fit=crop" },
+    { name: "HVAC Systems", image: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=150&h=150&fit=crop" },
+    { name: "Landscape Materials", image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=150&h=150&fit=crop" },
   ];
 
   if (showRegistrationForm) {
@@ -324,7 +336,7 @@ const Suppliers = () => {
       <section className="py-12 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center mb-8">Popular Categories</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-10 gap-4">
             {categories.map((category, index) => (
               <Card key={index} className="text-center cursor-pointer hover:shadow-md transition-shadow">
                 <CardContent className="py-6">
