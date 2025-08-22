@@ -536,6 +536,57 @@ export type Database = {
           },
         ]
       }
+      purchase_orders: {
+        Row: {
+          buyer_id: string
+          created_at: string
+          delivery_address: string
+          delivery_date: string
+          id: string
+          items: Json
+          payment_terms: string | null
+          po_number: string
+          quotation_request_id: string | null
+          special_instructions: string | null
+          status: string
+          supplier_id: string
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          buyer_id: string
+          created_at?: string
+          delivery_address: string
+          delivery_date: string
+          id?: string
+          items?: Json
+          payment_terms?: string | null
+          po_number: string
+          quotation_request_id?: string | null
+          special_instructions?: string | null
+          status?: string
+          supplier_id: string
+          total_amount: number
+          updated_at?: string
+        }
+        Update: {
+          buyer_id?: string
+          created_at?: string
+          delivery_address?: string
+          delivery_date?: string
+          id?: string
+          items?: Json
+          payment_terms?: string | null
+          po_number?: string
+          quotation_request_id?: string | null
+          special_instructions?: string | null
+          status?: string
+          supplier_id?: string
+          total_amount?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       quotation_requests: {
         Row: {
           created_at: string

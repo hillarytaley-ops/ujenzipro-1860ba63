@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import Feedback from "./pages/Feedback";
 import Tracking from "./pages/Tracking";
+import Procurement from "./pages/Procurement";
 
 import NotFound from "./pages/NotFound";
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/tracking" element={<Tracking />} />
+          <Route path="/procurement" element={<Procurement />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
