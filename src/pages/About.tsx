@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, Target, Award, Globe } from "lucide-react";
+import { Users, Target, Award, Globe, FileText, Package, QrCode, Truck, Camera, BarChart3 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -78,8 +78,9 @@ const About = () => {
             <span className="text-red-600">Ujenzi</span><span className="text-green-600">Pro</span>
           </h1>
           <p className="text-xl max-w-3xl mx-auto opacity-90">
-            We're on a mission to transform Kenya's construction industry by connecting builders 
-            with trusted suppliers, making construction projects more efficient, affordable, and successful.
+            We're transforming Kenya's construction industry with comprehensive digital solutions - 
+            from supplier connections and procurement management to real-time delivery tracking, 
+            QR-coded material verification, and complete project visibility.
           </p>
         </div>
       </section>
@@ -92,20 +93,23 @@ const About = () => {
             <div className="prose prose-lg mx-auto">
               <p className="text-xl leading-relaxed mb-6 text-blue-900">
                 UjenziPro was born from a simple observation: Kenya's construction industry needed 
-                not just better connections, but complete project visibility. As builders struggled to find 
-                reliable suppliers and track their material deliveries, while suppliers couldn't efficiently 
-                reach their ideal customers, we saw an opportunity to revolutionize the entire construction workflow.
+                complete digital transformation. As builders struggled with procurement inefficiencies, 
+                material tracking challenges, and delivery management complexities, while suppliers 
+                lacked professional tools for documentation and customer communication, we saw an 
+                opportunity to revolutionize the entire construction workflow.
               </p>
               <p className="text-lg leading-relaxed mb-6 text-blue-900">
                 Founded in 2023 by a team of construction industry veterans and technology experts, 
-                we've quickly grown to become Kenya's leading platform for construction professionals. 
-                Our comprehensive solution goes beyond simple connections - we provide real-time project tracking, 
-                delivery management, and complete transparency throughout the construction supply chain.
+                we've rapidly evolved from a simple connection platform to a comprehensive construction 
+                management ecosystem. Today, we offer professional procurement tools, real-time material 
+                tracking with QR technology, delivery note management, live project monitoring, and 
+                complete supply chain transparency.
               </p>
               <p className="text-lg leading-relaxed text-blue-900">
-                Today, we're proud to serve thousands of builders and suppliers across all 47 counties, 
-                facilitating millions of shillings in transactions, tracking thousands of deliveries, 
-                and providing complete project visibility that's helping build the Kenya of tomorrow.
+                Our platform now serves thousands of builders and suppliers across all 47 counties, 
+                facilitating millions of shillings in transactions, tracking materials from dispatch to delivery, 
+                managing professional purchase orders and delivery notes, and providing the digital infrastructure 
+                that's building the Kenya of tomorrow.
               </p>
             </div>
           </div>
@@ -159,6 +163,98 @@ const About = () => {
         </div>
       </section>
 
+      {/* Platform Features Section */}
+      <section className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12">Platform Capabilities</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="mx-auto mb-4 p-4 bg-blue-500/20 rounded-full w-fit">
+                  <FileText className="h-8 w-8 text-blue-600" />
+                </div>
+                <CardTitle className="text-lg">Professional Procurement</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm">
+                  Comprehensive purchase order forms and quotation management for professional builders and companies
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="mx-auto mb-4 p-4 bg-green-500/20 rounded-full w-fit">
+                  <QrCode className="h-8 w-8 text-green-600" />
+                </div>
+                <CardTitle className="text-lg">QR Material Tracking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm">
+                  Advanced QR code system for tracking materials from dispatch through delivery to receipt
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="mx-auto mb-4 p-4 bg-purple-500/20 rounded-full w-fit">
+                  <Truck className="h-8 w-8 text-purple-600" />
+                </div>
+                <CardTitle className="text-lg">Delivery Management</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm">
+                  Professional delivery note forms and real-time tracking for suppliers and builders
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="mx-auto mb-4 p-4 bg-orange-500/20 rounded-full w-fit">
+                  <Camera className="h-8 w-8 text-orange-600" />
+                </div>
+                <CardTitle className="text-lg">Live Monitoring</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm">
+                  Camera integration and live streaming for real-time project monitoring and security
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="mx-auto mb-4 p-4 bg-red-500/20 rounded-full w-fit">
+                  <BarChart3 className="h-8 w-8 text-red-600" />
+                </div>
+                <CardTitle className="text-lg">Analytics Dashboard</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm">
+                  Comprehensive material tracking dashboard with real-time analytics and reporting
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="mx-auto mb-4 p-4 bg-teal-500/20 rounded-full w-fit">
+                  <Package className="h-8 w-8 text-teal-600" />
+                </div>
+                <CardTitle className="text-lg">Supply Chain Integration</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm">
+                  Complete supply chain visibility from supplier to builder with documentation at every step
+                </CardDescription>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section 
         className="py-20 text-white relative"
@@ -171,7 +267,7 @@ const About = () => {
       >
         <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-4xl font-bold text-center mb-12">Our Impact</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold mb-2">1,000+</div>
               <div className="text-lg opacity-90">Active Builders</div>
@@ -181,12 +277,57 @@ const About = () => {
               <div className="text-lg opacity-90">Verified Suppliers</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">10,000+</div>
-              <div className="text-lg opacity-90">Successful Connections</div>
+              <div className="text-4xl font-bold mb-2">15,000+</div>
+              <div className="text-lg opacity-90">Materials Tracked</div>
             </div>
             <div>
               <div className="text-4xl font-bold mb-2">KSh 2B+</div>
               <div className="text-lg opacity-90">Total Transactions</div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mt-12">
+            <div>
+              <div className="text-3xl font-bold mb-2">5,000+</div>
+              <div className="text-base opacity-90">Purchase Orders Processed</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-2">8,000+</div>
+              <div className="text-base opacity-90">Delivery Notes Generated</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-2">25,000+</div>
+              <div className="text-base opacity-90">QR Codes Scanned</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Future Vision Section */}
+      <section className="py-20 bg-accent">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-8">Building the Future</h2>
+            <p className="text-xl leading-relaxed mb-8 text-blue-900">
+              We're not just digitizing construction - we're reimagining it. Our platform combines 
+              cutting-edge technology with deep industry knowledge to create solutions that address 
+              real construction challenges.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+              <Card className="p-6">
+                <h3 className="text-xl font-semibold mb-4">For Builders</h3>
+                <p className="text-muted-foreground">
+                  Professional procurement tools, real-time material tracking, and complete 
+                  project visibility to manage construction projects with confidence.
+                </p>
+              </Card>
+              <Card className="p-6">
+                <h3 className="text-xl font-semibold mb-4">For Suppliers</h3>
+                <p className="text-muted-foreground">
+                  Professional delivery documentation, direct customer communication, and 
+                  advanced tracking systems to enhance service delivery.
+                </p>
+              </Card>
             </div>
           </div>
         </div>
