@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { QuotationsList } from "@/components/QuotationsList";
 import { PurchaseOrderDialog } from "@/components/PurchaseOrderDialog";
 import DeliveryNoteUpload from "@/components/DeliveryNoteUpload";
-import PurchaseOrderQRManager from "@/components/PurchaseOrderQRManager";
+import OrderQRManager from "@/components/PurchaseOrderQRManager";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -246,7 +246,7 @@ const Procurement = () => {
             </TabsContent>
 
             <TabsContent value="qr-codes">
-              <PurchaseOrderQRManager />
+              <OrderQRManager />
             </TabsContent>
 
             <TabsContent value="delivery-notes">

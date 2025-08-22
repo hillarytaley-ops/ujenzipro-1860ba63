@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Package, QrCode, CheckCircle, Clock, AlertCircle, Truck } from 'lucide-react';
+import { Plus, Package, QrCode, CheckCircle, Clock, AlertCircle, Truck, Download, Eye } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
@@ -23,6 +23,8 @@ interface DeliveryOrder {
   status: string;
   total_items: number;
   qr_coded_items: number;
+  qr_code_url?: string;
+  qr_code_generated: boolean;
   delivery_address: string;
   pickup_address: string;
   notes?: string;
@@ -306,6 +308,44 @@ const OrderManagement: React.FC = () => {
     toast.success(`Material scanned: ${material.materialType}`);
   };
 
+  const generateOrderQRCode = async (order: DeliveryOrder) => {
+    try {
+      // Get builder and supplier names
+      const builderName = (order as any).profiles?.full_name || 'Unknown Builder';
+      const supplierName = (order as any).suppliers?.company_name || 'Unknown Supplier';
+
+      const { data, error } = await supabase.functions.invoke('generate-qr-code', {
+        body: {
+          deliveryOrderId: order.id,
+          orderNumber: order.order_number,
+          builderName: builderName,
+          supplierName: supplierName,
+          totalAmount: 0, // Delivery orders don't have total amount
+          items: [],
+          orderType: 'DELIVERY_ORDER'
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success(`QR code generated for order ${order.order_number}`);
+      fetchOrders(); // Refresh the list
+    } catch (error) {
+      console.error('Error generating QR code:', error);
+      toast.error('Failed to generate QR code');
+    }
+  };
+
+  const downloadOrderQRCode = (qrCodeUrl: string, orderNumber: string) => {
+    const link = document.createElement('a');
+    link.href = qrCodeUrl;
+    link.download = `QR-${orderNumber}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success('QR code downloaded');
+  };
+
   if (loading) {
     return <div className="p-6">Loading...</div>;
   }
@@ -516,18 +556,50 @@ const OrderManagement: React.FC = () => {
                     </TableCell>
                     <TableCell>{new Date(order.created_at).toLocaleDateString()}</TableCell>
                     <TableCell>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          setSelectedOrderId(order.id);
-                          fetchOrderMaterials(order.id);
-                          setShowQRDialog(true);
-                        }}
-                      >
-                        <QrCode className="h-4 w-4 mr-1" />
-                        Manage QR
-                      </Button>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedOrderId(order.id);
+                            fetchOrderMaterials(order.id);
+                            setShowQRDialog(true);
+                          }}
+                        >
+                          <QrCode className="h-4 w-4 mr-1" />
+                          Manage QR
+                        </Button>
+                        
+                        {/* Order-level QR Code Actions */}
+                        {order.qr_code_generated && order.qr_code_url ? (
+                          <>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => window.open(order.qr_code_url, '_blank')}
+                            >
+                              <Eye className="h-3 w-3 mr-1" />
+                              View QR
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => downloadOrderQRCode(order.qr_code_url!, order.order_number)}
+                            >
+                              <Download className="h-3 w-3 mr-1" />
+                              Download
+                            </Button>
+                          </>
+                        ) : (
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={() => generateOrderQRCode(order)}
+                          >
+                            <QrCode className="h-3 w-3 mr-1" />
+                            Generate Order QR
+                          </Button>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 );

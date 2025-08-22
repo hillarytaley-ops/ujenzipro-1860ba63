@@ -19,23 +19,37 @@ serve(async (req) => {
     
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-    const { purchaseOrderId, poNumber, supplierName, totalAmount, items } = await req.json()
+    const { 
+      purchaseOrderId, 
+      deliveryOrderId, 
+      orderNumber, 
+      poNumber, 
+      supplierName, 
+      builderName, 
+      totalAmount, 
+      items,
+      orderType = 'PURCHASE_ORDER' 
+    } = await req.json()
 
-    if (!purchaseOrderId || !poNumber) {
+    const orderId = purchaseOrderId || deliveryOrderId
+    const orderNum = poNumber || orderNumber
+
+    if (!orderId || !orderNum) {
       return new Response(
-        JSON.stringify({ error: 'Purchase Order ID and PO Number are required' }),
+        JSON.stringify({ error: 'Order ID and Order Number are required' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
       )
     }
 
-    console.log('Generating QR code for PO:', poNumber)
+    console.log('Generating QR code for order:', orderNum, 'Type:', orderType)
 
-    // Create QR code data with purchase order information
+    // Create QR code data with order information
     const qrData = {
-      type: 'PURCHASE_ORDER',
-      poNumber: poNumber,
-      purchaseOrderId: purchaseOrderId,
+      type: orderType,
+      orderNumber: orderNum,
+      orderId: orderId,
       supplier: supplierName,
+      builder: builderName,
       amount: totalAmount,
       generatedAt: new Date().toISOString(),
       items: items || []
@@ -53,8 +67,9 @@ serve(async (req) => {
     }
 
     const qrImageBuffer = await qrResponse.arrayBuffer()
-    const fileName = `po-${poNumber}-${Date.now()}.png`
-    const filePath = `purchase-orders/${fileName}`
+    const fileName = `${orderType.toLowerCase()}-${orderNum}-${Date.now()}.png`
+    const filePath = `${orderType === 'PURCHASE_ORDER' ? 'purchase-orders' : 'delivery-orders'}/${fileName}`
+    
 
     console.log('Uploading QR code to storage:', filePath)
 
@@ -79,23 +94,24 @@ serve(async (req) => {
 
     const qrCodeUrl = urlData.publicUrl
 
-    console.log('QR code uploaded successfully, updating purchase order...')
+    console.log('QR code uploaded successfully, updating order...')
 
-    // Update purchase order with QR code URL
+    // Update the appropriate table based on order type
+    const tableName = orderType === 'PURCHASE_ORDER' ? 'purchase_orders' : 'delivery_orders'
     const { error: updateError } = await supabase
-      .from('purchase_orders')
+      .from(tableName)
       .update({
         qr_code_url: qrCodeUrl,
         qr_code_generated: true
       })
-      .eq('id', purchaseOrderId)
+      .eq('id', orderId)
 
     if (updateError) {
       console.error('Update error:', updateError)
-      throw new Error(`Failed to update purchase order: ${updateError.message}`)
+      throw new Error(`Failed to update ${orderType.toLowerCase()}: ${updateError.message}`)
     }
 
-    console.log('Purchase order updated successfully')
+    console.log('Order updated successfully')
 
     return new Response(
       JSON.stringify({

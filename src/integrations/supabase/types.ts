@@ -208,6 +208,8 @@ export type Database = {
           order_number: string
           pickup_address: string
           project_id: string | null
+          qr_code_generated: boolean | null
+          qr_code_url: string | null
           qr_coded_items: number
           status: string
           supplier_id: string
@@ -224,6 +226,8 @@ export type Database = {
           order_number: string
           pickup_address: string
           project_id?: string | null
+          qr_code_generated?: boolean | null
+          qr_code_url?: string | null
           qr_coded_items?: number
           status?: string
           supplier_id: string
@@ -240,6 +244,8 @@ export type Database = {
           order_number?: string
           pickup_address?: string
           project_id?: string | null
+          qr_code_generated?: boolean | null
+          qr_code_url?: string | null
           qr_coded_items?: number
           status?: string
           supplier_id?: string
