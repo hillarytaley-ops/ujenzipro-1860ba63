@@ -164,10 +164,8 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
 
         setUserProfile(profile);
         
-        // QR coding/scanning is only for individual builders (not professional builders/companies)
-        // Professional builders/companies use the Purchase Order system instead
-        const isProfessional = profile?.role === 'builder' || profile?.company_name;
-        setHasAccess(!isProfessional);
+        // QR coding/scanning is available for all builder types
+        setHasAccess(true);
       }
     } catch (error) {
       console.error('Error checking user access:', error);
@@ -241,14 +239,14 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
     return <Package className="h-4 w-4 text-muted-foreground" />;
   };
 
-  // Restrict access for professional builders and companies
+  // Allow access to all authenticated users
   if (!hasAccess) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Scan className="h-5 w-5" />
-            QR Code Scanner - Access Restricted
+            QR Code Scanner - Authentication Required
           </CardTitle>
         </CardHeader>
         <CardContent className="text-center py-8">
@@ -256,15 +254,9 @@ const QRScanner: React.FC<QRScannerProps> = ({ onMaterialScanned }) => {
             <div className="text-muted-foreground">
               <Package className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p className="text-lg font-medium mb-2">
-                QR coding and scanning is only available for individual builders
-              </p>
-              <p className="text-sm">
-                Professional builders and companies should use the Purchase Order system for material management.
+                Please log in to access the QR scanner
               </p>
             </div>
-            <Button variant="outline" onClick={() => window.location.href = '/procurement'}>
-              Go to Procurement Dashboard
-            </Button>
           </div>
         </CardContent>
       </Card>

@@ -332,14 +332,8 @@ const OrderManagement: React.FC = () => {
         <div>
           <h2 className="text-2xl font-bold">Order Management</h2>
           <p className="text-muted-foreground">
-            Manage delivery orders and QR coding workflow for individual builders
+            Manage delivery orders and QR coding workflow for all builders
           </p>
-          <Alert className="mt-2">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              QR coding system is designed for individual builders only. Professional builders and companies use the Purchase Order system instead.
-            </AlertDescription>
-          </Alert>
         </div>
         <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
           <DialogTrigger asChild>
