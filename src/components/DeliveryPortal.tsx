@@ -408,38 +408,62 @@ const DeliveryPortal = () => {
         </Alert>
       )}
 
-      {/* Dropdown Menu Bar */}
+      {/* Mobile-Optimized Dropdown Menu Bar */}
       <div className="flex justify-between items-center mb-6">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="min-w-[200px] justify-between bg-background border-border">
-              {activeSection === 'providers' && 'Available Providers'}
-              {activeSection === 'request' && 'Request Delivery'}
-              {activeSection === 'apply' && 'Apply as Provider'}
-              <ChevronDown className="h-4 w-4" />
+            <Button 
+              variant="outline" 
+              className="w-full sm:min-w-[250px] sm:w-auto justify-between bg-background border-border text-base sm:text-sm py-3 sm:py-2 px-4 touch-manipulation"
+            >
+              <span className="flex items-center gap-2">
+                {activeSection === 'providers' && (
+                  <>
+                    <Package className="h-4 w-4" />
+                    <span>Available Providers</span>
+                  </>
+                )}
+                {activeSection === 'request' && (
+                  <>
+                    <Truck className="h-4 w-4" />
+                    <span>Request Delivery</span>
+                  </>
+                )}
+                {activeSection === 'apply' && (
+                  <>
+                    <User className="h-4 w-4" />
+                    <span>Apply as Provider</span>
+                  </>
+                )}
+              </span>
+              <ChevronDown className="h-4 w-4 ml-2" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[200px] bg-background border-border shadow-lg z-50">
+          <DropdownMenuContent 
+            className="w-[calc(100vw-2rem)] sm:w-[250px] bg-background border-border shadow-lg z-50 mx-4 sm:mx-0"
+            align="start"
+            sideOffset={5}
+          >
             <DropdownMenuItem 
               onClick={() => setActiveSection('providers')}
-              className="cursor-pointer hover:bg-muted"
+              className="cursor-pointer hover:bg-muted py-3 px-4 text-base sm:text-sm touch-manipulation focus:bg-muted"
             >
-              <Package className="h-4 w-4 mr-2" />
-              Available Providers
+              <Package className="h-5 w-5 mr-3" />
+              <span>Available Providers</span>
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={() => setActiveSection('request')}
-              className="cursor-pointer hover:bg-muted"
+              className="cursor-pointer hover:bg-muted py-3 px-4 text-base sm:text-sm touch-manipulation focus:bg-muted"
             >
-              <Truck className="h-4 w-4 mr-2" />
-              Request Delivery
+              <Truck className="h-5 w-5 mr-3" />
+              <span>Request Delivery</span>
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={() => setActiveSection('apply')}
-              className="cursor-pointer hover:bg-muted"
+              className="cursor-pointer hover:bg-muted py-3 px-4 text-base sm:text-sm touch-manipulation focus:bg-muted"
             >
-              <User className="h-4 w-4 mr-2" />
-              Apply as Provider
+              <User className="h-5 w-5 mr-3" />
+              <span>Apply as Provider</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
