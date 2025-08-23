@@ -554,6 +554,7 @@ const DeliveryManagement: React.FC = () => {
           <TabsTrigger 
             value="delivery-management"
             onClick={() => handleSecureTabAccess('delivery-management')}
+            className="ml-4"
           >
             Manage Deliveries
           </TabsTrigger>
