@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,10 +6,10 @@ import { Search, Users, ShoppingCart, Star, QrCode, Truck, BarChart3, CheckCircl
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import UjenziProPresentationViewer from "@/components/UjenziProPresentationViewer";
+
 
 const Index = () => {
-  const [showPresentation, setShowPresentation] = useState(false);
+  
   const features = [
     {
       icon: Search,
@@ -325,7 +324,6 @@ const Index = () => {
                   size="lg" 
                   variant="secondary"
                   className="bg-white/20 text-white border border-white/30 hover:bg-white hover:text-foreground text-lg px-10 py-4 hover-scale transition-all duration-300"
-                  onClick={() => setShowPresentation(true)}
                 >
                   <FileText className="mr-2 h-5 w-5" />
                   View Complete Workflow Presentation
@@ -333,19 +331,6 @@ const Index = () => {
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* UjenziPro Complete Workflow Presentation */}
-      <section className="py-20 bg-gradient-to-br from-background via-muted to-secondary">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-6">Complete UjenziPro Workflow</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Interactive presentation showcasing the complete app workflow, user journeys, and technical architecture
-            </p>
-          </div>
-          <UjenziProPresentationViewer />
         </div>
       </section>
 
