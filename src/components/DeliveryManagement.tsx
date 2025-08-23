@@ -13,6 +13,7 @@ import PhysicalCameraViewer from './PhysicalCameraViewer';
 import OrderManagement from './OrderManagement';
 import MaterialTrackingDashboard from './MaterialTrackingDashboard';
 import { DeliveryNoteForm } from './DeliveryNoteForm';
+import DroneController from './DroneController';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -510,7 +511,7 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-7">
+        <TabsList className="grid w-full grid-cols-8">
           <TabsTrigger value="tracker">Tracking</TabsTrigger>
           {user && (userRole === 'admin' || userRole === 'supplier') && (
             <TabsTrigger 
@@ -543,6 +544,12 @@ const DeliveryManagement: React.FC = () => {
             onClick={() => handleSecureTabAccess('live-monitor')}
           >
             Live Monitor
+          </TabsTrigger>
+          <TabsTrigger 
+            value="drone-control"
+            onClick={() => handleSecureTabAccess('drone-control')}
+          >
+            Aerial Control
           </TabsTrigger>
           <TabsTrigger 
             value="delivery-management"
@@ -585,6 +592,12 @@ const DeliveryManagement: React.FC = () => {
 
           <TabsContent value="live-monitor">
             <LiveStreamMonitor />
+          </TabsContent>
+
+          <TabsContent value="drone-control">
+            <DroneController 
+              siteCoordinates={{ latitude: -1.2921, longitude: 36.8219 }}
+            />
           </TabsContent>
 
         {user && userRole ? (
