@@ -64,6 +64,15 @@ const Navigation = () => {
   return (
     <header className="shadow-sm border-b sticky top-0 z-50 bg-blue-200">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between relative z-10">
+        <Link to="/" className="flex items-center">
+          <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <img 
+              src="/lovable-uploads/e80300cc-d934-4228-938a-21f3516aa8fe.png" 
+              alt="UjenziPro Logo" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
