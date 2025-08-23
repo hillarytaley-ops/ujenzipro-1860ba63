@@ -12,6 +12,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import DeliveryLocationPicker from "@/components/DeliveryLocationPicker";
 
 interface DeliveryProvider {
   id: string;
@@ -115,7 +116,9 @@ const DeliveryPortal = () => {
     pickup_date: '',
     preferred_time: '',
     special_instructions: '',
-    budget_range: ''
+    budget_range: '',
+    pickup_location: null as any,
+    delivery_location: null as any
   });
 
   const vehicleTypes = ['Pickup Truck', 'Van', 'Large Truck', 'Motorcycle', 'Lorry', 'Trailer'];
@@ -305,7 +308,9 @@ const DeliveryPortal = () => {
         pickup_date: '',
         preferred_time: '',
         special_instructions: '',
-        budget_range: ''
+        budget_range: '',
+        pickup_location: null,
+        delivery_location: null
       });
       fetchBuilderRequests();
     } catch (error) {
@@ -769,18 +774,35 @@ const DeliveryPortal = () => {
                         </Select>
                       </div>
                     </div>
-                    <div>
-                      <Label htmlFor="builder_special_instructions">Special Instructions</Label>
-                      <Textarea
-                        id="builder_special_instructions"
-                        value={builderRequestForm.special_instructions}
-                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, special_instructions: e.target.value})}
-                        placeholder="Any special handling requirements or instructions"
-                      />
-                    </div>
-                    <Button onClick={createBuilderRequest} className="w-full">
-                      Submit Request
-                    </Button>
+                     <div>
+                       <Label htmlFor="builder_special_instructions">Special Instructions</Label>
+                       <Textarea
+                         id="builder_special_instructions"
+                         value={builderRequestForm.special_instructions}
+                         onChange={(e) => setBuilderRequestForm({...builderRequestForm, special_instructions: e.target.value})}
+                         placeholder="Any special handling requirements or instructions"
+                       />
+                     </div>
+                     
+                     <div className="space-y-4">
+                       <h4 className="font-medium">Pickup Location Pin</h4>
+                       <DeliveryLocationPicker
+                         onLocationSelect={(location) => setBuilderRequestForm({...builderRequestForm, pickup_location: location})}
+                         initialLocation={builderRequestForm.pickup_location}
+                       />
+                     </div>
+                     
+                     <div className="space-y-4">
+                       <h4 className="font-medium">Delivery Location Pin</h4>
+                       <DeliveryLocationPicker
+                         onLocationSelect={(location) => setBuilderRequestForm({...builderRequestForm, delivery_location: location})}
+                         initialLocation={builderRequestForm.delivery_location}
+                       />
+                     </div>
+                     
+                     <Button onClick={createBuilderRequest} className="w-full">
+                       Submit Request
+                     </Button>
                   </div>
                 </DialogContent>
               </Dialog>
