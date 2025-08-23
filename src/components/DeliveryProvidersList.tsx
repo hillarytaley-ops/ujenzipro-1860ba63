@@ -37,8 +37,8 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
   const [providers, setProviders] = useState<DeliveryProvider[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedArea, setSelectedArea] = useState('');
-  const [selectedVehicleType, setSelectedVehicleType] = useState('');
+  const [selectedArea, setSelectedArea] = useState('all-areas');
+  const [selectedVehicleType, setSelectedVehicleType] = useState('all-vehicles');
   const [sortBy, setSortBy] = useState<'rating' | 'total_deliveries' | 'hourly_rate'>('rating');
 
   useEffect(() => {
@@ -72,8 +72,8 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
     .filter(provider => {
       const matchesSearch = provider.provider_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           (provider.contact_person && provider.contact_person.toLowerCase().includes(searchTerm.toLowerCase()));
-      const matchesArea = !selectedArea || provider.service_areas.includes(selectedArea);
-      const matchesVehicle = !selectedVehicleType || provider.vehicle_types.includes(selectedVehicleType);
+      const matchesArea = selectedArea === 'all-areas' || !selectedArea || provider.service_areas.includes(selectedArea);
+      const matchesVehicle = selectedVehicleType === 'all-vehicles' || !selectedVehicleType || provider.vehicle_types.includes(selectedVehicleType);
       
       return matchesSearch && matchesArea && matchesVehicle;
     })
@@ -162,7 +162,7 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
                 <SelectValue placeholder="Service area" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All areas</SelectItem>
+                <SelectItem value="all-areas">All areas</SelectItem>
                 {uniqueAreas.map((area) => (
                   <SelectItem key={area} value={area}>{area}</SelectItem>
                 ))}
@@ -174,7 +174,7 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
                 <SelectValue placeholder="Vehicle type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All vehicles</SelectItem>
+                <SelectItem value="all-vehicles">All vehicles</SelectItem>
                 {uniqueVehicleTypes.map((type) => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}
@@ -200,14 +200,14 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
         <p className="text-sm text-muted-foreground">
           {filteredProviders.length} provider{filteredProviders.length !== 1 ? 's' : ''} found
         </p>
-        {(searchTerm || selectedArea || selectedVehicleType) && (
+        {(searchTerm || (selectedArea && selectedArea !== 'all-areas') || (selectedVehicleType && selectedVehicleType !== 'all-vehicles')) && (
           <Button
             variant="outline"
             size="sm"
             onClick={() => {
               setSearchTerm('');
-              setSelectedArea('');
-              setSelectedVehicleType('');
+              setSelectedArea('all-areas');
+              setSelectedVehicleType('all-vehicles');
             }}
           >
             <Filter className="h-4 w-4 mr-1" />
