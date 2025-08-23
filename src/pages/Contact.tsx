@@ -141,11 +141,11 @@ const Contact = () => {
       <header className="contact-hero-background py-16 relative">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">
-            <span className="text-background">Get</span>{' '}
+            <span className="text-white">Get</span>{' '}
             <span className="text-primary">In</span>{' '}
             <span className="text-construction-orange">Touch</span>
           </h1>
-          <p className="text-xl text-background/90">We're here to help you connect, build, and succeed</p>
+          <p className="text-xl text-white/90">We're here to help you connect, build, and succeed</p>
         </div>
       </header>
 
@@ -390,8 +390,8 @@ const Contact = () => {
       <section className="contact-faq-background py-16 relative" aria-labelledby="faq-heading">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
-            <h2 id="faq-heading" className="text-3xl font-bold mb-4 text-background">Frequently Asked Questions</h2>
-            <p className="text-background/80">Quick answers to common questions</p>
+            <h2 id="faq-heading" className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
+            <p className="text-white/80">Quick answers to common questions</p>
           </div>
           
           <div className="max-w-4xl mx-auto">
