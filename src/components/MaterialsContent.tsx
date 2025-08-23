@@ -1,16 +1,13 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Search, Filter, Grid, List, Star, MapPin, ShoppingCart } from "lucide-react";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { QuotationRequestDialog } from "@/components/QuotationRequestDialog";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-const Materials = () => {
+export const MaterialsContent = () => {
   const [userProfile, setUserProfile] = useState<{
     id: string;
     role: string;
@@ -105,11 +102,9 @@ const Materials = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-construction">
-      <Navigation />
-
-      {/* Hero Section - Kenyan Flag Colors */}
-      <section className="bg-gradient-to-br from-black via-red-600 to-green-600 text-white py-16">
+    <div className="space-y-8">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-black via-red-600 to-green-600 text-white py-16 rounded-lg">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Construction Materials Marketplace</h1>
           <p className="text-xl mb-8 opacity-90">Find the best prices for quality construction materials - whether you're a professional builder or building your dream home</p>
@@ -146,7 +141,7 @@ const Materials = () => {
       </section>
 
       {/* Filters and View Options */}
-      <section className="py-6 bg-muted border-b">
+      <section className="py-6 bg-muted border-b rounded-lg">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -169,82 +164,80 @@ const Materials = () => {
       </section>
 
       {/* Materials Grid */}
-      <section className="py-16 bg-secondary">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {materials.map((material, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="aspect-video bg-muted rounded-lg mb-4 overflow-hidden">
-                    <img 
-                      src={material.image} 
-                      alt={material.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
+      <section className="py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {materials.map((material, index) => (
+            <Card key={index} className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="aspect-video bg-muted rounded-lg mb-4 overflow-hidden">
+                  <img 
+                    src={material.image} 
+                    alt={material.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <CardTitle className="text-lg">{material.name}</CardTitle>
+                    <CardDescription className="mt-1">
+                      by {material.supplier}
+                    </CardDescription>
                   </div>
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <CardTitle className="text-lg">{material.name}</CardTitle>
-                      <CardDescription className="mt-1">
-                        by {material.supplier}
-                      </CardDescription>
-                    </div>
-                    <Badge variant="secondary">{material.category}</Badge>
+                  <Badge variant="secondary">{material.category}</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-2 mb-3">
+                  <MapPin className="h-4 w-4 text-gray-500" />
+                  <span className="text-sm text-gray-600">{material.location}</span>
+                  <div className="flex items-center gap-1 ml-auto">
+                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                    <span className="text-sm font-medium">{material.rating}</span>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center gap-2 mb-3">
-                    <MapPin className="h-4 w-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">{material.location}</span>
-                    <div className="flex items-center gap-1 ml-auto">
-                      <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className="text-sm font-medium">{material.rating}</span>
-                    </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="text-xl font-bold text-green-600">{material.price}</div>
+                  <div className="flex gap-2">
+                    {userProfile?.role === 'builder' || userProfile?.company_name ? (
+                      <>
+                        <QuotationRequestDialog 
+                          materialName={material.name}
+                          supplierName={material.supplier}
+                          userProfile={userProfile}
+                        />
+                        <Button size="sm" className="bg-primary hover:bg-primary/90 gap-2">
+                          <ShoppingCart className="h-4 w-4" />
+                          Buy Now
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button size="sm" className="bg-primary hover:bg-primary/90 gap-2">
+                          <ShoppingCart className="h-4 w-4" />
+                          Buy Now
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          Contact
+                        </Button>
+                      </>
+                    )}
                   </div>
-                  <div className="flex justify-between items-center">
-                    <div className="text-xl font-bold text-green-600">{material.price}</div>
-                    <div className="flex gap-2">
-                      {userProfile?.role === 'builder' || userProfile?.company_name ? (
-                        <>
-                          <QuotationRequestDialog 
-                            materialName={material.name}
-                            supplierName={material.supplier}
-                            userProfile={userProfile}
-                          />
-                          <Button size="sm" className="bg-primary hover:bg-primary/90 gap-2">
-                            <ShoppingCart className="h-4 w-4" />
-                            Buy Now
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button size="sm" className="bg-primary hover:bg-primary/90 gap-2">
-                            <ShoppingCart className="h-4 w-4" />
-                            Buy Now
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            Contact
-                          </Button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          {/* Load More Button */}
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="border-green-600 text-green-600 hover:bg-green-50">
-              Load More Materials
-            </Button>
-          </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        
+        {/* Load More Button */}
+        <div className="text-center mt-12">
+          <Button variant="outline" size="lg" className="border-green-600 text-green-600 hover:bg-green-50">
+            Load More Materials
+          </Button>
         </div>
       </section>
 
       {/* How to Buy Section */}
-      <section className="bg-accent py-16">
+      <section className="bg-accent py-16 rounded-lg">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">How to Buy Materials</h2>
           <p className="text-lg opacity-90 mb-12">Different purchase options based on your needs</p>
@@ -279,7 +272,7 @@ const Materials = () => {
 
       {/* Price Alert CTA */}
       <section 
-        className="text-white py-16 relative"
+        className="text-white py-16 relative rounded-lg overflow-hidden"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
           backgroundSize: 'cover',
@@ -295,10 +288,6 @@ const Materials = () => {
           </Button>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
-
-export default Materials;
