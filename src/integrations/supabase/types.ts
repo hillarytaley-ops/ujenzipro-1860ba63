@@ -352,6 +352,7 @@ export type Database = {
           provider_id: string | null
           provider_response: string | null
           quantity: number
+          required_vehicle_type: string | null
           response_date: string | null
           response_notes: string | null
           special_instructions: string | null
@@ -372,6 +373,7 @@ export type Database = {
           provider_id?: string | null
           provider_response?: string | null
           quantity: number
+          required_vehicle_type?: string | null
           response_date?: string | null
           response_notes?: string | null
           special_instructions?: string | null
@@ -392,6 +394,7 @@ export type Database = {
           provider_id?: string | null
           provider_response?: string | null
           quantity?: number
+          required_vehicle_type?: string | null
           response_date?: string | null
           response_notes?: string | null
           special_instructions?: string | null

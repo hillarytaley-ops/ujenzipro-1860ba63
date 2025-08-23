@@ -591,7 +591,20 @@ const DeliveryPortal = () => {
                             </SelectContent>
                           </Select>
                         </div>
-                      </div>
+                       </div>
+                       <div>
+                         <Label htmlFor="required_vehicle_type">Required Vehicle Type *</Label>
+                         <Select value={requestForm.required_vehicle_type} onValueChange={(value) => setRequestForm({...requestForm, required_vehicle_type: value})}>
+                           <SelectTrigger>
+                             <SelectValue placeholder="Select vehicle type needed" />
+                           </SelectTrigger>
+                           <SelectContent className="bg-background border-border shadow-lg z-50">
+                             {vehicleTypes.map((vehicle) => (
+                               <SelectItem key={vehicle} value={vehicle}>{vehicle}</SelectItem>
+                             ))}
+                           </SelectContent>
+                         </Select>
+                       </div>
                       <div>
                         <Label htmlFor="special_instructions">Special Instructions</Label>
                         <Textarea
@@ -794,7 +807,20 @@ const DeliveryPortal = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                  </div>
+                   </div>
+                   <div>
+                     <Label htmlFor="builder_required_vehicle">Required Vehicle Type *</Label>
+                     <Select value={builderRequestForm.required_vehicle_type} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, required_vehicle_type: value})}>
+                       <SelectTrigger>
+                         <SelectValue placeholder="Select vehicle type needed" />
+                       </SelectTrigger>
+                       <SelectContent className="bg-background border-border shadow-lg z-50">
+                         {vehicleTypes.map((vehicle) => (
+                           <SelectItem key={vehicle} value={vehicle}>{vehicle}</SelectItem>
+                         ))}
+                       </SelectContent>
+                     </Select>
+                   </div>
                   <div>
                     <Label htmlFor="builder_special_instructions">Special Instructions</Label>
                     <Textarea
@@ -843,11 +869,16 @@ const DeliveryPortal = () => {
                           {new Date(request.pickup_date).toLocaleDateString()}
                           {request.preferred_time && ` at ${request.preferred_time}`}
                         </div>
-                        {request.budget_range && (
-                          <Badge variant="outline" className="text-xs">
-                            Budget: {request.budget_range}
-                          </Badge>
-                        )}
+                         {request.budget_range && (
+                           <Badge variant="outline" className="text-xs">
+                             Budget: {request.budget_range}
+                           </Badge>
+                         )}
+                         {request.required_vehicle_type && (
+                           <Badge variant="secondary" className="text-xs">
+                             Vehicle: {request.required_vehicle_type}
+                           </Badge>
+                         )}
                         {request.special_instructions && (
                           <p className="text-sm text-muted-foreground mt-2">
                             <span className="font-medium">Instructions:</span> {request.special_instructions}
