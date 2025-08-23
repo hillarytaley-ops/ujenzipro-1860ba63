@@ -335,7 +335,10 @@ export type Database = {
           pickup_date: string
           preferred_time: string | null
           provider_id: string | null
+          provider_response: string | null
           quantity: number
+          response_date: string | null
+          response_notes: string | null
           special_instructions: string | null
           status: string | null
           updated_at: string
@@ -352,7 +355,10 @@ export type Database = {
           pickup_date: string
           preferred_time?: string | null
           provider_id?: string | null
+          provider_response?: string | null
           quantity: number
+          response_date?: string | null
+          response_notes?: string | null
           special_instructions?: string | null
           status?: string | null
           updated_at?: string
@@ -369,13 +375,24 @@ export type Database = {
           pickup_date?: string
           preferred_time?: string | null
           provider_id?: string | null
+          provider_response?: string | null
           quantity?: number
+          response_date?: string | null
+          response_notes?: string | null
           special_instructions?: string | null
           status?: string | null
           updated_at?: string
           weight_kg?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "delivery_requests_builder_id_fkey"
+            columns: ["builder_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       delivery_updates: {
         Row: {

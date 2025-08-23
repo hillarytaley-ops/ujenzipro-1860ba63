@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import DeliveryRequestAlerts from "@/components/DeliveryRequestAlerts";
 import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -74,6 +75,7 @@ const DeliveryPortal = () => {
   const [providers, setProviders] = useState<DeliveryProvider[]>([]);
   const [requests, setRequests] = useState<DeliveryRequest[]>([]);
   const [builderRequests, setBuilderRequests] = useState<any[]>([]);
+  const [userDeliveryProvider, setUserDeliveryProvider] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("providers");
   const [showProviderForm, setShowProviderForm] = useState(false);
@@ -140,6 +142,16 @@ const DeliveryPortal = () => {
           .eq('user_id', user.id)
           .single();
         setUserProfile(profile);
+
+        // Fetch user's delivery provider data if exists
+        if (profile) {
+          const { data: deliveryProvider } = await supabase
+            .from('delivery_providers')
+            .select('*')
+            .eq('user_id', profile.id)
+            .single();
+          setUserDeliveryProvider(deliveryProvider);
+        }
       }
     } catch (error) {
       console.error('Error checking auth:', error);
@@ -502,6 +514,13 @@ const DeliveryPortal = () => {
       </div>
 
       <div className="w-full">
+        {/* Delivery Request Alerts for Providers */}
+        {userDeliveryProvider && userDeliveryProvider.is_active && (
+          <div className="mb-6">
+            <DeliveryRequestAlerts providerId={userDeliveryProvider.id} />
+          </div>
+        )}
+
         {/* Available Delivery Providers Section */}
         {activeSection === 'providers' && (
           <div className="space-y-6">
