@@ -336,23 +336,18 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Presentation Viewer */}
-      {showPresentation && (
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="mb-8 text-center">
-              <Button 
-                onClick={() => setShowPresentation(false)}
-                variant="outline"
-                className="mb-4"
-              >
-                ← Back to Home
-              </Button>
-            </div>
-            <UjenziProPresentationViewer />
+      {/* UjenziPro Complete Workflow Presentation */}
+      <section className="py-20 bg-gradient-to-br from-background via-muted to-secondary">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-6">Complete UjenziPro Workflow</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Interactive presentation showcasing the complete app workflow, user journeys, and technical architecture
+            </p>
           </div>
-        </section>
-      )}
+          <UjenziProPresentationViewer />
+        </div>
+      </section>
 
       <Footer />
     </div>
