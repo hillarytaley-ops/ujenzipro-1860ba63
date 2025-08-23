@@ -1,6 +1,8 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import DeliveryPortal from "@/components/DeliveryPortal";
+import { DeliveryContent } from "@/components/DeliveryContent";
+import { CommunicationContent } from "@/components/CommunicationContent";
 
 const Delivery = () => {
   return (
@@ -8,7 +10,7 @@ const Delivery = () => {
       <Navigation />
       <main className="pt-20">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8">
               <h1 className="text-4xl font-bold mb-4">
                 <span className="text-black">Delivery</span>{' '}
@@ -18,7 +20,21 @@ const Delivery = () => {
                 Connect delivery providers with builders for efficient material transportation
               </p>
             </div>
-            <DeliveryPortal />
+            
+            <Tabs defaultValue="delivery" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8">
+                <TabsTrigger value="delivery">Delivery Portal</TabsTrigger>
+                <TabsTrigger value="communication">Communication</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="delivery">
+                <DeliveryContent />
+              </TabsContent>
+              
+              <TabsContent value="communication">
+                <CommunicationContent />
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </main>
