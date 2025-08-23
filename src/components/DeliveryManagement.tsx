@@ -511,54 +511,125 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-8">
-          <TabsTrigger value="tracker">Tracking</TabsTrigger>
-          {user && (userRole === 'admin' || userRole === 'supplier') && (
-            <TabsTrigger 
-              value="orders"
-              onClick={() => handleSecureTabAccess('orders')}
-            >
-              Orders
+        {/* Mini Menu Bar for Mobile */}
+        <div className="md:hidden">
+          <TabsList className="flex w-full overflow-x-auto scrollbar-hide p-1 bg-muted rounded-lg gap-1">
+            <TabsTrigger value="tracker" className="flex-shrink-0 text-xs px-3 py-2 min-w-fit">
+              Track
             </TabsTrigger>
-          )}
-          <TabsTrigger 
-            value="material-tracking"
-            onClick={() => handleSecureTabAccess('material-tracking')}
-          >
-            Material Tracking
-          </TabsTrigger>
-          <TabsTrigger 
-            value="camera"
-            onClick={() => handleSecureTabAccess('camera')}
-          >
-            Cameras
-          </TabsTrigger>
-          <TabsTrigger 
-            value="qr-scanner"
-            onClick={() => handleSecureTabAccess('qr-scanner')}
-          >
-            QR Scanner
-          </TabsTrigger>
-          <TabsTrigger 
-            value="live-monitor"
-            onClick={() => handleSecureTabAccess('live-monitor')}
-          >
-            Live Monitor
-          </TabsTrigger>
-          <TabsTrigger 
-            value="drone-control"
-            onClick={() => handleSecureTabAccess('drone-control')}
-          >
-            Aerial Control
-          </TabsTrigger>
-          <TabsTrigger 
-            value="delivery-management"
-            onClick={() => handleSecureTabAccess('delivery-management')}
-            className="ml-8"
-          >
-            Manage Deliveries
-          </TabsTrigger>
-        </TabsList>
+            {user && (userRole === 'admin' || userRole === 'supplier') && (
+              <TabsTrigger 
+                value="orders"
+                onClick={() => handleSecureTabAccess('orders')}
+                className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
+              >
+                Orders
+              </TabsTrigger>
+            )}
+            <TabsTrigger 
+              value="material-tracking"
+              onClick={() => handleSecureTabAccess('material-tracking')}
+              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
+            >
+              Materials
+            </TabsTrigger>
+            <TabsTrigger 
+              value="camera"
+              onClick={() => handleSecureTabAccess('camera')}
+              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
+            >
+              Cameras
+            </TabsTrigger>
+            <TabsTrigger 
+              value="qr-scanner"
+              onClick={() => handleSecureTabAccess('qr-scanner')}
+              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
+            >
+              QR
+            </TabsTrigger>
+            <TabsTrigger 
+              value="live-monitor"
+              onClick={() => handleSecureTabAccess('live-monitor')}
+              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
+            >
+              Monitor
+            </TabsTrigger>
+            <TabsTrigger 
+              value="drone-control"
+              onClick={() => handleSecureTabAccess('drone-control')}
+              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
+            >
+              Aerial
+            </TabsTrigger>
+            <TabsTrigger 
+              value="delivery-management"
+              onClick={() => handleSecureTabAccess('delivery-management')}
+              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit ml-4"
+            >
+              Manage
+            </TabsTrigger>
+          </TabsList>
+        </div>
+
+        {/* Full Menu Bar for Desktop */}
+        <div className="hidden md:block">
+          <TabsList className="inline-flex w-full justify-start overflow-x-auto bg-muted rounded-lg p-1 gap-2">
+            <TabsTrigger value="tracker" className="px-4 py-2 text-sm whitespace-nowrap">
+              Tracking
+            </TabsTrigger>
+            {user && (userRole === 'admin' || userRole === 'supplier') && (
+              <TabsTrigger 
+                value="orders"
+                onClick={() => handleSecureTabAccess('orders')}
+                className="px-4 py-2 text-sm whitespace-nowrap"
+              >
+                Orders
+              </TabsTrigger>
+            )}
+            <TabsTrigger 
+              value="material-tracking"
+              onClick={() => handleSecureTabAccess('material-tracking')}
+              className="px-4 py-2 text-sm whitespace-nowrap"
+            >
+              Material Tracking
+            </TabsTrigger>
+            <TabsTrigger 
+              value="camera"
+              onClick={() => handleSecureTabAccess('camera')}
+              className="px-4 py-2 text-sm whitespace-nowrap"
+            >
+              Cameras
+            </TabsTrigger>
+            <TabsTrigger 
+              value="qr-scanner"
+              onClick={() => handleSecureTabAccess('qr-scanner')}
+              className="px-4 py-2 text-sm whitespace-nowrap"
+            >
+              QR Scanner
+            </TabsTrigger>
+            <TabsTrigger 
+              value="live-monitor"
+              onClick={() => handleSecureTabAccess('live-monitor')}
+              className="px-4 py-2 text-sm whitespace-nowrap"
+            >
+              Live Monitor
+            </TabsTrigger>
+            <TabsTrigger 
+              value="drone-control"
+              onClick={() => handleSecureTabAccess('drone-control')}
+              className="px-4 py-2 text-sm whitespace-nowrap"
+            >
+              Aerial Control
+            </TabsTrigger>
+            <TabsTrigger 
+              value="delivery-management"
+              onClick={() => handleSecureTabAccess('delivery-management')}
+              className="px-4 py-2 text-sm whitespace-nowrap ml-8"
+            >
+              Manage Deliveries
+            </TabsTrigger>
+          </TabsList>
+        </div>
 
           <TabsContent value="tracker">
             <DeliveryTracker />
