@@ -149,6 +149,56 @@ export type Database = {
           },
         ]
       }
+      delivery_communications: {
+        Row: {
+          content: string | null
+          created_at: string
+          delivery_request_id: string | null
+          id: string
+          message_type: string
+          metadata: Json | null
+          read_by: Json | null
+          sender_id: string
+          sender_name: string
+          sender_type: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          delivery_request_id?: string | null
+          id?: string
+          message_type: string
+          metadata?: Json | null
+          read_by?: Json | null
+          sender_id: string
+          sender_name: string
+          sender_type: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          delivery_request_id?: string | null
+          id?: string
+          message_type?: string
+          metadata?: Json | null
+          read_by?: Json | null
+          sender_id?: string
+          sender_name?: string
+          sender_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_communications_delivery_request_id_fkey"
+            columns: ["delivery_request_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       delivery_notes: {
         Row: {
           content_type: string | null
@@ -420,6 +470,53 @@ export type Database = {
             columns: ["builder_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      delivery_status_updates: {
+        Row: {
+          created_at: string
+          delivery_request_id: string | null
+          id: string
+          location_latitude: number | null
+          location_longitude: number | null
+          notes: string | null
+          status: string
+          updated_by_id: string
+          updated_by_name: string
+          updated_by_type: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_request_id?: string | null
+          id?: string
+          location_latitude?: number | null
+          location_longitude?: number | null
+          notes?: string | null
+          status: string
+          updated_by_id: string
+          updated_by_name: string
+          updated_by_type: string
+        }
+        Update: {
+          created_at?: string
+          delivery_request_id?: string | null
+          id?: string
+          location_latitude?: number | null
+          location_longitude?: number | null
+          notes?: string | null
+          status?: string
+          updated_by_id?: string
+          updated_by_name?: string
+          updated_by_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_status_updates_delivery_request_id_fkey"
+            columns: ["delivery_request_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_requests"
             referencedColumns: ["id"]
           },
         ]
