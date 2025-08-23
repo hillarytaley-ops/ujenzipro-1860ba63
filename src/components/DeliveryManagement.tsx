@@ -14,6 +14,7 @@ import OrderManagement from './OrderManagement';
 import MaterialTrackingDashboard from './MaterialTrackingDashboard';
 import { DeliveryNoteForm } from './DeliveryNoteForm';
 import DroneController from './DroneController';
+import GoodsReceivedNote from './GoodsReceivedNote';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -524,9 +525,10 @@ const DeliveryManagement: React.FC = () => {
                   {activeTab === 'material-tracking' && 'Material Tracking'}
                   {activeTab === 'camera' && 'Cameras'}
                   {activeTab === 'qr-scanner' && 'QR Scanner'}
-                  {activeTab === 'live-monitor' && 'Live Monitor'}
-                  {activeTab === 'drone-control' && 'Aerial Control'}
-                  {activeTab === 'delivery-management' && 'Manage Deliveries'}
+                   {activeTab === 'live-monitor' && 'Live Monitor'}
+                   {activeTab === 'drone-control' && 'Aerial Control'}
+                   {activeTab === 'delivery-management' && 'Manage Deliveries'}
+                   {activeTab === 'grn' && 'Goods Received'}
                 </span>
                 <ChevronDown className="h-4 w-4" />
               </Button>
@@ -583,13 +585,22 @@ const DeliveryManagement: React.FC = () => {
                 <MapPin className="h-4 w-4 mr-2" />
                 Aerial Control
               </DropdownMenuItem>
-              <DropdownMenuItem 
-                onClick={() => handleSecureTabAccess('delivery-management')}
-                className="cursor-pointer py-3 px-4 border-t border-border/50 mt-2 pt-3"
-              >
-                <Building2 className="h-4 w-4 mr-2" />
-                Manage Deliveries
-              </DropdownMenuItem>
+               {user && (userRole === 'builder' || userRole === 'admin') && (
+                 <DropdownMenuItem 
+                   onClick={() => handleSecureTabAccess('grn')}
+                   className="cursor-pointer py-3 px-4"
+                 >
+                   <FileText className="h-4 w-4 mr-2" />
+                   Goods Received
+                 </DropdownMenuItem>
+               )}
+               <DropdownMenuItem 
+                 onClick={() => handleSecureTabAccess('delivery-management')}
+                 className="cursor-pointer py-3 px-4 border-t border-border/50 mt-2 pt-3"
+               >
+                 <Building2 className="h-4 w-4 mr-2" />
+                 Manage Deliveries
+               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -637,16 +648,25 @@ const DeliveryManagement: React.FC = () => {
             >
               Live Monitor
             </TabsTrigger>
-            <TabsTrigger 
-              value="drone-control"
-              onClick={() => handleSecureTabAccess('drone-control')}
-              className="px-4 py-2 text-sm whitespace-nowrap"
-            >
-              Aerial Control
-            </TabsTrigger>
-            <TabsTrigger 
-              value="delivery-management"
-              onClick={() => handleSecureTabAccess('delivery-management')}
+             <TabsTrigger 
+               value="drone-control"
+               onClick={() => handleSecureTabAccess('drone-control')}
+               className="px-4 py-2 text-sm whitespace-nowrap"
+             >
+               Aerial Control
+             </TabsTrigger>
+             {user && (userRole === 'builder' || userRole === 'admin') && (
+               <TabsTrigger 
+                 value="grn"
+                 onClick={() => handleSecureTabAccess('grn')}
+                 className="px-4 py-2 text-sm whitespace-nowrap"
+               >
+                 Goods Received
+               </TabsTrigger>
+             )}
+             <TabsTrigger 
+               value="delivery-management"
+               onClick={() => handleSecureTabAccess('delivery-management')}
               className="px-4 py-2 text-sm whitespace-nowrap ml-8"
             >
               Manage Deliveries
@@ -693,6 +713,10 @@ const DeliveryManagement: React.FC = () => {
             <DroneController 
               siteCoordinates={{ latitude: -1.2921, longitude: 36.8219 }}
             />
+          </TabsContent>
+
+          <TabsContent value="grn">
+            <GoodsReceivedNote />
           </TabsContent>
 
         {user && userRole ? (

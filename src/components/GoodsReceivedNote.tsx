@@ -118,19 +118,22 @@ const GoodsReceivedNote: React.FC<GoodsReceivedNoteProps> = ({ deliveryId, onClo
 
   const fetchGRNs = async () => {
     try {
+      // Temporarily fetch without joins until types are updated
       const { data, error } = await supabase
-        .from('goods_received_notes')
-        .select(`
-          *,
-          projects (name),
-          deliveries (tracking_number)
-        `)
+        .from('goods_received_notes' as any)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setGrns(data || []);
+      // Transform and set data safely
+      const grnData = data && Array.isArray(data) ? data.map((item: any) => ({
+        ...item,
+        received_date: new Date(item.received_date)
+      })) : [];
+      setGrns(grnData);
     } catch (error) {
       console.error('Error fetching GRNs:', error);
+      setGrns([]);
     }
   };
 
@@ -231,7 +234,7 @@ const GoodsReceivedNote: React.FC<GoodsReceivedNoteProps> = ({ deliveryId, onClo
       };
 
       const { error } = await supabase
-        .from('goods_received_notes')
+        .from('goods_received_notes' as any)
         .insert([grnData]);
 
       if (error) throw error;
@@ -592,7 +595,9 @@ const GoodsReceivedNote: React.FC<GoodsReceivedNoteProps> = ({ deliveryId, onClo
                   <TableRow key={grn.id}>
                     <TableCell className="font-medium">{grn.grn_number}</TableCell>
                     <TableCell>{grn.supplier_name}</TableCell>
-                    <TableCell>{grn.projects?.name || 'N/A'}</TableCell>
+                    <TableCell>
+                      {projects.find(p => p.id === grn.project_id)?.name || 'N/A'}
+                    </TableCell>
                     <TableCell>{format(new Date(grn.received_date), 'PPP')}</TableCell>
                     <TableCell>
                       <Badge variant={grn.status === 'completed' ? 'default' : 'secondary'}>

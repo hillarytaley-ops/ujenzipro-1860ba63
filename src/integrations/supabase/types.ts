@@ -454,6 +454,63 @@ export type Database = {
           },
         ]
       }
+      goods_received_notes: {
+        Row: {
+          additional_notes: string | null
+          builder_id: string
+          created_at: string
+          delivery_id: string | null
+          delivery_note_reference: string | null
+          discrepancies: string | null
+          grn_number: string
+          id: string
+          items: Json
+          overall_condition: string
+          project_id: string | null
+          received_by: string
+          received_date: string
+          status: string
+          supplier_name: string
+          updated_at: string
+        }
+        Insert: {
+          additional_notes?: string | null
+          builder_id: string
+          created_at?: string
+          delivery_id?: string | null
+          delivery_note_reference?: string | null
+          discrepancies?: string | null
+          grn_number: string
+          id?: string
+          items?: Json
+          overall_condition?: string
+          project_id?: string | null
+          received_by: string
+          received_date: string
+          status?: string
+          supplier_name: string
+          updated_at?: string
+        }
+        Update: {
+          additional_notes?: string | null
+          builder_id?: string
+          created_at?: string
+          delivery_id?: string | null
+          delivery_note_reference?: string | null
+          discrepancies?: string | null
+          grn_number?: string
+          id?: string
+          items?: Json
+          overall_condition?: string
+          project_id?: string | null
+          received_by?: string
+          received_date?: string
+          status?: string
+          supplier_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       order_materials: {
         Row: {
           batch_number: string | null
