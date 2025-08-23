@@ -27,13 +27,14 @@ interface DeliveryNote {
     company_name: string;
     contact_person: string;
     email: string;
-  };
+  } | null;
   purchase_orders: {
     po_number: string;
     total_amount: number;
     items: any[];
     delivery_address: string;
-  };
+    buyer_id: string;
+  } | null;
 }
 
 interface UserProfile {
@@ -49,6 +50,7 @@ interface UserProfile {
 interface AcknowledgementData {
   delivery_note_id: string;
   acknowledged_by: string;
+  acknowledger_id: string;
   acknowledgement_date: string;
   digital_signature: string;
   payment_status: string;
@@ -105,14 +107,14 @@ const SupplyAcknowledgement: React.FC = () => {
         .from('delivery_notes')
         .select(`
           *,
-          suppliers (company_name, contact_person, email),
-          purchase_orders (po_number, total_amount, items, delivery_address, buyer_id)
+          suppliers!inner (company_name, contact_person, email),
+          purchase_orders!inner (po_number, total_amount, items, delivery_address, buyer_id)
         `)
         .eq('purchase_orders.buyer_id', builderId)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setDeliveryNotes(data || []);
+      setDeliveryNotes((data as any) || []);
     } catch (error) {
       console.error('Error fetching delivery notes:', error);
       toast({
@@ -137,6 +139,7 @@ const SupplyAcknowledgement: React.FC = () => {
       const acknowledgementData: AcknowledgementData = {
         delivery_note_id: selectedNote.id,
         acknowledged_by: userProfile.full_name || userProfile.company_name,
+        acknowledger_id: userProfile.id,
         acknowledgement_date: new Date().toISOString(),
         digital_signature: signature,
         payment_status: 'pending',
@@ -177,6 +180,11 @@ const SupplyAcknowledgement: React.FC = () => {
 
   const sendAcknowledgementToSupplier = async (note: DeliveryNote, acknowledgement: AcknowledgementData) => {
     try {
+      if (!note.suppliers?.email) {
+        console.error('Supplier email not available');
+        return;
+      }
+
       // Send email notification to supplier about acknowledgement
       await supabase.functions.invoke('send-acknowledgement-notification', {
         body: {
@@ -275,11 +283,11 @@ const SupplyAcknowledgement: React.FC = () => {
                       Delivery Note #{note.delivery_note_number}
                     </CardTitle>
                     <CardDescription>
-                      From {note.suppliers.company_name} • PO #{note.purchase_orders.po_number}
+                      From {note.suppliers?.company_name || 'Unknown Supplier'} • PO #{note.purchase_orders?.po_number || 'N/A'}
                     </CardDescription>
                   </div>
                   <Badge variant="outline">
-                    KES {note.purchase_orders.total_amount.toLocaleString()}
+                    KES {note.purchase_orders?.total_amount?.toLocaleString() || '0'}
                   </Badge>
                 </div>
               </CardHeader>
@@ -308,12 +316,12 @@ const SupplyAcknowledgement: React.FC = () => {
                   <div>
                     <Label className="font-medium">Items</Label>
                     <div className="mt-2 space-y-2">
-                      {note.purchase_orders.items.map((item: any, index: number) => (
+                      {note.purchase_orders?.items?.map((item: any, index: number) => (
                         <div key={index} className="flex justify-between text-sm">
                           <span>{item.description}</span>
                           <span>{item.quantity} {item.unit} @ KES {item.unit_price}</span>
                         </div>
-                      ))}
+                      )) || <p className="text-sm text-muted-foreground">No items listed</p>}
                     </div>
                   </div>
 
@@ -393,7 +401,7 @@ const SupplyAcknowledgement: React.FC = () => {
                       </DialogContent>
                     </Dialog>
 
-                    {userProfile && (
+                    {userProfile && note.purchase_orders && note.suppliers && (
                       <PaymentMethodsDialog
                         purchaseOrderId={note.purchase_order_id}
                         totalAmount={note.purchase_orders.total_amount}

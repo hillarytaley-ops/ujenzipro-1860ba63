@@ -149,6 +149,69 @@ export type Database = {
           },
         ]
       }
+      delivery_acknowledgements: {
+        Row: {
+          acknowledged_by: string
+          acknowledgement_date: string
+          acknowledger_id: string
+          comments: string | null
+          created_at: string
+          delivery_note_id: string
+          digital_signature: string
+          id: string
+          payment_method: string | null
+          payment_reference: string | null
+          payment_status: string
+          signed_document_path: string | null
+          updated_at: string
+        }
+        Insert: {
+          acknowledged_by: string
+          acknowledgement_date?: string
+          acknowledger_id: string
+          comments?: string | null
+          created_at?: string
+          delivery_note_id: string
+          digital_signature: string
+          id?: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          payment_status?: string
+          signed_document_path?: string | null
+          updated_at?: string
+        }
+        Update: {
+          acknowledged_by?: string
+          acknowledgement_date?: string
+          acknowledger_id?: string
+          comments?: string | null
+          created_at?: string
+          delivery_note_id?: string
+          digital_signature?: string
+          id?: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          payment_status?: string
+          signed_document_path?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_acknowledgements_acknowledger_id_fkey"
+            columns: ["acknowledger_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_acknowledgements_delivery_note_id_fkey"
+            columns: ["delivery_note_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       delivery_communications: {
         Row: {
           content: string | null
