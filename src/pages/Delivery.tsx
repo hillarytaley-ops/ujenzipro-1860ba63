@@ -24,7 +24,7 @@ const Delivery = () => {
             <Tabs defaultValue="delivery" className="w-full">
               <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8">
                 <TabsTrigger value="delivery">Delivery Portal</TabsTrigger>
-                <TabsTrigger value="communication">Communication</TabsTrigger>
+                <TabsTrigger value="communication">Delivery Communication</TabsTrigger>
               </TabsList>
               
               <TabsContent value="delivery">
