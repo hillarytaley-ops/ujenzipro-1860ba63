@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { QuotationsList } from "@/components/QuotationsList";
 import { PurchaseOrderDialog } from "@/components/PurchaseOrderDialog";
 import { ComprehensivePurchaseOrderForm } from "@/components/ComprehensivePurchaseOrderForm";
+import { PaymentMethodsDialog } from "@/components/PaymentMethodsDialog";
 import DeliveryNoteUpload from "@/components/DeliveryNoteUpload";
 import OrderQRManager from "@/components/PurchaseOrderQRManager";
 import { Button } from "@/components/ui/button";
@@ -255,7 +256,7 @@ const Procurement = () => {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-3 gap-4 mb-4">
                           <div>
                             <p className="text-sm text-muted-foreground">Total Amount</p>
                             <p className="font-semibold text-green-600">
@@ -274,6 +275,14 @@ const Procurement = () => {
                               {new Date(po.created_at).toLocaleDateString()}
                             </p>
                           </div>
+                        </div>
+                        <div className="flex justify-end">
+                          <PaymentMethodsDialog
+                            purchaseOrderId={po.id}
+                            totalAmount={po.total_amount}
+                            supplierName={po.supplier_name}
+                            userProfile={userProfile}
+                          />
                         </div>
                       </CardContent>
                     </Card>

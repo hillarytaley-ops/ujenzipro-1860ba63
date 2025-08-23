@@ -316,8 +316,11 @@ export const PurchaseOrderDialog = ({
                   <FormItem>
                     <FormLabel>Payment Terms</FormLabel>
                     <FormControl>
-                      <Input placeholder="Net 30, COD, etc." {...field} />
+                      <Input placeholder="Payment after delivery and inspection" {...field} />
                     </FormControl>
+                    <FormDescription>
+                      Professional builders can set detailed payment methods after creating the PO
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
