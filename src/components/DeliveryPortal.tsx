@@ -420,7 +420,7 @@ const DeliveryPortal = () => {
                 {activeSection === 'providers' && (
                   <>
                     <Package className="h-4 w-4" />
-                    <span>Available Providers</span>
+                    <span>Delivery Providers</span>
                   </>
                 )}
                 {activeSection === 'request' && (
@@ -432,7 +432,7 @@ const DeliveryPortal = () => {
                 {activeSection === 'apply' && (
                   <>
                     <User className="h-4 w-4" />
-                    <span>Apply as Provider</span>
+                    <span>Apply as Delivery</span>
                   </>
                 )}
               </span>
@@ -449,7 +449,7 @@ const DeliveryPortal = () => {
               className="cursor-pointer hover:bg-muted py-3 px-4 text-base touch-manipulation focus:bg-muted"
             >
               <Package className="h-5 w-5 mr-3" />
-              <span>Available Providers</span>
+              <span>Delivery Providers</span>
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={() => setActiveSection('request')}
@@ -463,7 +463,7 @@ const DeliveryPortal = () => {
               className="cursor-pointer hover:bg-muted py-3 px-4 text-base touch-manipulation focus:bg-muted"
             >
               <User className="h-5 w-5 mr-3" />
-              <span>Apply as Provider</span>
+              <span>Apply as Delivery</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -479,7 +479,7 @@ const DeliveryPortal = () => {
               className="flex items-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium transition-all hover:shadow-sm"
             >
               <Package className="h-4 w-4" />
-              <span>Available Providers</span>
+              <span>Delivery Providers</span>
             </Button>
             <Button
               variant={activeSection === 'request' ? 'default' : 'outline'}
@@ -495,7 +495,7 @@ const DeliveryPortal = () => {
               className="flex items-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium transition-all hover:shadow-sm"
             >
               <User className="h-4 w-4" />
-              <span>Apply as Provider</span>
+              <span>Apply as Delivery</span>
             </Button>
           </div>
         </div>
