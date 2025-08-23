@@ -420,611 +420,381 @@ const DeliveryPortal = () => {
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
-            {userProfile && userProfile.role === 'admin' && (
-              <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
-                <DialogTrigger asChild>
-                  <Button>Request Provider Service</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>Request Service from Provider</DialogTitle>
-                    <DialogDescription>
-                      Submit a delivery request to service providers
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4 max-h-96 overflow-y-auto">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="pickup_address">Pickup Address</Label>
-                        <Input
-                          id="pickup_address"
-                          value={requestForm.pickup_address}
-                          onChange={(e) => setRequestForm({...requestForm, pickup_address: e.target.value})}
-                          placeholder="Enter pickup location"
-                        />
+              {userProfile && userProfile.role === 'admin' && (
+                <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
+                  <DialogTrigger asChild>
+                    <Button>Request Provider Service</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>Request Service from Provider</DialogTitle>
+                      <DialogDescription>
+                        Submit a delivery request to service providers
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 max-h-96 overflow-y-auto">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="pickup_address">Pickup Address</Label>
+                          <Input
+                            id="pickup_address"
+                            value={requestForm.pickup_address}
+                            onChange={(e) => setRequestForm({...requestForm, pickup_address: e.target.value})}
+                            placeholder="Enter pickup location"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="delivery_address">Delivery Address</Label>
+                          <Input
+                            id="delivery_address"
+                            value={requestForm.delivery_address}
+                            onChange={(e) => setRequestForm({...requestForm, delivery_address: e.target.value})}
+                            placeholder="Enter delivery destination"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="material_type">Material Type</Label>
+                          <Input
+                            id="material_type"
+                            value={requestForm.material_type}
+                            onChange={(e) => setRequestForm({...requestForm, material_type: e.target.value})}
+                            placeholder="e.g., Cement, Bricks, Steel"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="quantity">Quantity</Label>
+                          <Input
+                            id="quantity"
+                            type="number"
+                            value={requestForm.quantity}
+                            onChange={(e) => setRequestForm({...requestForm, quantity: e.target.value})}
+                            placeholder="Number of items"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="weight_kg">Weight (kg)</Label>
+                          <Input
+                            id="weight_kg"
+                            type="number"
+                            value={requestForm.weight_kg}
+                            onChange={(e) => setRequestForm({...requestForm, weight_kg: e.target.value})}
+                            placeholder="Estimated weight"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="pickup_date">Pickup Date</Label>
+                          <Input
+                            id="pickup_date"
+                            type="date"
+                            value={requestForm.pickup_date}
+                            onChange={(e) => setRequestForm({...requestForm, pickup_date: e.target.value})}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="preferred_time">Preferred Time</Label>
+                          <Input
+                            id="preferred_time"
+                            type="time"
+                            value={requestForm.preferred_time}
+                            onChange={(e) => setRequestForm({...requestForm, preferred_time: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="budget_range">Budget Range</Label>
+                          <Select value={requestForm.budget_range} onValueChange={(value) => setRequestForm({...requestForm, budget_range: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select budget range" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="under-5000">Under KSh 5,000</SelectItem>
+                              <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
+                              <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
+                              <SelectItem value="over-20000">Over KSh 20,000</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                       <div>
-                        <Label htmlFor="delivery_address">Delivery Address</Label>
-                        <Input
-                          id="delivery_address"
-                          value={requestForm.delivery_address}
-                          onChange={(e) => setRequestForm({...requestForm, delivery_address: e.target.value})}
-                          placeholder="Enter delivery destination"
+                        <Label htmlFor="special_instructions">Special Instructions</Label>
+                        <Textarea
+                          id="special_instructions"
+                          value={requestForm.special_instructions}
+                          onChange={(e) => setRequestForm({...requestForm, special_instructions: e.target.value})}
+                          placeholder="Any special handling requirements or instructions"
                         />
                       </div>
+                      <Button onClick={createRequest} className="w-full">
+                        Submit Request
+                      </Button>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="material_type">Material Type</Label>
-                        <Input
-                          id="material_type"
-                          value={requestForm.material_type}
-                          onChange={(e) => setRequestForm({...requestForm, material_type: e.target.value})}
-                          placeholder="e.g., Cement, Bricks, Steel"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="quantity">Quantity</Label>
-                        <Input
-                          id="quantity"
-                          type="number"
-                          value={requestForm.quantity}
-                          onChange={(e) => setRequestForm({...requestForm, quantity: e.target.value})}
-                          placeholder="Number of items"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="weight_kg">Weight (kg)</Label>
-                        <Input
-                          id="weight_kg"
-                          type="number"
-                          value={requestForm.weight_kg}
-                          onChange={(e) => setRequestForm({...requestForm, weight_kg: e.target.value})}
-                          placeholder="Estimated weight"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="pickup_date">Pickup Date</Label>
-                        <Input
-                          id="pickup_date"
-                          type="date"
-                          value={requestForm.pickup_date}
-                          onChange={(e) => setRequestForm({...requestForm, pickup_date: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="preferred_time">Preferred Time</Label>
-                        <Input
-                          id="preferred_time"
-                          type="time"
-                          value={requestForm.preferred_time}
-                          onChange={(e) => setRequestForm({...requestForm, preferred_time: e.target.value})}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="budget_range">Budget Range</Label>
-                        <Select value={requestForm.budget_range} onValueChange={(value) => setRequestForm({...requestForm, budget_range: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select budget range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="under-5000">Under KSh 5,000</SelectItem>
-                            <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
-                            <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
-                            <SelectItem value="over-20000">Over KSh 20,000</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    <div>
-                      <Label htmlFor="special_instructions">Special Instructions</Label>
-                      <Textarea
-                        id="special_instructions"
-                        value={requestForm.special_instructions}
-                        onChange={(e) => setRequestForm({...requestForm, special_instructions: e.target.value})}
-                        placeholder="Any special handling requirements or instructions"
-                      />
-                    </div>
-                    <Button onClick={createRequest} className="w-full">
-                      Submit Request
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
+                  </DialogContent>
+                </Dialog>
+              )}
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {providers.map((provider) => (
-              <Card key={provider.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg">{provider.provider_name}</CardTitle>
-                    <Badge variant={provider.provider_type === 'individual' ? 'default' : 'secondary'}>
-                      {provider.provider_type === 'individual' ? (
-                        <><User className="h-3 w-3 mr-1" />Individual</>
-                      ) : (
-                        <><Building2 className="h-3 w-3 mr-1" />Organization</>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {providers.map((provider) => (
+                <Card key={provider.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{provider.provider_name}</CardTitle>
+                      <Badge variant={provider.provider_type === 'individual' ? 'default' : 'secondary'}>
+                        {provider.provider_type === 'individual' ? (
+                          <><User className="h-3 w-3 mr-1" />Individual</>
+                        ) : (
+                          <><Building2 className="h-3 w-3 mr-1" />Organization</>
+                        )}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center">
+                        <Star className="h-4 w-4 text-yellow-500 mr-1" />
+                        <span className="text-sm">{provider.rating.toFixed(1)}</span>
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {provider.total_deliveries} deliveries
+                      </Badge>
+                      {provider.is_verified && (
+                        <Badge variant="default" className="text-xs">Verified</Badge>
                       )}
-                    </Badge>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                      <span className="text-sm">{provider.rating.toFixed(1)}</span>
                     </div>
-                    <Badge variant="outline" className="text-xs">
-                      {provider.total_deliveries} deliveries
-                    </Badge>
-                    {provider.is_verified && (
-                      <Badge variant="default" className="text-xs">Verified</Badge>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Phone className="h-4 w-4 mr-2" />
-                    {provider.phone}
-                  </div>
-                  {provider.email && (
+                  </CardHeader>
+                  <CardContent className="space-y-3">
                     <div className="flex items-center text-sm text-gray-600">
-                      <Mail className="h-4 w-4 mr-2" />
-                      {provider.email}
+                      <Phone className="h-4 w-4 mr-2" />
+                      {provider.phone}
                     </div>
-                  )}
-                  {provider.address && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <MapPin className="h-4 w-4 mr-2" />
-                      {provider.address}
-                    </div>
-                  )}
-                  
-                  {provider.vehicle_types.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium mb-1">Vehicle Types:</p>
-                      <div className="flex flex-wrap gap-1">
-                        {provider.vehicle_types.map((type, idx) => (
-                          <Badge key={idx} variant="outline" className="text-xs">
-                            {type}
-                          </Badge>
-                        ))}
+                    {provider.email && (
+                      <div className="flex items-center text-sm text-gray-600">
+                        <Mail className="h-4 w-4 mr-2" />
+                        {provider.email}
                       </div>
-                    </div>
-                  )}
-
-                  {provider.service_areas.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium mb-1">Service Areas:</p>
-                      <div className="flex flex-wrap gap-1">
-                        {provider.service_areas.map((area, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
-                            {area}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="text-sm space-y-1">
-                    {provider.capacity_kg && (
-                      <p>Capacity: {provider.capacity_kg} kg</p>
                     )}
-                    {provider.hourly_rate && (
-                      <p>Hourly Rate: KSh {provider.hourly_rate}</p>
+                    {provider.address && (
+                      <div className="flex items-center text-sm text-gray-600">
+                        <MapPin className="h-4 w-4 mr-2" />
+                        {provider.address}
+                      </div>
                     )}
-                    {provider.per_km_rate && (
-                      <p>Per KM Rate: KSh {provider.per_km_rate}</p>
+                    
+                    {provider.vehicle_types.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium mb-1">Vehicle Types:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {provider.vehicle_types.map((type, idx) => (
+                            <Badge key={idx} variant="outline" className="text-xs">
+                              {type}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
                     )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
 
-        {activeTab === 'requests' && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Delivery Requests</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {requests.map((request) => (
-              <Card key={request.id}>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{request.material_type}</CardTitle>
-                    <Badge variant={
-                      request.status === 'pending' ? 'outline' :
-                      request.status === 'assigned' ? 'default' :
-                      request.status === 'completed' ? 'secondary' : 'destructive'
-                    }>
-                      {request.status}
-                    </Badge>
-                  </div>
-                  <CardDescription>
-                    Quantity: {request.quantity} {request.weight_kg && `| Weight: ${request.weight_kg} kg`}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="text-sm">
-                    <p><span className="font-medium">From:</span> {request.pickup_address}</p>
-                    <p><span className="font-medium">To:</span> {request.delivery_address}</p>
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {new Date(request.pickup_date).toLocaleDateString()}
-                    {request.preferred_time && ` at ${request.preferred_time}`}
-                  </div>
-                  {request.budget_range && (
-                    <Badge variant="outline" className="text-xs">
-                      Budget: {request.budget_range}
-                    </Badge>
-                  )}
-                  {request.special_instructions && (
-                    <p className="text-sm text-gray-600 mt-2">
-                      <span className="font-medium">Instructions:</span> {request.special_instructions}
-                    </p>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
+                    {provider.service_areas.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium mb-1">Service Areas:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {provider.service_areas.map((area, idx) => (
+                            <Badge key={idx} variant="secondary" className="text-xs">
+                              {area}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
-        {activeTab === 'builder-requests' && (
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Builder Delivery Requests</h3>
-            {userProfile && userProfile.role === 'builder' && (
-              <Dialog open={showBuilderRequestForm} onOpenChange={setShowBuilderRequestForm}>
-                <DialogTrigger asChild>
-                  <Button>Submit Request to Admin</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>Submit Delivery Request</DialogTitle>
-                    <DialogDescription>
-                      Submit your delivery request to admin for processing
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4 max-h-96 overflow-y-auto">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_pickup_address">Pickup Address</Label>
-                        <Input
-                          id="builder_pickup_address"
-                          value={builderRequestForm.pickup_address}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_address: e.target.value})}
-                          placeholder="Enter pickup location"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_delivery_address">Delivery Address</Label>
-                        <Input
-                          id="builder_delivery_address"
-                          value={builderRequestForm.delivery_address}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, delivery_address: e.target.value})}
-                          placeholder="Enter delivery destination"
-                        />
-                      </div>
+                    <div className="text-sm space-y-1">
+                      {provider.capacity_kg && (
+                        <p>Capacity: {provider.capacity_kg} kg</p>
+                      )}
+                      {provider.hourly_rate && (
+                        <p>Hourly Rate: KSh {provider.hourly_rate}</p>
+                      )}
+                      {provider.per_km_rate && (
+                        <p>Per KM Rate: KSh {provider.per_km_rate}</p>
+                      )}
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_material_type">Material Type</Label>
-                        <Input
-                          id="builder_material_type"
-                          value={builderRequestForm.material_type}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, material_type: e.target.value})}
-                          placeholder="e.g., Cement, Bricks, Steel"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_quantity">Quantity</Label>
-                        <Input
-                          id="builder_quantity"
-                          type="number"
-                          value={builderRequestForm.quantity}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, quantity: e.target.value})}
-                          placeholder="Number of items"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_weight_kg">Weight (kg)</Label>
-                        <Input
-                          id="builder_weight_kg"
-                          type="number"
-                          value={builderRequestForm.weight_kg}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, weight_kg: e.target.value})}
-                          placeholder="Estimated weight"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_pickup_date">Pickup Date</Label>
-                        <Input
-                          id="builder_pickup_date"
-                          type="date"
-                          value={builderRequestForm.pickup_date}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_date: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_preferred_time">Preferred Time</Label>
-                        <Input
-                          id="builder_preferred_time"
-                          type="time"
-                          value={builderRequestForm.preferred_time}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, preferred_time: e.target.value})}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_budget_range">Budget Range</Label>
-                        <Select value={builderRequestForm.budget_range} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, budget_range: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select budget range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="under-5000">Under KSh 5,000</SelectItem>
-                            <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
-                            <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
-                            <SelectItem value="over-20000">Over KSh 20,000</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                     <div>
-                       <Label htmlFor="builder_special_instructions">Special Instructions</Label>
-                       <Textarea
-                         id="builder_special_instructions"
-                         value={builderRequestForm.special_instructions}
-                         onChange={(e) => setBuilderRequestForm({...builderRequestForm, special_instructions: e.target.value})}
-                         placeholder="Any special handling requirements or instructions"
-                       />
-                     </div>
-                     
-                     <div className="space-y-4">
-                       <h4 className="font-medium">Pickup Location Pin</h4>
-                       <DeliveryLocationPicker
-                         onLocationSelect={(location) => setBuilderRequestForm({...builderRequestForm, pickup_location: location})}
-                         initialLocation={builderRequestForm.pickup_location}
-                       />
-                     </div>
-                     
-                     <div className="space-y-4">
-                       <h4 className="font-medium">Delivery Location Pin</h4>
-                       <DeliveryLocationPicker
-                         onLocationSelect={(location) => setBuilderRequestForm({...builderRequestForm, delivery_location: location})}
-                         initialLocation={builderRequestForm.delivery_location}
-                       />
-                     </div>
-                     
-                     <Button onClick={createBuilderRequest} className="w-full">
-                       Submit Request
-                     </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {builderRequests.map((request) => (
-              <Card key={request.id}>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{request.material_type}</CardTitle>
-                    <Badge variant={
-                      request.status === 'pending' ? 'outline' :
-                      request.status === 'assigned' ? 'default' :
-                      request.status === 'completed' ? 'secondary' : 'destructive'
-                    }>
-                      {request.status}
-                    </Badge>
-                  </div>
-                  <CardDescription>
-                    {request.builder?.company_name || request.builder?.full_name} | 
-                    Quantity: {request.quantity} {request.weight_kg && `| Weight: ${request.weight_kg} kg`}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="text-sm">
-                    <p><span className="font-medium">From:</span> {request.pickup_address}</p>
-                    <p><span className="font-medium">To:</span> {request.delivery_address}</p>
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {new Date(request.pickup_date).toLocaleDateString()}
-                    {request.preferred_time && ` at ${request.preferred_time}`}
-                  </div>
-                  {request.budget_range && (
-                    <Badge variant="outline" className="text-xs">
-                      Budget: {request.budget_range}
-                    </Badge>
-                  )}
-                  {request.special_instructions && (
-                    <p className="text-sm text-gray-600 mt-2">
-                      <span className="font-medium">Instructions:</span> {request.special_instructions}
-                    </p>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         )}
 
         {activeTab === 'apply' && (
           <div className="space-y-4">
             <Card>
-            <CardHeader>
-              <CardTitle>Apply as Delivery Service Provider</CardTitle>
-              <CardDescription>
-                Join our network of delivery providers and start earning by helping builders get their materials delivered
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {!userProfile ? (
-                <Alert>
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    Please sign in to apply as a delivery service provider.
-                  </AlertDescription>
-                </Alert>
-              ) : (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+              <CardHeader>
+                <CardTitle>Apply as Delivery Service Provider</CardTitle>
+                <CardDescription>
+                  Join our network of delivery providers and start earning by helping builders get their materials delivered
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {!userProfile ? (
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      Please sign in to apply as a delivery service provider.
+                    </AlertDescription>
+                  </Alert>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="provider_name">Provider Name</Label>
+                        <Input
+                          id="provider_name"
+                          value={providerForm.provider_name}
+                          onChange={(e) => setProviderForm({...providerForm, provider_name: e.target.value})}
+                          placeholder="Your name or company name"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="provider_type">Provider Type</Label>
+                        <Select value={providerForm.provider_type} onValueChange={(value: 'individual' | 'organization') => setProviderForm({...providerForm, provider_type: value})}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="individual">Individual</SelectItem>
+                            <SelectItem value="organization">Organization</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    {providerForm.provider_type === 'organization' && (
+                      <div>
+                        <Label htmlFor="contact_person">Contact Person</Label>
+                        <Input
+                          id="contact_person"
+                          value={providerForm.contact_person}
+                          onChange={(e) => setProviderForm({...providerForm, contact_person: e.target.value})}
+                          placeholder="Primary contact person"
+                        />
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input
+                          id="phone"
+                          value={providerForm.phone}
+                          onChange={(e) => setProviderForm({...providerForm, phone: e.target.value})}
+                          placeholder="+254..."
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="email">Email (Optional)</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={providerForm.email}
+                          onChange={(e) => setProviderForm({...providerForm, email: e.target.value})}
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                    </div>
+
                     <div>
-                      <Label htmlFor="provider_name">Provider Name</Label>
+                      <Label htmlFor="address">Address</Label>
                       <Input
-                        id="provider_name"
-                        value={providerForm.provider_name}
-                        onChange={(e) => setProviderForm({...providerForm, provider_name: e.target.value})}
-                        placeholder="Your name or company name"
+                        id="address"
+                        value={providerForm.address}
+                        onChange={(e) => setProviderForm({...providerForm, address: e.target.value})}
+                        placeholder="Your business address"
                       />
                     </div>
+
                     <div>
-                      <Label htmlFor="provider_type">Provider Type</Label>
-                      <Select value={providerForm.provider_type} onValueChange={(value: 'individual' | 'organization') => setProviderForm({...providerForm, provider_type: value})}>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="individual">Individual</SelectItem>
-                          <SelectItem value="organization">Organization</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Label>Vehicle Types (Select multiple)</Label>
+                      <div className="grid grid-cols-3 gap-2 mt-2">
+                        {vehicleTypes.map((type) => (
+                          <Button
+                            key={type}
+                            variant={providerForm.vehicle_types.includes(type) ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => {
+                              const newTypes = providerForm.vehicle_types.includes(type)
+                                ? providerForm.vehicle_types.filter(t => t !== type)
+                                : [...providerForm.vehicle_types, type];
+                              setProviderForm({...providerForm, vehicle_types: newTypes});
+                            }}
+                          >
+                            {type}
+                          </Button>
+                        ))}
+                      </div>
                     </div>
+
+                    <div>
+                      <Label>Service Areas (Select multiple)</Label>
+                      <div className="grid grid-cols-4 gap-2 mt-2">
+                        {kenyanCities.map((city) => (
+                          <Button
+                            key={city}
+                            variant={providerForm.service_areas.includes(city) ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => {
+                              const newAreas = providerForm.service_areas.includes(city)
+                                ? providerForm.service_areas.filter(a => a !== city)
+                                : [...providerForm.service_areas, city];
+                              setProviderForm({...providerForm, service_areas: newAreas});
+                            }}
+                          >
+                            {city}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                      <div>
+                        <Label htmlFor="capacity_kg">Vehicle Capacity (kg)</Label>
+                        <Input
+                          id="capacity_kg"
+                          type="number"
+                          value={providerForm.capacity_kg}
+                          onChange={(e) => setProviderForm({...providerForm, capacity_kg: e.target.value})}
+                          placeholder="Max weight capacity"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="hourly_rate">Hourly Rate (KSh)</Label>
+                        <Input
+                          id="hourly_rate"
+                          type="number"
+                          value={providerForm.hourly_rate}
+                          onChange={(e) => setProviderForm({...providerForm, hourly_rate: e.target.value})}
+                          placeholder="Rate per hour"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="per_km_rate">Per KM Rate (KSh)</Label>
+                        <Input
+                          id="per_km_rate"
+                          type="number"
+                          value={providerForm.per_km_rate}
+                          onChange={(e) => setProviderForm({...providerForm, per_km_rate: e.target.value})}
+                          placeholder="Rate per kilometer"
+                        />
+                      </div>
+                    </div>
+
+                    <Button onClick={createProvider} className="w-full">
+                      Apply as Delivery Provider
+                    </Button>
                   </div>
-
-                  {providerForm.provider_type === 'organization' && (
-                    <div>
-                      <Label htmlFor="contact_person">Contact Person</Label>
-                      <Input
-                        id="contact_person"
-                        value={providerForm.contact_person}
-                        onChange={(e) => setProviderForm({...providerForm, contact_person: e.target.value})}
-                        placeholder="Primary contact person"
-                      />
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        value={providerForm.phone}
-                        onChange={(e) => setProviderForm({...providerForm, phone: e.target.value})}
-                        placeholder="+254..."
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email (Optional)</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={providerForm.email}
-                        onChange={(e) => setProviderForm({...providerForm, email: e.target.value})}
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="address">Address</Label>
-                    <Input
-                      id="address"
-                      value={providerForm.address}
-                      onChange={(e) => setProviderForm({...providerForm, address: e.target.value})}
-                      placeholder="Your business address"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Vehicle Types (Select multiple)</Label>
-                    <div className="grid grid-cols-3 gap-2 mt-2">
-                      {vehicleTypes.map((type) => (
-                        <Button
-                          key={type}
-                          variant={providerForm.vehicle_types.includes(type) ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => {
-                            const newTypes = providerForm.vehicle_types.includes(type)
-                              ? providerForm.vehicle_types.filter(t => t !== type)
-                              : [...providerForm.vehicle_types, type];
-                            setProviderForm({...providerForm, vehicle_types: newTypes});
-                          }}
-                        >
-                          {type}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label>Service Areas (Select multiple)</Label>
-                    <div className="grid grid-cols-4 gap-2 mt-2">
-                      {kenyanCities.map((city) => (
-                        <Button
-                          key={city}
-                          variant={providerForm.service_areas.includes(city) ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => {
-                            const newAreas = providerForm.service_areas.includes(city)
-                              ? providerForm.service_areas.filter(a => a !== city)
-                              : [...providerForm.service_areas, city];
-                            setProviderForm({...providerForm, service_areas: newAreas});
-                          }}
-                        >
-                          {city}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <Label htmlFor="capacity_kg">Vehicle Capacity (kg)</Label>
-                      <Input
-                        id="capacity_kg"
-                        type="number"
-                        value={providerForm.capacity_kg}
-                        onChange={(e) => setProviderForm({...providerForm, capacity_kg: e.target.value})}
-                        placeholder="Max weight capacity"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="hourly_rate">Hourly Rate (KSh)</Label>
-                      <Input
-                        id="hourly_rate"
-                        type="number"
-                        value={providerForm.hourly_rate}
-                        onChange={(e) => setProviderForm({...providerForm, hourly_rate: e.target.value})}
-                        placeholder="Rate per hour"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="per_km_rate">Per KM Rate (KSh)</Label>
-                      <Input
-                        id="per_km_rate"
-                        type="number"
-                        value={providerForm.per_km_rate}
-                        onChange={(e) => setProviderForm({...providerForm, per_km_rate: e.target.value})}
-                        placeholder="Rate per kilometer"
-                      />
-                    </div>
-                  </div>
-
-                  <Button onClick={createProvider} className="w-full">
-                    Apply as Delivery Provider
-                  </Button>
-                </div>
-              )}
-            </CardContent>
+                )}
+              </CardContent>
             </Card>
           </div>
         )}
