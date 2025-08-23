@@ -23,7 +23,7 @@ export const CommunicationContent: React.FC = () => {
     return (
       <div className="space-y-8">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Communication Hub</h2>
+          <h2 className="text-2xl font-bold mb-4">Communication Center</h2>
           <p className="text-muted-foreground">
             Set up your communication profile to start chatting with delivery stakeholders
           </p>
