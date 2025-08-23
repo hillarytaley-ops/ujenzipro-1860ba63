@@ -209,6 +209,26 @@ All colors MUST be HSL.
     background-repeat: no-repeat;
   }
   
+  /* Home page backgrounds */
+  .home-hero-background {
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('/lovable-uploads/b977c222-ce21-4393-bb5a-c35df9ce0000.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: hsl(var(--earth-brown));
+  }
+  
+  .home-cta-background {
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
   /* Hover scale animation */
   .hover-scale {
     @apply transition-transform duration-300 hover:scale-105;

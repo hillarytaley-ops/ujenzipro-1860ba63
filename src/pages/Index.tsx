@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, Users, ShoppingCart, Star } from "lucide-react";
+import { Search, Users, ShoppingCart, Star, QrCode, Truck, BarChart3, CheckCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -11,187 +11,283 @@ const Index = () => {
   const features = [
     {
       icon: Search,
-      title: "Find Materials Easily",
-      description: "Search thousands of construction materials from verified suppliers across Kenya"
+      title: "Smart Material Search",
+      description: "Find verified construction materials from trusted suppliers across all 47 counties of Kenya"
     },
     {
+      icon: QrCode,
+      title: "QR Material Tracking", 
+      description: "Track materials from dispatch to delivery with unique QR codes for complete transparency"
+    },
+    {
+      icon: Truck,
+      title: "Real-time Delivery",
+      description: "Live GPS tracking and professional delivery management with digital confirmations"
+    },
+    {
+      icon: BarChart3,
+      title: "Analytics Dashboard",
+      description: "Comprehensive insights and reporting for data-driven construction decisions"
+    }
+  ];
+
+  const keyCapabilities = [
+    {
       icon: Users,
-      title: "Connect with Professionals", 
-      description: "Network with trusted builders and reliable material suppliers"
+      title: "Verified Network",
+      description: "Connect with background-checked builders and certified material suppliers"
     },
     {
       icon: ShoppingCart,
-      title: "Request Quotes",
-      description: "Get competitive prices and compare offers from multiple sellers"
+      title: "Professional Procurement",
+      description: "Generate purchase orders, manage quotations, and handle bulk transactions"
     },
     {
       icon: Star,
-      title: "Verified Reviews",
-      description: "Read genuine reviews and ratings from the construction community"
+      title: "Quality Assurance",
+      description: "Community ratings, material certifications, and performance tracking"
+    },
+    {
+      icon: CheckCircle,
+      title: "Secure Transactions",
+      description: "Escrow services, payment protection, and dispute resolution systems"
     }
   ];
 
   const testimonials = [
     {
-      name: "John Kamau",
+      name: "John Mwangi",
       role: "General Contractor, Nairobi",
-      content: "UjenziPro has revolutionized how I source materials. I save time and money on every project.",
-      rating: 5
+      company: "Mwangi Construction Ltd",
+      content: "UjenziPro has transformed how we source materials. The QR tracking system alone has saved us 30% on project costs through reduced waste and better quality control.",
+      rating: 5,
+      verified: true
     },
     {
-      name: "Mary Wanjiku",
+      name: "Grace Wanjiku",
       role: "Hardware Store Owner, Nakuru", 
-      content: "This platform has expanded my customer base beyond my wildest dreams. Highly recommended!",
-      rating: 5
+      company: "Wanjiku Hardware Supplies",
+      content: "This platform expanded my customer base from local to national. The professional tools for delivery notes and inventory management are game-changers.",
+      rating: 5,
+      verified: true
+    },
+    {
+      name: "Peter Otieno",
+      role: "Project Manager, Kisumu",
+      company: "Otieno Contractors",
+      content: "Real-time delivery tracking and professional purchase orders have streamlined our operations. We've reduced procurement time by 40%.",
+      rating: 5,
+      verified: true
     }
   ];
 
   return (
-    <div 
-      className="min-h-screen relative"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/b977c222-ce21-4393-bb5a-c35df9ce0000.png')`,
-        backgroundSize: 'contain',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: '#1a1a1a'
-      }}
-    >
+    <div className="min-h-screen bg-gradient-construction">
       <Navigation />
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 text-center">
-        <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 bg-green-800 text-white border-green-700">
-            🇰🇪 Connecting Kenya's Construction Industry
-          </Badge>
-          <h1 className="text-5xl font-bold mb-6 leading-tight">
-            <span className="text-white">Connect, </span>
-            <span className="text-red-400">Build </span>
-            <span className="text-white">and </span>
-            <span className="text-green-400">Succeed Together.</span>
-          </h1>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            The premier platform connecting builders with trusted construction material suppliers across Kenya. 
-            Find quality materials, get competitive quotes, and build lasting business relationships.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link to="/builders">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-4">
-                I'm a Builder
-              </Button>
-            </Link>
-            <Link to="/suppliers">
-              <Button size="lg" variant="outline" className="border-green-400 text-green-400 hover:bg-green-400 hover:text-black text-lg px-8 py-4">
-                I'm a Supplier
-              </Button>
-            </Link>
-          </div>
+      <header className="home-hero-background py-20 relative">
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <Badge className="mb-6 bg-white/20 text-white border-white/30 animate-fade-in">
+              🇰🇪 Transforming Kenya's Construction Industry
+            </Badge>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in">
+              <span className="text-white">Connect, </span>
+              <span className="text-primary">Build </span>
+              <span className="text-white">and </span>
+              <span className="text-construction-orange">Succeed Together</span>
+            </h1>
+            <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto animate-fade-in">
+              Kenya's premier digital construction platform featuring QR material tracking, 
+              real-time delivery management, and comprehensive supply chain transparency. 
+              Build lasting business relationships with verified professionals.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in">
+              <Link to="/builders">
+                <Button size="lg" className="text-lg px-8 py-4 hover-scale transition-all duration-300">
+                  <Users className="mr-2 h-5 w-5" />
+                  I'm a Builder
+                </Button>
+              </Link>
+              <Link to="/suppliers">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-white/30 text-white hover:bg-white hover:text-foreground text-lg px-8 py-4 hover-scale transition-all duration-300"
+                >
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  I'm a Supplier
+                </Button>
+              </Link>
+            </div>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-black">1,000+</div>
-              <div className="text-gray-200">Active Builders</div>
+            {/* Enhanced Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              <div className="text-center hover-scale transition-all duration-300">
+                <div className="text-3xl font-bold text-white mb-2">1,000+</div>
+                <div className="text-white/80 text-sm">Active Builders</div>
+              </div>
+              <div className="text-center hover-scale transition-all duration-300">
+                <div className="text-3xl font-bold text-primary mb-2">500+</div>
+                <div className="text-white/80 text-sm">Verified Suppliers</div>
+              </div>
+              <div className="text-center hover-scale transition-all duration-300">
+                <div className="text-3xl font-bold text-construction-orange mb-2">15,000+</div>
+                <div className="text-white/80 text-sm">Materials Tracked</div>
+              </div>
+              <div className="text-center hover-scale transition-all duration-300">
+                <div className="text-3xl font-bold text-white mb-2">KSh 2B+</div>
+                <div className="text-white/80 text-sm">Transactions</div>
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-400">500+</div>
-              <div className="text-gray-200">Material Suppliers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-400">10,000+</div>
-              <div className="text-gray-200">Successful Connections</div>
-            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Core Features Section */}
+      <section className="py-20 bg-muted" aria-labelledby="features-heading">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 id="features-heading" className="text-4xl font-bold mb-6">
+              Advanced Construction Technology
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Powered by cutting-edge technology, UjenziPro offers comprehensive digital solutions 
+              that transform traditional construction supply chain management.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {features.map((feature, index) => {
+              const IconComponent = feature.icon;
+              return (
+                <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 hover-scale border-0 bg-card">
+                  <CardHeader>
+                    <div className="mx-auto mb-4 p-4 bg-primary/10 rounded-full w-fit">
+                      <IconComponent className="h-8 w-8 text-primary" aria-hidden="true" />
+                    </div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base leading-relaxed">{feature.description}</CardDescription>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="bg-muted py-8">
+      {/* Platform Capabilities */}
+      <section className="py-20 bg-secondary" aria-labelledby="capabilities-heading">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-orange-200 mb-4">
-              Why Choose UjenziPro?
+          <div className="text-center mb-16">
+            <h2 id="capabilities-heading" className="text-4xl font-bold mb-6">
+              Complete Business Solutions
             </h2>
-            <p className="text-lg text-blue-900 max-w-2xl mx-auto">
-              We make it easy for builders and suppliers to find each other, 
-              negotiate fair prices, and build successful partnerships.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              From discovery to delivery, UjenziPro provides end-to-end tools for 
+              professional construction business management.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow bg-black border-green-700">
-                <CardHeader>
-                  <div className="mx-auto mb-4 p-3 bg-green-800 rounded-full w-fit">
-                    <feature.icon className="h-6 w-6 text-green-400" />
-                  </div>
-                  <CardTitle className="text-lg text-white">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300">{feature.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {keyCapabilities.map((capability, index) => {
+              const IconComponent = capability.icon;
+              return (
+                <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 hover-scale">
+                  <CardHeader>
+                    <div className="mx-auto mb-4 p-4 bg-construction-orange/10 rounded-full w-fit">
+                      <IconComponent className="h-8 w-8 text-construction-orange" aria-hidden="true" />
+                    </div>
+                    <CardTitle className="text-xl">{capability.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base leading-relaxed">{capability.description}</CardDescription>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 bg-secondary">
+      <section className="py-20 bg-accent" aria-labelledby="how-it-works-heading">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-orange-200 mb-4">How It Works</h2>
-            <p className="text-lg text-blue-900">Simple steps to get started</p>
+          <div className="text-center mb-16">
+            <h2 id="how-it-works-heading" className="text-4xl font-bold mb-6">How It Works</h2>
+            <p className="text-xl text-muted-foreground">Three simple steps to transform your construction business</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="bg-black text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold border-2 border-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+            <div className="text-center hover-scale transition-all duration-300">
+              <div className="bg-primary text-primary-foreground rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg">
                 1
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-blue-800">Create Your Profile</h3>
-              <p className="text-blue-900">Sign up and create a detailed profile showcasing your business</p>
+              <h3 className="font-bold text-2xl mb-4">Create Your Profile</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Register and verify your business with detailed profiles, certifications, and service capabilities
+              </p>
             </div>
-            <div className="text-center">
-              <div className="bg-primary text-primary-foreground rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold">
+            <div className="text-center hover-scale transition-all duration-300">
+              <div className="bg-construction-orange text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg">
                 2
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-blue-800">Search & Connect</h3>
-              <p className="text-blue-900">Find materials or customers using our advanced search filters</p>
+              <h3 className="font-bold text-2xl mb-4">Connect & Transact</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Search, communicate, and execute professional transactions with QR tracking and digital documentation
+              </p>
             </div>
-            <div className="text-center">
-              <div className="bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-lg font-bold">
+            <div className="text-center hover-scale transition-all duration-300">
+              <div className="bg-construction-blue text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg">
                 3
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-blue-800">Build & Grow</h3>
-              <p className="text-blue-900">Complete transactions and build lasting business relationships</p>
+              <h3 className="font-bold text-2xl mb-4">Scale & Succeed</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Build lasting partnerships, track performance analytics, and grow your construction business sustainably
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 bg-accent">
+      {/* Success Stories */}
+      <section className="py-20 bg-muted" aria-labelledby="testimonials-heading">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">What Our Users Say</h2>
+          <div className="text-center mb-16">
+            <h2 id="testimonials-heading" className="text-4xl font-bold mb-6">Success Stories</h2>
+            <p className="text-xl text-muted-foreground">
+              Real results from verified construction professionals across Kenya
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow bg-black border-green-700">
-                <CardContent className="pt-6">
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-green-400 fill-current" />
-                    ))}
+              <Card key={index} className="hover:shadow-xl transition-all duration-300 hover-scale">
+                <CardContent className="pt-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 text-construction-orange fill-current" />
+                      ))}
+                    </div>
+                    {testimonial.verified && (
+                      <Badge variant="secondary" className="text-xs">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        Verified
+                      </Badge>
+                    )}
                   </div>
-                  <p className="text-gray-200 mb-4">"{testimonial.content}"</p>
-                  <div>
-                    <div className="font-semibold text-white">{testimonial.name}</div>
-                    <div className="text-sm text-gray-400">{testimonial.role}</div>
+                  <blockquote className="text-muted-foreground mb-6 italic leading-relaxed">
+                    "{testimonial.content}"
+                  </blockquote>
+                  <div className="border-t pt-4">
+                    <div className="font-semibold text-lg">{testimonial.name}</div>
+                    <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                    <div className="text-xs text-primary mt-1">{testimonial.company}</div>
                   </div>
                 </CardContent>
               </Card>
@@ -201,21 +297,37 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section 
-        className="py-16 text-white relative"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
+      <section className="home-cta-background py-20 relative" aria-labelledby="cta-heading">
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Construction Business?</h2>
-          <p className="text-xl mb-8 opacity-90">Join thousands of builders and suppliers already using UjenziPro</p>
-          <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-4">
-            Start Building Connections Today
-          </Button>
+          <div className="max-w-4xl mx-auto">
+            <h2 id="cta-heading" className="text-4xl font-bold mb-6 text-white">
+              Ready to Transform Your Construction Business?
+            </h2>
+            <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
+              Join thousands of builders and suppliers already using UjenziPro's advanced digital platform 
+              to streamline operations, track materials, and grow their businesses.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/auth">
+                <Button 
+                  size="lg" 
+                  className="text-lg px-10 py-4 hover-scale transition-all duration-300"
+                >
+                  <ArrowRight className="mr-2 h-5 w-5" />
+                  Start Building Connections Today
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="border-white/30 text-white hover:bg-white hover:text-foreground text-lg px-10 py-4 hover-scale transition-all duration-300"
+                >
+                  Learn More About UjenziPro
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
