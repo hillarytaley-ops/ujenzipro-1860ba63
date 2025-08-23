@@ -27,6 +27,11 @@ import completeWorkflowDiagram from "@/assets/ujenzipro-complete-workflow.png";
 import detailedWorkflowDiagram from "@/assets/ujenzipro-detailed-workflow.png";
 import systemArchitectureDiagram from "@/assets/ujenzipro-system-architecture.png";
 import stakeholderEcosystemDiagram from "@/assets/ujenzipro-stakeholder-ecosystem.png";
+import securityWorkflowDiagram from "@/assets/ujenzipro-complete-security-workflow.png";
+import detailedArchitectureDiagram from "@/assets/ujenzipro-detailed-architecture.png";
+import techArchitectureDiagram from "@/assets/ujenzipro-tech-architecture.png";
+import workflowDiagram from "@/assets/ujenzipro-workflow-diagram.png";
+import generalWorkflowDiagram from "@/assets/workflow-diagram.png";
 
 const UjenziProPresentationViewer = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -704,7 +709,7 @@ This comprehensive presentation covers the complete UjenziPro ecosystem and work
           <Image className="mr-3 h-6 w-6 text-primary" />
           Downloadable Workflow Diagrams
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card className="overflow-hidden hover-scale transition-all duration-300">
             <div className="aspect-video bg-muted/50 p-4">
               <img 
@@ -768,6 +773,126 @@ This comprehensive presentation covers the complete UjenziPro ecosystem and work
               </p>
               <Button 
                 onClick={() => downloadWorkflowDiagram(systemArchitectureDiagram, 'UjenziPro_System_Architecture.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={securityWorkflowDiagram} 
+                alt="Security Workflow Diagram" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">Security Workflow</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Complete security framework and compliance workflow
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(securityWorkflowDiagram, 'UjenziPro_Security_Workflow.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={detailedArchitectureDiagram} 
+                alt="Detailed Architecture Diagram" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">Detailed Architecture</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                In-depth technical architecture and data flow
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(detailedArchitectureDiagram, 'UjenziPro_Detailed_Architecture.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={techArchitectureDiagram} 
+                alt="Technical Architecture Diagram" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">Technical Architecture</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Technology stack and infrastructure overview
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(techArchitectureDiagram, 'UjenziPro_Tech_Architecture.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={workflowDiagram} 
+                alt="UjenziPro Workflow Diagram" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">Platform Workflow</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Core platform workflow and process flow
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(workflowDiagram, 'UjenziPro_Platform_Workflow.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={generalWorkflowDiagram} 
+                alt="General Workflow Diagram" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">General Workflow</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Overview of general platform operations
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(generalWorkflowDiagram, 'UjenziPro_General_Workflow.png')}
                 className="w-full"
                 size="sm"
               >
