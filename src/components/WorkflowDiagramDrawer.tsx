@@ -49,9 +49,11 @@ const WorkflowDiagramDrawer = () => {
       backgroundColor: "#ffffff",
     });
 
-    // Initialize the freeDrawingBrush
-    canvas.freeDrawingBrush.color = activeColor;
-    canvas.freeDrawingBrush.width = strokeWidth;
+    // Ensure freeDrawingBrush is initialized before setting properties
+    if (canvas.freeDrawingBrush) {
+      canvas.freeDrawingBrush.color = activeColor;
+      canvas.freeDrawingBrush.width = strokeWidth;
+    }
 
     setFabricCanvas(canvas);
     toast.success("Workflow diagram canvas ready!");
