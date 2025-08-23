@@ -9,11 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import DeliveryRequestAlerts from "@/components/DeliveryRequestAlerts";
 import DrivingLicenseUpload from "@/components/DrivingLicenseUpload";
 import LiveDeliveryTracker from "@/components/LiveDeliveryTracker";
 import LiveTrackingViewer from "@/components/LiveTrackingViewer";
-import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown } from "lucide-react";
+import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown, Upload, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -131,7 +130,7 @@ const DeliveryPortal = () => {
 
   const vehicleTypes = ['Pickup Truck', 'Van', 'Large Truck', 'Motorcycle', 'Lorry', 'Trailer'];
   const kenyanCities = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret', 'Thika', 'Meru', 'Machakos'];
-  const licenseClasses = ['Class A', 'Class B', 'Class C', 'Class D', 'Class E', 'Motorcycle'];
+  const licenseClasses = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
   useEffect(() => {
     fetchProviders();
@@ -482,13 +481,6 @@ const DeliveryPortal = () => {
       </div>
 
       <div className="w-full">
-        {/* Delivery Request Alerts for Providers */}
-        {userDeliveryProvider && userDeliveryProvider.is_active && (
-          <div className="mb-6">
-            <DeliveryRequestAlerts providerId={userDeliveryProvider.id} />
-          </div>
-        )}
-
         {/* Available Delivery Providers Section */}
         {activeSection === 'providers' && (
           <div className="space-y-6">
