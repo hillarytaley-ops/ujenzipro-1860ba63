@@ -32,58 +32,54 @@ const About = () => {
     {
       name: "Sila Kapting'ei",
       role: "CEO",
-      description: "15 years experience in construction and technology",
-      image: "/placeholder.svg"
+      description: "Visionary leader with 15+ years transforming construction through innovative technology solutions and strategic partnerships",
+      image: "/lovable-uploads/6282de19-c0b1-4ee6-b5f5-5317b8ca1168.png",
+      alt: "Sila Kapting'ei, CEO of UjenziPro"
     },
     {
-      name: "Hillary Kaptng'ei ",
+      name: "Hillary Kapting'ei",
       role: "CTO & Founder",
-      description: "senior engineer at leading tech companies",
-      image: "/placeholder.svg"
+      description: "Technical architect and former senior engineer who built scalable systems at leading tech companies across Africa",
+      image: "/lovable-uploads/7a56d657-b18e-45cb-9f19-3ab4d8f4ce49.png",
+      alt: "Hillary Kapting'ei, CTO and Founder of UjenziPro"
     },
     {
       name: "Eliud Rugut",
       role: "Head of Operations",
-      description: "Expert in supply chain and logistics management",
-      image: "/placeholder.svg"
+      description: "Supply chain optimization expert with deep expertise in construction logistics and digital transformation",
+      image: "/lovable-uploads/b977c222-ce21-4393-bb5a-c35df9ce0000.png",
+      alt: "Eliud Rugut, Head of Operations at UjenziPro"
     },
     {
       name: "Mary Akinyi",
       role: "Head of Business Development",
-      description: "Specialist in B2B relationships and partnerships",
-      image: "/placeholder.svg"
+      description: "Strategic partnership specialist driving B2B relationships and market expansion across Kenya's construction sector",
+      image: "/lovable-uploads/e2233f15-caa6-45be-b6cb-0531b0e0baa6.png",
+      alt: "Mary Akinyi, Head of Business Development at UjenziPro"
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-construction">
-      <Navigation />
+        <Navigation />
 
-      {/* Hero Section */}
-      <section 
-        className="text-white py-20 relative"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <Badge className="mb-4 bg-white/20 text-white border-white/30">
-            🇰🇪 Proudly Kenyan
-          </Badge>
-          <h1 className="text-5xl font-bold mb-6">
-            <span className="text-black">About</span>{' '}
-            <span className="text-red-600">Ujenzi</span><span className="text-green-600">Pro</span>
-          </h1>
-          <p className="text-xl max-w-3xl mx-auto opacity-90">
-            We're transforming Kenya's construction industry with comprehensive digital solutions - 
-            from supplier connections and procurement management to real-time delivery tracking, 
-            QR-coded material verification, and complete project visibility.
-          </p>
-        </div>
-      </section>
+        {/* Hero Section */}
+        <section className="hero-background py-20 relative">
+          <div className="container mx-auto px-4 text-center">
+            <Badge className="mb-4 bg-white/20 text-white border-white/30">
+              🇰🇪 Proudly Kenyan
+            </Badge>
+            <h1 className="text-5xl font-bold mb-6">
+              <span className="text-background">About</span>{' '}
+              <span className="text-primary">Ujenzi</span><span className="text-construction-orange">Pro</span>
+            </h1>
+            <p className="text-xl max-w-3xl mx-auto text-background/90">
+              We're transforming Kenya's construction industry with comprehensive digital solutions - 
+              from supplier connections and procurement management to real-time delivery tracking, 
+              QR-coded material verification, and complete project visibility.
+            </p>
+          </div>
+        </section>
 
       {/* Our Story Section */}
       <section className="py-20 bg-muted">
@@ -91,21 +87,21 @@ const About = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-12">Our Story</h2>
             <div className="prose prose-lg mx-auto">
-              <p className="text-xl leading-relaxed mb-6 text-blue-900">
+              <p className="text-xl leading-relaxed mb-6 text-foreground">
                 UjenziPro was born from a simple observation: Kenya's construction industry needed 
                 complete digital transformation. As builders struggled with procurement inefficiencies, 
                 material tracking challenges, and delivery management complexities, while suppliers 
                 lacked professional tools for documentation and customer communication, we saw an 
                 opportunity to revolutionize the entire construction workflow.
               </p>
-              <p className="text-lg leading-relaxed mb-6 text-blue-900">
+              <p className="text-lg leading-relaxed mb-6 text-muted-foreground">
                 Founded in 2023 by a team of construction industry veterans and technology experts, 
                 we've rapidly evolved from a simple connection platform to a comprehensive construction 
                 management ecosystem. Today, we offer professional procurement tools, real-time material 
                 tracking with QR technology, delivery note management, live project monitoring, and 
                 complete supply chain transparency.
               </p>
-              <p className="text-lg leading-relaxed text-blue-900">
+              <p className="text-lg leading-relaxed text-muted-foreground">
                 Our platform now serves thousands of builders and suppliers across all 47 counties, 
                 facilitating millions of shillings in transactions, tracking materials from dispatch to delivery, 
                 managing professional purchase orders and delivery notes, and providing the digital infrastructure 
@@ -146,8 +142,13 @@ const About = () => {
             {team.map((member, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
-                    <Users className="h-12 w-12 text-muted-foreground" />
+                  <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full overflow-hidden">
+                    <img 
+                      src={member.image} 
+                      alt={member.alt}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
                   </div>
                   <CardTitle className="text-lg">{member.name}</CardTitle>
                   <CardDescription className="text-primary font-medium">
@@ -170,8 +171,8 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="mx-auto mb-4 p-4 bg-blue-500/20 rounded-full w-fit">
-                  <FileText className="h-8 w-8 text-blue-600" />
+                <div className="mx-auto mb-4 p-4 bg-construction-blue/20 rounded-full w-fit">
+                  <FileText className="h-8 w-8 text-construction-blue" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-lg">Professional Procurement</CardTitle>
               </CardHeader>
@@ -184,8 +185,8 @@ const About = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="mx-auto mb-4 p-4 bg-green-500/20 rounded-full w-fit">
-                  <QrCode className="h-8 w-8 text-green-600" />
+                <div className="mx-auto mb-4 p-4 bg-primary/20 rounded-full w-fit">
+                  <QrCode className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-lg">QR Material Tracking</CardTitle>
               </CardHeader>
@@ -198,8 +199,8 @@ const About = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="mx-auto mb-4 p-4 bg-purple-500/20 rounded-full w-fit">
-                  <Truck className="h-8 w-8 text-purple-600" />
+                <div className="mx-auto mb-4 p-4 bg-construction-orange/20 rounded-full w-fit">
+                  <Truck className="h-8 w-8 text-construction-orange" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-lg">Delivery Management</CardTitle>
               </CardHeader>
@@ -212,8 +213,8 @@ const About = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="mx-auto mb-4 p-4 bg-orange-500/20 rounded-full w-fit">
-                  <Camera className="h-8 w-8 text-orange-600" />
+                <div className="mx-auto mb-4 p-4 bg-earth-brown/20 rounded-full w-fit">
+                  <Camera className="h-8 w-8 text-earth-brown" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-lg">Live Monitoring</CardTitle>
               </CardHeader>
@@ -226,8 +227,8 @@ const About = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="mx-auto mb-4 p-4 bg-red-500/20 rounded-full w-fit">
-                  <BarChart3 className="h-8 w-8 text-red-600" />
+                <div className="mx-auto mb-4 p-4 bg-primary/20 rounded-full w-fit">
+                  <BarChart3 className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-lg">Analytics Dashboard</CardTitle>
               </CardHeader>
@@ -240,8 +241,8 @@ const About = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="mx-auto mb-4 p-4 bg-teal-500/20 rounded-full w-fit">
-                  <Package className="h-8 w-8 text-teal-600" />
+                <div className="mx-auto mb-4 p-4 bg-construction-blue/20 rounded-full w-fit">
+                  <Package className="h-8 w-8 text-construction-blue" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-lg">Supply Chain Integration</CardTitle>
               </CardHeader>
@@ -256,48 +257,40 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section 
-        className="py-20 text-white relative"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/6ea15a8f-a981-4c02-a56e-64ed62ab7a57.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
+      <section className="stats-background py-20 relative">
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Impact</h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-background">Our Impact</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold mb-2">1,000+</div>
-              <div className="text-lg opacity-90">Active Builders</div>
+              <div className="text-4xl font-bold mb-2 text-background">1,000+</div>
+              <div className="text-lg text-background/90">Active Builders</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-lg opacity-90">Verified Suppliers</div>
+              <div className="text-4xl font-bold mb-2 text-background">500+</div>
+              <div className="text-lg text-background/90">Verified Suppliers</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">15,000+</div>
-              <div className="text-lg opacity-90">Materials Tracked</div>
+              <div className="text-4xl font-bold mb-2 text-background">15,000+</div>
+              <div className="text-lg text-background/90">Materials Tracked</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">KSh 2B+</div>
-              <div className="text-lg opacity-90">Total Transactions</div>
+              <div className="text-4xl font-bold mb-2 text-background">KSh 2B+</div>
+              <div className="text-lg text-background/90">Total Transactions</div>
             </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mt-12">
             <div>
-              <div className="text-3xl font-bold mb-2">5,000+</div>
-              <div className="text-base opacity-90">Purchase Orders Processed</div>
+              <div className="text-3xl font-bold mb-2 text-background">5,000+</div>
+              <div className="text-base text-background/90">Purchase Orders Processed</div>
             </div>
             <div>
-              <div className="text-3xl font-bold mb-2">8,000+</div>
-              <div className="text-base opacity-90">Delivery Notes Generated</div>
+              <div className="text-3xl font-bold mb-2 text-background">8,000+</div>
+              <div className="text-base text-background/90">Delivery Notes Generated</div>
             </div>
             <div>
-              <div className="text-3xl font-bold mb-2">25,000+</div>
-              <div className="text-base opacity-90">QR Codes Scanned</div>
+              <div className="text-3xl font-bold mb-2 text-background">25,000+</div>
+              <div className="text-base text-background/90">QR Codes Scanned</div>
             </div>
           </div>
         </div>
@@ -308,7 +301,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-8">Building the Future</h2>
-            <p className="text-xl leading-relaxed mb-8 text-blue-900">
+            <p className="text-xl leading-relaxed mb-8 text-foreground">
               We're not just digitizing construction - we're reimagining it. Our platform combines 
               cutting-edge technology with deep industry knowledge to create solutions that address 
               real construction challenges.
