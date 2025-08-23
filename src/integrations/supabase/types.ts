@@ -594,36 +594,48 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          business_license: string | null
           company_name: string | null
+          company_registration: string | null
           created_at: string
           full_name: string | null
           id: string
+          is_professional: boolean | null
           phone: string | null
           role: string | null
           updated_at: string
           user_id: string
+          user_type: string | null
         }
         Insert: {
           avatar_url?: string | null
+          business_license?: string | null
           company_name?: string | null
+          company_registration?: string | null
           created_at?: string
           full_name?: string | null
           id?: string
+          is_professional?: boolean | null
           phone?: string | null
           role?: string | null
           updated_at?: string
           user_id: string
+          user_type?: string | null
         }
         Update: {
           avatar_url?: string | null
+          business_license?: string | null
           company_name?: string | null
+          company_registration?: string | null
           created_at?: string
           full_name?: string | null
           id?: string
+          is_professional?: boolean | null
           phone?: string | null
           role?: string | null
           updated_at?: string
           user_id?: string
+          user_type?: string | null
         }
         Relationships: []
       }
@@ -1103,6 +1115,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_access_grn: {
+        Args: { user_uuid: string }
+        Returns: boolean
+      }
       generate_access_code: {
         Args: Record<PropertyKey, never>
         Returns: string
