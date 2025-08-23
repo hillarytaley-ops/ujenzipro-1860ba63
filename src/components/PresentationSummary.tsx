@@ -3,18 +3,18 @@ import { Download, FileText, Users, Truck, QrCode, CreditCard, MapPin, Shield } 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import workflowDiagram from '@/assets/workflow-diagram.png';
-import systemArchitecture from '@/assets/system-architecture.png';
+import workflowDiagram from '@/assets/ujenzipro-workflow-diagram.png';
+import systemArchitecture from '@/assets/ujenzipro-system-architecture.png';
 
 const PresentationSummary: React.FC = () => {
   const downloadSummary = () => {
     // Create a downloadable text file with the workflow summary
     const summaryContent = `
-# JengaGuard Construction Supply Chain Management System
+# UjenziPro Construction Supply Chain Management System
 ## Comprehensive Workflow Summary
 
 ### EXECUTIVE OVERVIEW
-JengaGuard is a digital platform that revolutionizes construction supply chain operations through:
+UjenziPro is a digital platform that revolutionizes construction supply chain operations through:
 - Automated procurement processes
 - Real-time delivery tracking
 - Integrated payment systems
@@ -71,7 +71,7 @@ Integrations: QR codes, GPS, M-Pesa, Email notifications
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'JengaGuard_Workflow_Summary.txt';
+    a.download = 'UjenziPro_Workflow_Summary.txt';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -133,7 +133,7 @@ Integrations: QR codes, GPS, M-Pesa, Email notifications
     <div className="max-w-6xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-primary">JengaGuard Supply Chain Management</h1>
+        <h1 className="text-4xl font-bold text-primary">UjenziPro Supply Chain Management</h1>
         <p className="text-xl text-muted-foreground">
           Comprehensive Workflow Summary & Presentation Materials
         </p>
@@ -155,11 +155,11 @@ Integrations: QR codes, GPS, M-Pesa, Email notifications
           <CardContent>
             <img 
               src={workflowDiagram} 
-              alt="JengaGuard Workflow Diagram" 
+              alt="UjenziPro Workflow Diagram" 
               className="w-full h-auto rounded-lg border"
             />
             <Button 
-              onClick={() => downloadDiagram(workflowDiagram, 'JengaGuard_Workflow_Diagram.png')}
+              onClick={() => downloadDiagram(workflowDiagram, 'UjenziPro_Workflow_Diagram.png')}
               className="w-full mt-4"
               variant="outline"
             >
@@ -177,11 +177,11 @@ Integrations: QR codes, GPS, M-Pesa, Email notifications
           <CardContent>
             <img 
               src={systemArchitecture} 
-              alt="JengaGuard System Architecture" 
+              alt="UjenziPro System Architecture" 
               className="w-full h-auto rounded-lg border"
             />
             <Button 
-              onClick={() => downloadDiagram(systemArchitecture, 'JengaGuard_System_Architecture.png')}
+              onClick={() => downloadDiagram(systemArchitecture, 'UjenziPro_System_Architecture.png')}
               className="w-full mt-4"
               variant="outline"
             >
@@ -280,7 +280,7 @@ Integrations: QR codes, GPS, M-Pesa, Email notifications
           </div>
           <div className="p-4 bg-muted rounded-lg">
             <h4 className="font-semibold mb-2">Slide 2: Solution Overview</h4>
-            <p className="text-sm">JengaGuard provides an end-to-end digital platform connecting builders, suppliers, and delivery providers with real-time tracking and automated processes.</p>
+            <p className="text-sm">UjenziPro provides an end-to-end digital platform connecting builders, suppliers, and delivery providers with real-time tracking and automated processes.</p>
           </div>
           <div className="p-4 bg-muted rounded-lg">
             <h4 className="font-semibold mb-2">Slide 3: Key Benefits</h4>
