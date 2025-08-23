@@ -8,8 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -75,7 +75,7 @@ const DeliveryPortal = () => {
   const [requests, setRequests] = useState<DeliveryRequest[]>([]);
   const [builderRequests, setBuilderRequests] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("providers");
+  const [activeSection, setActiveSection] = useState("providers");
   const [showProviderForm, setShowProviderForm] = useState(false);
   const [showRequestForm, setShowRequestForm] = useState(false);
   const [showBuilderRequestForm, setShowBuilderRequestForm] = useState(false);
@@ -408,221 +408,254 @@ const DeliveryPortal = () => {
         </Alert>
       )}
 
-      <Tabs defaultValue="providers" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-6">
-          <TabsTrigger value="providers" className="text-sm">Available Providers</TabsTrigger>
-          <TabsTrigger value="request" className="text-sm">Request Delivery</TabsTrigger>
-          <TabsTrigger value="apply" className="text-sm">Apply as Provider</TabsTrigger>
-        </TabsList>
+      {/* Dropdown Menu Bar */}
+      <div className="flex justify-between items-center mb-6">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="min-w-[200px] justify-between bg-background border-border">
+              {activeSection === 'providers' && 'Available Providers'}
+              {activeSection === 'request' && 'Request Delivery'}
+              {activeSection === 'apply' && 'Apply as Provider'}
+              <ChevronDown className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[200px] bg-background border-border shadow-lg z-50">
+            <DropdownMenuItem 
+              onClick={() => setActiveSection('providers')}
+              className="cursor-pointer hover:bg-muted"
+            >
+              <Package className="h-4 w-4 mr-2" />
+              Available Providers
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={() => setActiveSection('request')}
+              className="cursor-pointer hover:bg-muted"
+            >
+              <Truck className="h-4 w-4 mr-2" />
+              Request Delivery
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={() => setActiveSection('apply')}
+              className="cursor-pointer hover:bg-muted"
+            >
+              <User className="h-4 w-4 mr-2" />
+              Apply as Provider
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
 
-        {/* Available Delivery Providers Tab */}
-        <TabsContent value="providers" className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
-            {userProfile && userProfile.role === 'admin' && (
-              <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
-                <DialogTrigger asChild>
-                  <Button>Request Provider Service</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>Request Service from Provider</DialogTitle>
-                    <DialogDescription>
-                      Submit a delivery request to service providers
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4 max-h-96 overflow-y-auto">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="pickup_address">Pickup Address</Label>
-                        <Input
-                          id="pickup_address"
-                          value={requestForm.pickup_address}
-                          onChange={(e) => setRequestForm({...requestForm, pickup_address: e.target.value})}
-                          placeholder="Enter pickup location"
-                        />
+      <div className="w-full">
+        {/* Available Delivery Providers Section */}
+        {activeSection === 'providers' && (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
+              {userProfile && userProfile.role === 'admin' && (
+                <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
+                  <DialogTrigger asChild>
+                    <Button>Request Provider Service</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>Request Service from Provider</DialogTitle>
+                      <DialogDescription>
+                        Submit a delivery request to service providers
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 max-h-96 overflow-y-auto">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="pickup_address">Pickup Address</Label>
+                          <Input
+                            id="pickup_address"
+                            value={requestForm.pickup_address}
+                            onChange={(e) => setRequestForm({...requestForm, pickup_address: e.target.value})}
+                            placeholder="Enter pickup location"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="delivery_address">Delivery Address</Label>
+                          <Input
+                            id="delivery_address"
+                            value={requestForm.delivery_address}
+                            onChange={(e) => setRequestForm({...requestForm, delivery_address: e.target.value})}
+                            placeholder="Enter delivery destination"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="material_type">Material Type</Label>
+                          <Input
+                            id="material_type"
+                            value={requestForm.material_type}
+                            onChange={(e) => setRequestForm({...requestForm, material_type: e.target.value})}
+                            placeholder="e.g., Cement, Bricks, Steel"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="quantity">Quantity</Label>
+                          <Input
+                            id="quantity"
+                            type="number"
+                            value={requestForm.quantity}
+                            onChange={(e) => setRequestForm({...requestForm, quantity: e.target.value})}
+                            placeholder="Number of items"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="weight_kg">Weight (kg)</Label>
+                          <Input
+                            id="weight_kg"
+                            type="number"
+                            value={requestForm.weight_kg}
+                            onChange={(e) => setRequestForm({...requestForm, weight_kg: e.target.value})}
+                            placeholder="Estimated weight"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="pickup_date">Pickup Date</Label>
+                          <Input
+                            id="pickup_date"
+                            type="date"
+                            value={requestForm.pickup_date}
+                            onChange={(e) => setRequestForm({...requestForm, pickup_date: e.target.value})}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="preferred_time">Preferred Time</Label>
+                          <Input
+                            id="preferred_time"
+                            type="time"
+                            value={requestForm.preferred_time}
+                            onChange={(e) => setRequestForm({...requestForm, preferred_time: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="budget_range">Budget Range</Label>
+                          <Select value={requestForm.budget_range} onValueChange={(value) => setRequestForm({...requestForm, budget_range: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select budget range" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="1000-5000">KSh 1,000 - 5,000</SelectItem>
+                              <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
+                              <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
+                              <SelectItem value="20000+">KSh 20,000+</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                       <div>
-                        <Label htmlFor="delivery_address">Delivery Address</Label>
-                        <Input
-                          id="delivery_address"
-                          value={requestForm.delivery_address}
-                          onChange={(e) => setRequestForm({...requestForm, delivery_address: e.target.value})}
-                          placeholder="Enter delivery destination"
+                        <Label htmlFor="special_instructions">Special Instructions</Label>
+                        <Textarea
+                          id="special_instructions"
+                          value={requestForm.special_instructions}
+                          onChange={(e) => setRequestForm({...requestForm, special_instructions: e.target.value})}
+                          placeholder="Any special handling requirements..."
+                          rows={3}
                         />
                       </div>
+                      <Button onClick={createRequest} className="w-full">
+                        Submit Request
+                      </Button>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="material_type">Material Type</Label>
-                        <Input
-                          id="material_type"
-                          value={requestForm.material_type}
-                          onChange={(e) => setRequestForm({...requestForm, material_type: e.target.value})}
-                          placeholder="e.g., Cement, Bricks, Steel"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="quantity">Quantity</Label>
-                        <Input
-                          id="quantity"
-                          type="number"
-                          value={requestForm.quantity}
-                          onChange={(e) => setRequestForm({...requestForm, quantity: e.target.value})}
-                          placeholder="Number of items"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="weight_kg">Weight (kg)</Label>
-                        <Input
-                          id="weight_kg"
-                          type="number"
-                          value={requestForm.weight_kg}
-                          onChange={(e) => setRequestForm({...requestForm, weight_kg: e.target.value})}
-                          placeholder="Estimated weight"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="pickup_date">Pickup Date</Label>
-                        <Input
-                          id="pickup_date"
-                          type="date"
-                          value={requestForm.pickup_date}
-                          onChange={(e) => setRequestForm({...requestForm, pickup_date: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="preferred_time">Preferred Time</Label>
-                        <Input
-                          id="preferred_time"
-                          type="time"
-                          value={requestForm.preferred_time}
-                          onChange={(e) => setRequestForm({...requestForm, preferred_time: e.target.value})}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="budget_range">Budget Range</Label>
-                        <Select value={requestForm.budget_range} onValueChange={(value) => setRequestForm({...requestForm, budget_range: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select budget range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1000-5000">KSh 1,000 - 5,000</SelectItem>
-                            <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
-                            <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
-                            <SelectItem value="20000+">KSh 20,000+</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    <div>
-                      <Label htmlFor="special_instructions">Special Instructions</Label>
-                      <Textarea
-                        id="special_instructions"
-                        value={requestForm.special_instructions}
-                        onChange={(e) => setRequestForm({...requestForm, special_instructions: e.target.value})}
-                        placeholder="Any special handling requirements..."
-                        rows={3}
-                      />
-                    </div>
-                    <Button onClick={createRequest} className="w-full">
-                      Submit Request
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
+                  </DialogContent>
+                </Dialog>
+              )}
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {providers.map((provider) => (
-              <Card key={provider.id} className="hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div className="flex items-center gap-2">
-                      {provider.provider_type === 'organization' ? (
-                        <Building2 className="h-5 w-5 text-blue-600" />
-                      ) : (
-                        <User className="h-5 w-5 text-green-600" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {providers.map((provider) => (
+                <Card key={provider.id} className="hover:shadow-md transition-shadow">
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div className="flex items-center gap-2">
+                        {provider.provider_type === 'organization' ? (
+                          <Building2 className="h-5 w-5 text-blue-600" />
+                        ) : (
+                          <User className="h-5 w-5 text-green-600" />
+                        )}
+                        <CardTitle className="text-lg">{provider.provider_name}</CardTitle>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Star className="h-4 w-4 text-yellow-500" />
+                        <span className="text-sm font-medium">{provider.rating.toFixed(1)}</span>
+                      </div>
+                    </div>
+                    {provider.contact_person && (
+                      <CardDescription>Contact: {provider.contact_person}</CardDescription>
+                    )}
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Phone className="h-4 w-4 text-gray-500" />
+                      <span>{provider.phone}</span>
+                    </div>
+                    {provider.email && (
+                      <div className="flex items-center gap-2 text-sm">
+                        <Mail className="h-4 w-4 text-gray-500" />
+                        <span>{provider.email}</span>
+                      </div>
+                    )}
+                    {provider.address && (
+                      <div className="flex items-center gap-2 text-sm">
+                        <MapPin className="h-4 w-4 text-gray-500" />
+                        <span className="truncate">{provider.address}</span>
+                      </div>
+                    )}
+                    
+                    {provider.vehicle_types && provider.vehicle_types.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium mb-1">Vehicle Types:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {provider.vehicle_types.map((vehicle, idx) => (
+                            <Badge key={idx} variant="outline" className="text-xs">
+                              {vehicle}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {provider.service_areas && provider.service_areas.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium mb-1">Service Areas:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {provider.service_areas.map((area, idx) => (
+                            <Badge key={idx} variant="secondary" className="text-xs">
+                              {area}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="text-sm space-y-1">
+                      {provider.capacity_kg && (
+                        <p>Capacity: {provider.capacity_kg} kg</p>
                       )}
-                      <CardTitle className="text-lg">{provider.provider_name}</CardTitle>
+                      {provider.hourly_rate && (
+                        <p>Hourly Rate: KSh {provider.hourly_rate}</p>
+                      )}
+                      {provider.per_km_rate && (
+                        <p>Per KM Rate: KSh {provider.per_km_rate}</p>
+                      )}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 text-yellow-500" />
-                      <span className="text-sm font-medium">{provider.rating.toFixed(1)}</span>
-                    </div>
-                  </div>
-                  {provider.contact_person && (
-                    <CardDescription>Contact: {provider.contact_person}</CardDescription>
-                  )}
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Phone className="h-4 w-4 text-gray-500" />
-                    <span>{provider.phone}</span>
-                  </div>
-                  {provider.email && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-4 w-4 text-gray-500" />
-                      <span>{provider.email}</span>
-                    </div>
-                  )}
-                  {provider.address && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <MapPin className="h-4 w-4 text-gray-500" />
-                      <span className="truncate">{provider.address}</span>
-                    </div>
-                  )}
-                  
-                  {provider.vehicle_types && provider.vehicle_types.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium mb-1">Vehicle Types:</p>
-                      <div className="flex flex-wrap gap-1">
-                        {provider.vehicle_types.map((vehicle, idx) => (
-                          <Badge key={idx} variant="outline" className="text-xs">
-                            {vehicle}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {provider.service_areas && provider.service_areas.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium mb-1">Service Areas:</p>
-                      <div className="flex flex-wrap gap-1">
-                        {provider.service_areas.map((area, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
-                            {area}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="text-sm space-y-1">
-                    {provider.capacity_kg && (
-                      <p>Capacity: {provider.capacity_kg} kg</p>
-                    )}
-                    {provider.hourly_rate && (
-                      <p>Hourly Rate: KSh {provider.hourly_rate}</p>
-                    )}
-                    {provider.per_km_rate && (
-                      <p>Per KM Rate: KSh {provider.per_km_rate}</p>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </TabsContent>
+        )}
 
-        {/* Request Delivery Tab */}
-        <TabsContent value="request" className="space-y-6">
+        {/* Request Delivery Section */}
+        {activeSection === 'request' && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Submit Delivery Request</h3>
             
@@ -802,10 +835,10 @@ const DeliveryPortal = () => {
               </div>
             )}
           </div>
-        </TabsContent>
+        )}
 
-        {/* Apply as Provider Tab */}
-        <TabsContent value="apply" className="space-y-6">
+        {/* Apply as Provider Section */}
+        {activeSection === 'apply' && (
           <Card>
             <CardHeader>
               <CardTitle>Apply as Delivery Service Provider</CardTitle>
@@ -973,8 +1006,8 @@ const DeliveryPortal = () => {
               )}
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+        )}
+      </div>
     </div>
   );
 };
