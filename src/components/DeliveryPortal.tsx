@@ -562,16 +562,21 @@ const DeliveryPortal = () => {
                          </SelectContent>
                        </Select>
                      </div>
-                        <div>
-                          <Label htmlFor="quantity">Quantity</Label>
-                          <Input
-                            id="quantity"
-                            type="number"
-                            value={requestForm.quantity}
-                            onChange={(e) => setRequestForm({...requestForm, quantity: e.target.value})}
-                            placeholder="Number of items"
-                          />
-                        </div>
+                     <div>
+                       <Label htmlFor="quantity">Quantity *</Label>
+                       <Select value={requestForm.quantity} onValueChange={(value) => setRequestForm({...requestForm, quantity: value})}>
+                         <SelectTrigger>
+                           <SelectValue placeholder="Select quantity" />
+                         </SelectTrigger>
+                         <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto">
+                           {[1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300, 500, 1000].map((num) => (
+                             <SelectItem key={num} value={num.toString()} className="cursor-pointer hover:bg-muted focus:bg-muted">
+                               {num}
+                             </SelectItem>
+                           ))}
+                         </SelectContent>
+                       </Select>
+                     </div>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -788,16 +793,21 @@ const DeliveryPortal = () => {
                          </SelectContent>
                        </Select>
                      </div>
-                    <div>
-                      <Label htmlFor="builder_quantity">Quantity</Label>
-                      <Input
-                        id="builder_quantity"
-                        type="number"
-                        value={builderRequestForm.quantity}
-                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, quantity: e.target.value})}
-                        placeholder="Number of items"
-                      />
-                    </div>
+                     <div>
+                       <Label htmlFor="builder_quantity">Quantity *</Label>
+                       <Select value={builderRequestForm.quantity} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, quantity: value})}>
+                         <SelectTrigger>
+                           <SelectValue placeholder="Select quantity" />
+                         </SelectTrigger>
+                         <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto">
+                           {[1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300, 500, 1000].map((num) => (
+                             <SelectItem key={num} value={num.toString()} className="cursor-pointer hover:bg-muted focus:bg-muted">
+                               {num}
+                             </SelectItem>
+                           ))}
+                         </SelectContent>
+                       </Select>
+                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
