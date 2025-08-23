@@ -133,9 +133,9 @@ const CommunicationInterface: React.FC<CommunicationInterfaceProps> = ({
         </div>
         <DeliveryCommunicationHub
           deliveryRequestId={selectedRequest}
-          userType={userType}
-          userId={userId}
-          userName={userName}
+          currentUserType={userType}
+          currentUserId={userId}
+          currentUserName={userName}
         />
       </div>
     );
