@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, Users, ShoppingCart, Star, QrCode, Truck, BarChart3, CheckCircle, ArrowRight, FileText, Pencil } from "lucide-react";
+import { Search, Users, ShoppingCart, Star, QrCode, Truck, BarChart3, CheckCircle, ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -346,20 +346,6 @@ const Index = () => {
             </p>
           </div>
           <UjenziProPresentationViewer />
-          
-          {/* Workflow Drawing Tool */}
-          <div className="mt-12 text-center">
-            <Button 
-              asChild
-              size="lg"
-              className="bg-gradient-to-r from-primary to-construction-orange hover:from-primary/90 hover:to-construction-orange/90"
-            >
-              <Link to="/workflow-drawing">
-                <Pencil className="mr-2 h-5 w-5" />
-                Create Your Own Workflow Diagram
-              </Link>
-            </Button>
-          </div>
         </div>
       </section>
 

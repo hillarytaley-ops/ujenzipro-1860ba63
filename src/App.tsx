@@ -15,7 +15,6 @@ import Feedback from "./pages/Feedback";
 import Tracking from "./pages/Tracking";
 import Procurement from "./pages/Procurement";
 import SupplyAcknowledgementPage from "./pages/SupplyAcknowledgement";
-import WorkflowDrawing from "./pages/WorkflowDrawing";
 
 
 import NotFound from "./pages/NotFound";
@@ -40,7 +39,6 @@ const App = () => (
           <Route path="/tracking" element={<Tracking />} />
           <Route path="/procurement" element={<Procurement />} />
           <Route path="/acknowledgement" element={<SupplyAcknowledgementPage />} />
-          <Route path="/workflow-drawing" element={<WorkflowDrawing />} />
           
           
           <Route path="*" element={<NotFound />} />
