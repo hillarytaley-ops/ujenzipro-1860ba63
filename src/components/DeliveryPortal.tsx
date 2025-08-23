@@ -444,7 +444,7 @@ const DeliveryPortal = () => {
                 {activeSection === 'apply' && (
                   <>
                     <User className="h-4 w-4" />
-                    <span>Apply as Delivery</span>
+                    <span>Apply to be Deliverer</span>
                   </>
                 )}
               </span>
@@ -475,7 +475,7 @@ const DeliveryPortal = () => {
               className="cursor-pointer hover:bg-muted py-3 px-4 text-base touch-manipulation focus:bg-muted"
             >
               <User className="h-5 w-5 mr-3" />
-              <span>Apply as Delivery</span>
+              <span>Apply to be Deliverer</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -507,7 +507,7 @@ const DeliveryPortal = () => {
               className="flex items-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium transition-all hover:shadow-sm"
             >
               <User className="h-4 w-4" />
-              <span>Apply as Delivery</span>
+              <span>Apply to be Deliverer</span>
             </Button>
           </div>
         </div>
