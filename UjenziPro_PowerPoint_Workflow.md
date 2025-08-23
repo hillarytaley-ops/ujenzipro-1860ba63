@@ -164,6 +164,46 @@ UjenziPro is Kenya's premier digital construction supply chain management platfo
 
 ---
 
+### PHASE 6: REAL-TIME PROJECT MONITORING & REMOTE MANAGEMENT
+
+**Step 16: Advanced Project Progress Monitoring**
+- Real-time project dashboard with live updates:
+  - Material delivery status and timelines
+  - Construction milestone tracking
+  - Resource utilization metrics
+  - Quality checkpoints and compliance status
+- IoT sensor integration for construction monitoring:
+  - Equipment usage tracking
+  - Environmental condition monitoring
+  - Safety protocol compliance
+  - Work progress automated detection
+
+**Step 17: Remote Builder Communication & Updates**
+- Instant notification system for remote builders:
+  - Push notifications for critical updates
+  - SMS alerts for urgent situations
+  - Email reports for detailed progress summaries
+  - Mobile app real-time dashboard access
+- Live video streaming from construction sites:
+  - HD camera feeds from multiple angles
+  - Drone surveillance and aerial monitoring
+  - Time-lapse construction progress videos
+  - 360-degree site visualization
+
+**Step 18: AI-Powered Project Intelligence**
+- Machine learning algorithms for project optimization:
+  - Predictive delivery scheduling
+  - Resource requirement forecasting
+  - Risk assessment and early warning systems
+  - Automated progress reporting
+- Advanced analytics and insights:
+  - Performance trend analysis
+  - Cost variance tracking
+  - Schedule optimization recommendations
+  - Quality assurance predictions
+
+---
+
 ## KEY WORKFLOW BENEFITS
 
 ### For Builders:
