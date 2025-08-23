@@ -111,7 +111,8 @@ const DeliveryPortal = () => {
     pickup_date: '',
     preferred_time: '',
     special_instructions: '',
-    budget_range: ''
+    budget_range: '',
+    required_vehicle_type: ''
   });
 
   const [builderRequestForm, setBuilderRequestForm] = useState({
@@ -125,7 +126,8 @@ const DeliveryPortal = () => {
     special_instructions: '',
     budget_range: '',
     pickup_location: null as any,
-    delivery_location: null as any
+    delivery_location: null as any,
+    required_vehicle_type: ''
   });
 
   const vehicleTypes = ['Pickup Truck', 'Van', 'Large Truck', 'Motorcycle', 'Lorry', 'Trailer'];
@@ -272,7 +274,8 @@ const DeliveryPortal = () => {
           pickup_date: builderRequestForm.pickup_date,
           preferred_time: builderRequestForm.preferred_time || null,
           special_instructions: builderRequestForm.special_instructions || null,
-          budget_range: builderRequestForm.budget_range || null
+          budget_range: builderRequestForm.budget_range || null,
+          required_vehicle_type: builderRequestForm.required_vehicle_type || null
         });
 
       if (error) throw error;
@@ -294,7 +297,8 @@ const DeliveryPortal = () => {
         special_instructions: '',
         budget_range: '',
         pickup_location: null,
-        delivery_location: null
+        delivery_location: null,
+        required_vehicle_type: ''
       });
       fetchBuilderRequests();
     } catch (error) {
@@ -321,7 +325,8 @@ const DeliveryPortal = () => {
           pickup_date: requestForm.pickup_date,
           preferred_time: requestForm.preferred_time || null,
           special_instructions: requestForm.special_instructions || null,
-          budget_range: requestForm.budget_range || null
+          budget_range: requestForm.budget_range || null,
+          required_vehicle_type: requestForm.required_vehicle_type || null
         });
 
       if (error) throw error;
@@ -341,7 +346,8 @@ const DeliveryPortal = () => {
         pickup_date: '',
         preferred_time: '',
         special_instructions: '',
-        budget_range: ''
+        budget_range: '',
+        required_vehicle_type: ''
       });
       fetchRequests();
     } catch (error) {
