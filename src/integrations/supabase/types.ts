@@ -344,10 +344,14 @@ export type Database = {
           builder_id: string
           created_at: string
           delivery_address: string
+          delivery_latitude: number | null
+          delivery_longitude: number | null
           id: string
           material_type: string
           pickup_address: string
           pickup_date: string
+          pickup_latitude: number | null
+          pickup_longitude: number | null
           preferred_time: string | null
           provider_id: string | null
           provider_response: string | null
@@ -365,10 +369,14 @@ export type Database = {
           builder_id: string
           created_at?: string
           delivery_address: string
+          delivery_latitude?: number | null
+          delivery_longitude?: number | null
           id?: string
           material_type: string
           pickup_address: string
           pickup_date: string
+          pickup_latitude?: number | null
+          pickup_longitude?: number | null
           preferred_time?: string | null
           provider_id?: string | null
           provider_response?: string | null
@@ -386,10 +394,14 @@ export type Database = {
           builder_id?: string
           created_at?: string
           delivery_address?: string
+          delivery_latitude?: number | null
+          delivery_longitude?: number | null
           id?: string
           material_type?: string
           pickup_address?: string
           pickup_date?: string
+          pickup_latitude?: number | null
+          pickup_longitude?: number | null
           preferred_time?: string | null
           provider_id?: string | null
           provider_response?: string | null
