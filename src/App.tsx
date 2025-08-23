@@ -15,6 +15,7 @@ import Feedback from "./pages/Feedback";
 import Tracking from "./pages/Tracking";
 import Procurement from "./pages/Procurement";
 import SupplyAcknowledgementPage from "./pages/SupplyAcknowledgement";
+import PresentationPage from "./pages/Presentation";
 
 import NotFound from "./pages/NotFound";
 
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/tracking" element={<Tracking />} />
           <Route path="/procurement" element={<Procurement />} />
           <Route path="/acknowledgement" element={<SupplyAcknowledgementPage />} />
+          <Route path="/presentation" element={<PresentationPage />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
