@@ -10,6 +10,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import DeliveryRequestAlerts from "@/components/DeliveryRequestAlerts";
+import LiveDeliveryTracker from "@/components/LiveDeliveryTracker";
+import LiveTrackingViewer from "@/components/LiveTrackingViewer";
 import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -441,6 +443,12 @@ const DeliveryPortal = () => {
                     <span>Request Delivery</span>
                   </>
                 )}
+                {activeSection === 'tracking' && (
+                  <>
+                    <MapPin className="h-4 w-4" />
+                    <span>Live Tracking</span>
+                  </>
+                )}
                 {activeSection === 'apply' && (
                   <>
                     <User className="h-4 w-4" />
@@ -469,6 +477,13 @@ const DeliveryPortal = () => {
             >
               <Truck className="h-5 w-5 mr-3" />
               <span>Request Delivery</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={() => setActiveSection('tracking')}
+              className="cursor-pointer hover:bg-muted py-3 px-4 text-base touch-manipulation focus:bg-muted"
+            >
+              <MapPin className="h-5 w-5 mr-3" />
+              <span>Live Tracking</span>
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={() => setActiveSection('apply')}
@@ -500,6 +515,14 @@ const DeliveryPortal = () => {
             >
               <Truck className="h-4 w-4" />
               <span>Request Delivery</span>
+            </Button>
+            <Button
+              variant={activeSection === 'tracking' ? 'default' : 'outline'}
+              onClick={() => setActiveSection('tracking')}
+              className="flex items-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium transition-all hover:shadow-sm"
+            >
+              <MapPin className="h-4 w-4" />
+              <span>Live Tracking</span>
             </Button>
             <Button
               variant={activeSection === 'apply' ? 'default' : 'outline'}
@@ -908,6 +931,33 @@ const DeliveryPortal = () => {
                   ))}
                 </div>
               </div>
+            )}
+          </div>
+        )}
+
+        {/* Live Tracking Section */}
+        {activeSection === 'tracking' && (
+          <div className="space-y-6">
+            {!userProfile ? (
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Please sign in to access live tracking features.
+                </AlertDescription>
+              </Alert>
+            ) : userDeliveryProvider && userDeliveryProvider.is_active ? (
+              // Show provider tracking interface
+              <LiveDeliveryTracker providerId={userDeliveryProvider.id} />
+            ) : userProfile.role === 'builder' ? (
+              // Show customer tracking viewer
+              <LiveTrackingViewer builderId={userProfile.id} />
+            ) : (
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Live tracking is available for builders and registered delivery providers.
+                </AlertDescription>
+              </Alert>
             )}
           </div>
         )}

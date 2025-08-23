@@ -394,6 +394,69 @@ export type Database = {
           },
         ]
       }
+      delivery_tracking: {
+        Row: {
+          accuracy: number | null
+          created_at: string
+          delivery_request_id: string
+          estimated_arrival: string | null
+          heading: number | null
+          id: string
+          latitude: number
+          longitude: number
+          notes: string | null
+          provider_id: string
+          speed: number | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          accuracy?: number | null
+          created_at?: string
+          delivery_request_id: string
+          estimated_arrival?: string | null
+          heading?: number | null
+          id?: string
+          latitude: number
+          longitude: number
+          notes?: string | null
+          provider_id: string
+          speed?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          accuracy?: number | null
+          created_at?: string
+          delivery_request_id?: string
+          estimated_arrival?: string | null
+          heading?: number | null
+          id?: string
+          latitude?: number
+          longitude?: number
+          notes?: string | null
+          provider_id?: string
+          speed?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_tracking_delivery_request_id_fkey"
+            columns: ["delivery_request_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_tracking_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       delivery_updates: {
         Row: {
           created_at: string
