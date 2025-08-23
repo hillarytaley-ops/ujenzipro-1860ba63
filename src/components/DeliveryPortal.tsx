@@ -12,6 +12,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import DrivingLicenseUpload from "@/components/DrivingLicenseUpload";
 import LiveDeliveryTracker from "@/components/LiveDeliveryTracker";
 import LiveTrackingViewer from "@/components/LiveTrackingViewer";
+import MapLocationPicker from "@/components/MapLocationPicker";
 import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown, Upload, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -105,6 +106,10 @@ const DeliveryPortal = () => {
   const [requestForm, setRequestForm] = useState({
     pickup_address: '',
     delivery_address: '',
+    pickup_latitude: null as number | null,
+    pickup_longitude: null as number | null,
+    delivery_latitude: null as number | null,
+    delivery_longitude: null as number | null,
     material_type: '',
     quantity: '',
     weight_kg: '',
@@ -118,6 +123,10 @@ const DeliveryPortal = () => {
   const [builderRequestForm, setBuilderRequestForm] = useState({
     pickup_address: '',
     delivery_address: '',
+    pickup_latitude: null as number | null,
+    pickup_longitude: null as number | null,
+    delivery_latitude: null as number | null,
+    delivery_longitude: null as number | null,
     material_type: '',
     quantity: '',
     weight_kg: '',
@@ -125,8 +134,6 @@ const DeliveryPortal = () => {
     preferred_time: '',
     special_instructions: '',
     budget_range: '',
-    pickup_location: null as any,
-    delivery_location: null as any,
     required_vehicle_type: ''
   });
 
@@ -285,6 +292,10 @@ const DeliveryPortal = () => {
           builder_id: 'demo-builder', // Demo ID since no auth required
           pickup_address: builderRequestForm.pickup_address,
           delivery_address: builderRequestForm.delivery_address,
+          pickup_latitude: builderRequestForm.pickup_latitude,
+          pickup_longitude: builderRequestForm.pickup_longitude,
+          delivery_latitude: builderRequestForm.delivery_latitude,
+          delivery_longitude: builderRequestForm.delivery_longitude,
           material_type: builderRequestForm.material_type,
           quantity: parseInt(builderRequestForm.quantity),
           weight_kg: builderRequestForm.weight_kg ? parseFloat(builderRequestForm.weight_kg) : null,
@@ -306,6 +317,10 @@ const DeliveryPortal = () => {
       setBuilderRequestForm({
         pickup_address: '',
         delivery_address: '',
+        pickup_latitude: null,
+        pickup_longitude: null,
+        delivery_latitude: null,
+        delivery_longitude: null,
         material_type: '',
         quantity: '',
         weight_kg: '',
@@ -313,8 +328,6 @@ const DeliveryPortal = () => {
         preferred_time: '',
         special_instructions: '',
         budget_range: '',
-        pickup_location: null,
-        delivery_location: null,
         required_vehicle_type: ''
       });
       fetchBuilderRequests();
@@ -336,6 +349,10 @@ const DeliveryPortal = () => {
           builder_id: 'demo-builder', // Demo ID since no auth required
           pickup_address: requestForm.pickup_address,
           delivery_address: requestForm.delivery_address,
+          pickup_latitude: requestForm.pickup_latitude,
+          pickup_longitude: requestForm.pickup_longitude,
+          delivery_latitude: requestForm.delivery_latitude,
+          delivery_longitude: requestForm.delivery_longitude,
           material_type: requestForm.material_type,
           quantity: parseInt(requestForm.quantity),
           weight_kg: requestForm.weight_kg ? parseFloat(requestForm.weight_kg) : null,
@@ -357,6 +374,10 @@ const DeliveryPortal = () => {
       setRequestForm({
         pickup_address: '',
         delivery_address: '',
+        pickup_latitude: null,
+        pickup_longitude: null,
+        delivery_latitude: null,
+        delivery_longitude: null,
         material_type: '',
         quantity: '',
         weight_kg: '',
@@ -522,24 +543,73 @@ const DeliveryPortal = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 max-h-96 overflow-y-auto">
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-6">
                         <div>
-                          <Label htmlFor="pickup_address">Pickup Address</Label>
-                          <Input
-                            id="pickup_address"
-                            value={requestForm.pickup_address}
-                            onChange={(e) => setRequestForm({...requestForm, pickup_address: e.target.value})}
-                            placeholder="Enter pickup location"
-                          />
+                          <Label className="text-base font-medium">Pickup Location</Label>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            Enter address manually or use map to pin exact location
+                          </p>
+                          <div className="space-y-2">
+                            <Input
+                              value={requestForm.pickup_address}
+                              onChange={(e) => setRequestForm({...requestForm, pickup_address: e.target.value})}
+                              placeholder="Enter pickup address (optional if using map)"
+                            />
+                            <MapLocationPicker
+                              onLocationSelect={(location) => {
+                                setRequestForm({
+                                  ...requestForm,
+                                  pickup_latitude: location.latitude,
+                                  pickup_longitude: location.longitude,
+                                  pickup_address: requestForm.pickup_address || location.address || `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`
+                                });
+                              }}
+                              initialLocation={
+                                requestForm.pickup_latitude && requestForm.pickup_longitude
+                                  ? {
+                                      latitude: requestForm.pickup_latitude,
+                                      longitude: requestForm.pickup_longitude,
+                                      address: requestForm.pickup_address
+                                    }
+                                  : undefined
+                              }
+                              placeholder="Click on map to select pickup location"
+                            />
+                          </div>
                         </div>
+                        
                         <div>
-                          <Label htmlFor="delivery_address">Delivery Address</Label>
-                          <Input
-                            id="delivery_address"
-                            value={requestForm.delivery_address}
-                            onChange={(e) => setRequestForm({...requestForm, delivery_address: e.target.value})}
-                            placeholder="Enter delivery destination"
-                          />
+                          <Label className="text-base font-medium">Delivery Location</Label>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            Enter address manually or use map to pin exact location
+                          </p>
+                          <div className="space-y-2">
+                            <Input
+                              value={requestForm.delivery_address}
+                              onChange={(e) => setRequestForm({...requestForm, delivery_address: e.target.value})}
+                              placeholder="Enter delivery address (optional if using map)"
+                            />
+                            <MapLocationPicker
+                              onLocationSelect={(location) => {
+                                setRequestForm({
+                                  ...requestForm,
+                                  delivery_latitude: location.latitude,
+                                  delivery_longitude: location.longitude,
+                                  delivery_address: requestForm.delivery_address || location.address || `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`
+                                });
+                              }}
+                              initialLocation={
+                                requestForm.delivery_latitude && requestForm.delivery_longitude
+                                  ? {
+                                      latitude: requestForm.delivery_latitude,
+                                      longitude: requestForm.delivery_longitude,
+                                      address: requestForm.delivery_address
+                                    }
+                                  : undefined
+                              }
+                              placeholder="Click on map to select delivery location"
+                            />
+                          </div>
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
@@ -753,24 +823,73 @@ const DeliveryPortal = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-6">
                     <div>
-                      <Label htmlFor="builder_pickup_address">Pickup Address</Label>
-                      <Input
-                        id="builder_pickup_address"
-                        value={builderRequestForm.pickup_address}
-                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_address: e.target.value})}
-                        placeholder="Enter pickup location"
-                      />
+                      <Label className="text-base font-medium">Pickup Location</Label>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Enter address manually or use map to pin exact location
+                      </p>
+                      <div className="space-y-2">
+                        <Input
+                          value={builderRequestForm.pickup_address}
+                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_address: e.target.value})}
+                          placeholder="Enter pickup address (optional if using map)"
+                        />
+                        <MapLocationPicker
+                          onLocationSelect={(location) => {
+                            setBuilderRequestForm({
+                              ...builderRequestForm,
+                              pickup_latitude: location.latitude,
+                              pickup_longitude: location.longitude,
+                              pickup_address: builderRequestForm.pickup_address || location.address || `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`
+                            });
+                          }}
+                          initialLocation={
+                            builderRequestForm.pickup_latitude && builderRequestForm.pickup_longitude
+                              ? {
+                                  latitude: builderRequestForm.pickup_latitude,
+                                  longitude: builderRequestForm.pickup_longitude,
+                                  address: builderRequestForm.pickup_address
+                                }
+                              : undefined
+                          }
+                          placeholder="Click on map to select pickup location"
+                        />
+                      </div>
                     </div>
+                    
                     <div>
-                      <Label htmlFor="builder_delivery_address">Delivery Address</Label>
-                      <Input
-                        id="builder_delivery_address"
-                        value={builderRequestForm.delivery_address}
-                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, delivery_address: e.target.value})}
-                        placeholder="Enter delivery destination"
-                      />
+                      <Label className="text-base font-medium">Delivery Location</Label>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Enter address manually or use map to pin exact location
+                      </p>
+                      <div className="space-y-2">
+                        <Input
+                          value={builderRequestForm.delivery_address}
+                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, delivery_address: e.target.value})}
+                          placeholder="Enter delivery address (optional if using map)"
+                        />
+                        <MapLocationPicker
+                          onLocationSelect={(location) => {
+                            setBuilderRequestForm({
+                              ...builderRequestForm,
+                              delivery_latitude: location.latitude,
+                              delivery_longitude: location.longitude,
+                              delivery_address: builderRequestForm.delivery_address || location.address || `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`
+                            });
+                          }}
+                          initialLocation={
+                            builderRequestForm.delivery_latitude && builderRequestForm.delivery_longitude
+                              ? {
+                                  latitude: builderRequestForm.delivery_latitude,
+                                  longitude: builderRequestForm.delivery_longitude,
+                                  address: builderRequestForm.delivery_address
+                                }
+                              : undefined
+                          }
+                          placeholder="Click on map to select delivery location"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
