@@ -320,8 +320,8 @@ const Index = () => {
               <Link to="/about">
                 <Button 
                   size="lg" 
-                  variant="outline"
-                  className="border-white/30 text-white hover:bg-white hover:text-foreground text-lg px-10 py-4 hover-scale transition-all duration-300"
+                  variant="secondary"
+                  className="bg-white/20 text-white border border-white/30 hover:bg-white hover:text-foreground text-lg px-10 py-4 hover-scale transition-all duration-300"
                 >
                   Learn More About UjenziPro
                 </Button>
