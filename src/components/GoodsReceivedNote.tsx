@@ -288,11 +288,29 @@ const GoodsReceivedNote: React.FC<GoodsReceivedNoteProps> = ({ deliveryId, onClo
     }
   };
 
-  if (userRole !== 'builder' && userRole !== 'admin') {
+  // Check if user can access GRN (companies and professional builders only)
+  const canAccessGRN = userProfile?.role === 'admin' || 
+    (userProfile?.role === 'builder' && 
+     (userProfile?.user_type === 'company' || userProfile?.is_professional === true));
+
+  if (!canAccessGRN) {
     return (
       <Card>
         <CardContent className="p-6">
-          <p className="text-muted-foreground">Only builders can create Goods Received Notes.</p>
+          <div className="text-center space-y-4">
+            <Package className="w-12 h-12 mx-auto text-muted-foreground" />
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Goods Received Notes - Professional Feature</h3>
+              <p className="text-muted-foreground mb-4">
+                This feature is available only for registered companies and professional builders.
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>• Companies with valid business registration</p>
+                <p>• Professional builders with verified credentials</p>
+                <p>• Enhanced material tracking and documentation</p>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
     );

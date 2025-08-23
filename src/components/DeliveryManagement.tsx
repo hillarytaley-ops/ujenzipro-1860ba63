@@ -75,6 +75,7 @@ const DeliveryManagement: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [userRole, setUserRole] = useState<UserRole | null>(null);
   const [user, setUser] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('tracker'); // Default to tracker (public)
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showDeliveryNoteForm, setShowDeliveryNoteForm] = useState(false);
@@ -145,7 +146,7 @@ const DeliveryManagement: React.FC = () => {
         // Get user role from profiles table
         const { data: profileData, error: profileError } = await supabase
           .from('profiles')
-          .select('role')
+          .select('*')
           .eq('user_id', user.id)
           .maybeSingle();
         
@@ -158,6 +159,7 @@ const DeliveryManagement: React.FC = () => {
           });
         } else {
           setUserRole((profileData?.role as UserRole) || null);
+          setUserProfile(profileData);
         }
       }
     } catch (error) {
@@ -585,7 +587,9 @@ const DeliveryManagement: React.FC = () => {
                 <MapPin className="h-4 w-4 mr-2" />
                 Aerial Control
               </DropdownMenuItem>
-               {user && (userRole === 'builder' || userRole === 'admin') && (
+               {user && userProfile && (userProfile.role === 'admin' || 
+                (userProfile.role === 'builder' && 
+                 (userProfile.user_type === 'company' || userProfile.is_professional === true))) && (
                  <DropdownMenuItem 
                    onClick={() => handleSecureTabAccess('grn')}
                    className="cursor-pointer py-3 px-4"
@@ -655,7 +659,9 @@ const DeliveryManagement: React.FC = () => {
              >
                Aerial Control
              </TabsTrigger>
-             {user && (userRole === 'builder' || userRole === 'admin') && (
+             {user && userProfile && (userProfile.role === 'admin' || 
+              (userProfile.role === 'builder' && 
+               (userProfile.user_type === 'company' || userProfile.is_professional === true))) && (
                <TabsTrigger 
                  value="grn"
                  onClick={() => handleSecureTabAccess('grn')}
