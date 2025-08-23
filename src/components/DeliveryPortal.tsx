@@ -133,6 +133,23 @@ const DeliveryPortal = () => {
   const vehicleTypes = ['Pickup Truck', 'Van', 'Large Truck', 'Motorcycle', 'Lorry', 'Trailer'];
   const kenyanCities = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret', 'Thika', 'Meru', 'Machakos'];
   const licenseClasses = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+  const materialCategories = [
+    'Cement & Concrete',
+    'Bricks & Blocks',
+    'Steel & Iron',
+    'Roofing Materials',
+    'Tiles & Ceramics',
+    'Electrical Supplies',
+    'Plumbing Materials',
+    'Timber & Wood',
+    'Paint & Finishing',
+    'Hardware & Tools',
+    'Insulation Materials',
+    'Glass & Windows',
+    'Doors & Frames',
+    'Aggregates (Sand, Gravel)',
+    'Other Building Materials'
+  ];
 
   useEffect(() => {
     fetchProviders();
@@ -526,15 +543,19 @@ const DeliveryPortal = () => {
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="material_type">Material Type</Label>
-                          <Input
-                            id="material_type"
-                            value={requestForm.material_type}
-                            onChange={(e) => setRequestForm({...requestForm, material_type: e.target.value})}
-                            placeholder="e.g., Cement, Bricks, Steel"
-                          />
-                        </div>
+                     <div>
+                       <Label htmlFor="material_type">Material Category *</Label>
+                       <Select value={requestForm.material_type} onValueChange={(value) => setRequestForm({...requestForm, material_type: value})}>
+                         <SelectTrigger>
+                           <SelectValue placeholder="Select material category" />
+                         </SelectTrigger>
+                         <SelectContent className="bg-background border-border shadow-lg z-50">
+                           {materialCategories.map((category) => (
+                             <SelectItem key={category} value={category}>{category}</SelectItem>
+                           ))}
+                         </SelectContent>
+                       </Select>
+                     </div>
                         <div>
                           <Label htmlFor="quantity">Quantity</Label>
                           <Input
@@ -742,15 +763,19 @@ const DeliveryPortal = () => {
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="builder_material_type">Material Type</Label>
-                      <Input
-                        id="builder_material_type"
-                        value={builderRequestForm.material_type}
-                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, material_type: e.target.value})}
-                        placeholder="e.g., Cement, Bricks, Steel"
-                      />
-                    </div>
+                     <div>
+                       <Label htmlFor="builder_material_type">Material Category *</Label>
+                       <Select value={builderRequestForm.material_type} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, material_type: value})}>
+                         <SelectTrigger>
+                           <SelectValue placeholder="Select material category" />
+                         </SelectTrigger>
+                         <SelectContent className="bg-background border-border shadow-lg z-50">
+                           {materialCategories.map((category) => (
+                             <SelectItem key={category} value={category}>{category}</SelectItem>
+                           ))}
+                         </SelectContent>
+                       </Select>
+                     </div>
                     <div>
                       <Label htmlFor="builder_quantity">Quantity</Label>
                       <Input
