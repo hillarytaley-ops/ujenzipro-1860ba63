@@ -134,21 +134,64 @@ const DeliveryPortal = () => {
   const kenyanCities = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret', 'Thika', 'Meru', 'Machakos'];
   const licenseClasses = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
   const materialCategories = [
-    'Cement & Concrete',
-    'Bricks & Blocks',
-    'Steel & Iron',
-    'Roofing Materials',
-    'Tiles & Ceramics',
-    'Electrical Supplies',
-    'Plumbing Materials',
-    'Timber & Wood',
-    'Paint & Finishing',
-    'Hardware & Tools',
+    'Cement & Concrete Products',
+    'Ready Mix Concrete',
+    'Cement Blocks & Bricks',
+    'Clay Bricks & Pavers',
+    'Concrete Blocks & Stones',
+    'Structural Steel & Iron',
+    'Reinforcement Bars (Rebar)',
+    'Steel Sheets & Plates',
+    'Wire Mesh & Chicken Mesh',
+    'Roofing Sheets (Iron, Aluminum)',
+    'Roofing Tiles (Clay, Concrete)',
+    'Gutters & Downpipes',
+    'Floor Tiles & Ceramics',
+    'Wall Tiles & Mosaics',
+    'Natural Stone & Marble',
+    'Electrical Cables & Wires',
+    'Electrical Fittings & Switches',
+    'Lighting Fixtures',
+    'Electrical Panels & Boards',
+    'Water Pipes (PVC, Steel)',
+    'Plumbing Fittings & Joints',
+    'Sanitary Ware (Toilets, Sinks)',
+    'Water Tanks & Storage',
+    'Timber & Lumber',
+    'Plywood & Chipboards',
+    'Wooden Doors & Frames',
+    'Wooden Flooring',
+    'Paints & Primers',
+    'Varnish & Wood Stains',
+    'Finishing Materials',
+    'Wallpapers & Decoratives',
+    'Hand Tools & Equipment',
+    'Power Tools & Machinery',
+    'Construction Hardware',
+    'Fasteners (Nails, Screws, Bolts)',
     'Insulation Materials',
-    'Glass & Windows',
-    'Doors & Frames',
-    'Aggregates (Sand, Gravel)',
-    'Other Building Materials'
+    'Soundproofing Materials',
+    'Thermal Insulation',
+    'Glass Sheets & Panels',
+    'Windows & Window Frames',
+    'Mirrors & Glass Doors',
+    'Metal Doors & Gates',
+    'Wooden Doors',
+    'Security Doors & Grilles',
+    'Sand (Fine, Coarse, River)',
+    'Gravel & Crushed Stones',
+    'Ballast & Hardcore',
+    'Murram & Red Soil',
+    'Waterproofing Materials',
+    'Sealants & Adhesives',
+    'Construction Chemicals',
+    'Admixtures & Additives',
+    'Precast Concrete Elements',
+    'Construction Machinery Parts',
+    'Safety Equipment & Gear',
+    'Landscaping Materials',
+    'Fencing Materials',
+    'Other Specialized Materials'
   ];
 
   useEffect(() => {
@@ -546,12 +589,18 @@ const DeliveryPortal = () => {
                      <div>
                        <Label htmlFor="material_type">Material Category *</Label>
                        <Select value={requestForm.material_type} onValueChange={(value) => setRequestForm({...requestForm, material_type: value})}>
-                         <SelectTrigger>
+                         <SelectTrigger className="h-11">
                            <SelectValue placeholder="Select material category" />
                          </SelectTrigger>
-                         <SelectContent className="bg-background border-border shadow-lg z-50">
+                         <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[300px] overflow-y-auto">
                            {materialCategories.map((category) => (
-                             <SelectItem key={category} value={category}>{category}</SelectItem>
+                             <SelectItem 
+                               key={category} 
+                               value={category}
+                               className="py-3 px-4 text-sm hover:bg-muted focus:bg-muted cursor-pointer"
+                             >
+                               {category}
+                             </SelectItem>
                            ))}
                          </SelectContent>
                        </Select>
@@ -616,12 +665,18 @@ const DeliveryPortal = () => {
                        <div>
                          <Label htmlFor="required_vehicle_type">Required Vehicle Type *</Label>
                          <Select value={requestForm.required_vehicle_type} onValueChange={(value) => setRequestForm({...requestForm, required_vehicle_type: value})}>
-                           <SelectTrigger>
+                           <SelectTrigger className="h-11">
                              <SelectValue placeholder="Select vehicle type needed" />
                            </SelectTrigger>
-                           <SelectContent className="bg-background border-border shadow-lg z-50">
+                           <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto">
                              {vehicleTypes.map((vehicle) => (
-                               <SelectItem key={vehicle} value={vehicle}>{vehicle}</SelectItem>
+                               <SelectItem 
+                                 key={vehicle} 
+                                 value={vehicle}
+                                 className="py-3 px-4 text-sm hover:bg-muted focus:bg-muted cursor-pointer"
+                               >
+                                 {vehicle}
+                               </SelectItem>
                              ))}
                            </SelectContent>
                          </Select>
@@ -766,12 +821,18 @@ const DeliveryPortal = () => {
                      <div>
                        <Label htmlFor="builder_material_type">Material Category *</Label>
                        <Select value={builderRequestForm.material_type} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, material_type: value})}>
-                         <SelectTrigger>
+                         <SelectTrigger className="h-11">
                            <SelectValue placeholder="Select material category" />
                          </SelectTrigger>
-                         <SelectContent className="bg-background border-border shadow-lg z-50">
+                         <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[300px] overflow-y-auto">
                            {materialCategories.map((category) => (
-                             <SelectItem key={category} value={category}>{category}</SelectItem>
+                             <SelectItem 
+                               key={category} 
+                               value={category}
+                               className="py-3 px-4 text-sm hover:bg-muted focus:bg-muted cursor-pointer"
+                             >
+                               {category}
+                             </SelectItem>
                            ))}
                          </SelectContent>
                        </Select>
@@ -835,16 +896,22 @@ const DeliveryPortal = () => {
                    </div>
                    <div>
                      <Label htmlFor="builder_required_vehicle">Required Vehicle Type *</Label>
-                     <Select value={builderRequestForm.required_vehicle_type} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, required_vehicle_type: value})}>
-                       <SelectTrigger>
-                         <SelectValue placeholder="Select vehicle type needed" />
-                       </SelectTrigger>
-                       <SelectContent className="bg-background border-border shadow-lg z-50">
-                         {vehicleTypes.map((vehicle) => (
-                           <SelectItem key={vehicle} value={vehicle}>{vehicle}</SelectItem>
-                         ))}
-                       </SelectContent>
-                     </Select>
+                         <Select value={builderRequestForm.required_vehicle_type} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, required_vehicle_type: value})}>
+                           <SelectTrigger className="h-11">
+                             <SelectValue placeholder="Select vehicle type needed" />
+                           </SelectTrigger>
+                           <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto">
+                             {vehicleTypes.map((vehicle) => (
+                               <SelectItem 
+                                 key={vehicle} 
+                                 value={vehicle}
+                                 className="py-3 px-4 text-sm hover:bg-muted focus:bg-muted cursor-pointer"
+                               >
+                                 {vehicle}
+                               </SelectItem>
+                             ))}
+                           </SelectContent>
+                         </Select>
                    </div>
                   <div>
                     <Label htmlFor="builder_special_instructions">Special Instructions</Label>
