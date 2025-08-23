@@ -34,10 +34,10 @@ interface TrackingData {
 }
 
 interface LiveDeliveryTrackerProps {
-  providerId: string;
+  providerId?: string;
 }
 
-const LiveDeliveryTracker: React.FC<LiveDeliveryTrackerProps> = ({ providerId }) => {
+const LiveDeliveryTracker: React.FC<LiveDeliveryTrackerProps> = ({ providerId = 'demo-provider' }) => {
   const { toast } = useToast();
   const [acceptedDeliveries, setAcceptedDeliveries] = useState<DeliveryRequest[]>([]);
   const [selectedDelivery, setSelectedDelivery] = useState<string | null>(null);

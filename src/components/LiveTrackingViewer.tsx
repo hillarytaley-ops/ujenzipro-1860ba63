@@ -34,10 +34,10 @@ interface TrackingLocation {
 }
 
 interface LiveTrackingViewerProps {
-  builderId: string;
+  builderId?: string;
 }
 
-const LiveTrackingViewer: React.FC<LiveTrackingViewerProps> = ({ builderId }) => {
+const LiveTrackingViewer: React.FC<LiveTrackingViewerProps> = ({ builderId = 'demo-builder' }) => {
   const { toast } = useToast();
   const [activeDeliveries, setActiveDeliveries] = useState<DeliveryRequest[]>([]);
   const [selectedDelivery, setSelectedDelivery] = useState<string | null>(null);

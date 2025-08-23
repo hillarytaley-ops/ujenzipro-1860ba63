@@ -128,39 +128,12 @@ const DeliveryPortal = () => {
   const kenyanCities = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret', 'Thika', 'Meru', 'Machakos'];
 
   useEffect(() => {
-    checkAuth();
     fetchProviders();
     fetchRequests();
     fetchBuilderRequests();
+    setLoading(false);
   }, []);
 
-  const checkAuth = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .single();
-        setUserProfile(profile);
-
-        // Fetch user's delivery provider data if exists
-        if (profile) {
-          const { data: deliveryProvider } = await supabase
-            .from('delivery_providers')
-            .select('*')
-            .eq('user_id', profile.id)
-            .single();
-          setUserDeliveryProvider(deliveryProvider);
-        }
-      }
-    } catch (error) {
-      console.error('Error checking auth:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchProviders = async () => {
     try {
@@ -209,20 +182,11 @@ const DeliveryPortal = () => {
   };
 
   const createProvider = async () => {
-    if (!userProfile) {
-      toast({
-        title: "Authentication required",
-        description: "Please sign in to register as a delivery provider",
-        variant: "destructive"
-      });
-      return;
-    }
-
     try {
       const { error } = await supabase
         .from('delivery_providers')
         .insert({
-          user_id: userProfile.id,
+          user_id: null, // No authentication required
           provider_name: providerForm.provider_name,
           provider_type: providerForm.provider_type,
           contact_person: providerForm.contact_person || null,
@@ -269,30 +233,11 @@ const DeliveryPortal = () => {
   };
 
   const createBuilderRequest = async () => {
-    if (!userProfile) {
-      toast({
-        title: "Authentication required",
-        description: "Please sign in to submit delivery requests",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Only builders can create builder requests
-    if (userProfile.role !== 'builder') {
-      toast({
-        title: "Access denied",
-        description: "Only builders can submit delivery requests",
-        variant: "destructive"
-      });
-      return;
-    }
-
     try {
       const { error } = await supabase
         .from('delivery_requests')
         .insert({
-          builder_id: userProfile.id,
+          builder_id: 'demo-builder', // Demo ID since no auth required
           pickup_address: builderRequestForm.pickup_address,
           delivery_address: builderRequestForm.delivery_address,
           material_type: builderRequestForm.material_type,
@@ -337,30 +282,11 @@ const DeliveryPortal = () => {
   };
 
   const createRequest = async () => {
-    if (!userProfile) {
-      toast({
-        title: "Authentication required",
-        description: "Please sign in to request delivery services",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Only admin can request services from providers
-    if (userProfile.role !== 'admin') {
-      toast({
-        title: "Access denied",
-        description: "Only admin can request services from providers",
-        variant: "destructive"
-      });
-      return;
-    }
-
     try {
       const { error } = await supabase
         .from('delivery_requests')
         .insert({
-          builder_id: userProfile.id,
+          builder_id: 'demo-builder', // Demo ID since no auth required
           pickup_address: requestForm.pickup_address,
           delivery_address: requestForm.delivery_address,
           material_type: requestForm.material_type,
@@ -413,14 +339,6 @@ const DeliveryPortal = () => {
         <h2 className="text-2xl font-bold">Delivery Portal</h2>
       </div>
 
-      {!userProfile && (
-        <Alert className="mb-6">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            Please sign in to access delivery services and provider registration.
-          </AlertDescription>
-        </Alert>
-      )}
 
       {/* Mobile Dropdown Menu (visible on mobile only) */}
       <div className="flex justify-between items-center mb-6 md:hidden">
@@ -757,22 +675,7 @@ const DeliveryPortal = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Submit Delivery Request</h3>
             
-            {!userProfile ? (
-              <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
-                  Please sign in to submit delivery requests.
-                </AlertDescription>
-              </Alert>
-            ) : userProfile.role !== 'builder' ? (
-              <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
-                  Only builders can submit delivery requests.
-                </AlertDescription>
-              </Alert>
-            ) : (
-              <Card>
+            <Card>
                 <CardHeader>
                   <CardTitle>Submit Delivery Request to Admin</CardTitle>
                   <CardDescription>
@@ -882,7 +785,6 @@ const DeliveryPortal = () => {
                   </Button>
                 </CardContent>
               </Card>
-            )}
 
             {/* Show existing requests */}
             {builderRequests.length > 0 && (
@@ -938,27 +840,7 @@ const DeliveryPortal = () => {
         {/* Live Tracking Section */}
         {activeSection === 'tracking' && (
           <div className="space-y-6">
-            {!userProfile ? (
-              <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
-                  Please sign in to access live tracking features.
-                </AlertDescription>
-              </Alert>
-            ) : userDeliveryProvider && userDeliveryProvider.is_active ? (
-              // Show provider tracking interface
-              <LiveDeliveryTracker providerId={userDeliveryProvider.id} />
-            ) : userProfile.role === 'builder' ? (
-              // Show customer tracking viewer
-              <LiveTrackingViewer builderId={userProfile.id} />
-            ) : (
-              <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
-                  Live tracking is available for builders and registered delivery providers.
-                </AlertDescription>
-              </Alert>
-            )}
+            <LiveTrackingViewer />
           </div>
         )}
 
@@ -972,14 +854,6 @@ const DeliveryPortal = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {!userProfile ? (
-                <Alert>
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    Please sign in to apply as a delivery service provider.
-                  </AlertDescription>
-                </Alert>
-              ) : (
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -1128,7 +1002,6 @@ const DeliveryPortal = () => {
                     Apply as Delivery Provider
                   </Button>
                 </div>
-              )}
             </CardContent>
           </Card>
         )}
