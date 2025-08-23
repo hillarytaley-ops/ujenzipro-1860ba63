@@ -38,6 +38,14 @@ All colors MUST be HSL.
     --earth-brown: 25 35% 25%; /* Rich earth */
     --concrete-gray: 210 8% 85%; /* Concrete */
     --safety-yellow: 48 100% 67%; /* Construction yellow */
+    
+    /* Enhanced status colors */
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 0 0% 98%;
+    --warning: 32.7 94.6% 43.7%;
+    --warning-foreground: 0 0% 0%;
+    --info: 210 100% 25%;
+    --info-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -48,10 +56,19 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
 
-    /* Gradients for professional backgrounds */
+    /* Enhanced gradients for professional backgrounds */
     --gradient-construction: linear-gradient(135deg, hsl(45 15% 97%), hsl(35 25% 94%));
     --gradient-primary: linear-gradient(135deg, hsl(12 85% 45%), hsl(12 85% 35%));
     --gradient-hero: linear-gradient(135deg, hsl(25 35% 25%), hsl(12 85% 45%));
+    --gradient-subtle: linear-gradient(180deg, hsl(45 15% 97%), hsl(45 25% 94%));
+    
+    /* Professional shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(25 15% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(25 15% 15% / 0.1), 0 2px 4px -1px hsl(25 15% 15% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(25 15% 15% / 0.1), 0 4px 6px -2px hsl(25 15% 15% / 0.05);
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 45 25% 96%;
     --sidebar-foreground: 25 15% 25%;
@@ -92,6 +109,14 @@ All colors MUST be HSL.
     --earth-brown: 25 25% 35%;
     --concrete-gray: 210 8% 25%;
     --safety-yellow: 48 90% 60%;
+    
+    /* Enhanced status colors for dark mode */
+    --success: 142.1 76.2% 50%;
+    --success-foreground: 25 20% 8%;
+    --warning: 32.7 94.6% 60%;
+    --warning-foreground: 25 20% 8%;
+    --info: 210 80% 35%;
+    --info-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -103,6 +128,15 @@ All colors MUST be HSL.
     --gradient-construction: linear-gradient(135deg, hsl(25 20% 8%), hsl(25 15% 12%));
     --gradient-primary: linear-gradient(135deg, hsl(12 75% 55%), hsl(12 75% 45%));
     --gradient-hero: linear-gradient(135deg, hsl(25 15% 12%), hsl(12 75% 55%));
+    --gradient-subtle: linear-gradient(180deg, hsl(25 20% 8%), hsl(25 15% 12%));
+    
+    /* Professional shadows for dark mode */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.2), 0 2px 4px -1px hsl(0 0% 0% / 0.12);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.2), 0 4px 6px -2px hsl(0 0% 0% / 0.1);
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 25 15% 10%;
     --sidebar-foreground: 45 15% 90%;
