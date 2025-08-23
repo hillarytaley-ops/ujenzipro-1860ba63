@@ -7,12 +7,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import DeliveryLocationPicker from "@/components/DeliveryLocationPicker";
+import DeliveryMenuBar from "@/components/DeliveryMenuBar";
 
 interface DeliveryProvider {
   id: string;
@@ -401,7 +401,7 @@ const DeliveryPortal = () => {
       </div>
 
       {!userProfile && (
-        <Alert>
+        <Alert className="hidden md:block">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
             Please sign in to access delivery services and provider registration.
@@ -409,16 +409,17 @@ const DeliveryPortal = () => {
         </Alert>
       )}
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="providers">Delivery Providers</TabsTrigger>
-          <TabsTrigger value="builder-requests">Delivery Request</TabsTrigger>
-          <TabsTrigger value="apply">Apply as Delivery</TabsTrigger>
-        </TabsList>
+      <DeliveryMenuBar 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab} 
+        userProfile={userProfile} 
+      />
 
-        <TabsContent value="providers" className="space-y-4">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
+      <div className="w-full">
+        {activeTab === 'providers' && (
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
             {userProfile && userProfile.role === 'admin' && (
               <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
                 <DialogTrigger asChild>
@@ -623,10 +624,11 @@ const DeliveryPortal = () => {
               </Card>
             ))}
           </div>
-        </TabsContent>
+        )}
 
-        <TabsContent value="requests" className="space-y-4">
-          <h3 className="text-lg font-semibold">Delivery Requests</h3>
+        {activeTab === 'requests' && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Delivery Requests</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {requests.map((request) => (
               <Card key={request.id}>
@@ -669,10 +671,11 @@ const DeliveryPortal = () => {
               </Card>
             ))}
           </div>
-        </TabsContent>
+        )}
 
-        <TabsContent value="builder-requests" className="space-y-4">
-          <div className="flex justify-between items-center">
+        {activeTab === 'builder-requests' && (
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">Builder Delivery Requests</h3>
             {userProfile && userProfile.role === 'builder' && (
               <Dialog open={showBuilderRequestForm} onOpenChange={setShowBuilderRequestForm}>
@@ -852,10 +855,11 @@ const DeliveryPortal = () => {
               </Card>
             ))}
           </div>
-        </TabsContent>
+        )}
 
-        <TabsContent value="apply" className="space-y-4">
-          <Card>
+        {activeTab === 'apply' && (
+          <div className="space-y-4">
+            <Card>
             <CardHeader>
               <CardTitle>Apply as Delivery Service Provider</CardTitle>
               <CardDescription>
@@ -1021,9 +1025,10 @@ const DeliveryPortal = () => {
                 </div>
               )}
             </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+            </Card>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
