@@ -549,9 +549,15 @@ const DeliveryPortal = () => {
                          <SelectTrigger>
                            <SelectValue placeholder="Select material category" />
                          </SelectTrigger>
-                         <SelectContent className="bg-background border-border shadow-lg z-50">
+                         <SelectContent 
+                           className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto"
+                           sideOffset={8}
+                           position="popper"
+                         >
                            {materialCategories.map((category) => (
-                             <SelectItem key={category} value={category}>{category}</SelectItem>
+                             <SelectItem key={category} value={category} className="cursor-pointer hover:bg-muted focus:bg-muted">
+                               {category}
+                             </SelectItem>
                            ))}
                          </SelectContent>
                        </Select>
@@ -769,9 +775,15 @@ const DeliveryPortal = () => {
                          <SelectTrigger>
                            <SelectValue placeholder="Select material category" />
                          </SelectTrigger>
-                         <SelectContent className="bg-background border-border shadow-lg z-50">
+                         <SelectContent 
+                           className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto"
+                           sideOffset={8}
+                           position="popper"
+                         >
                            {materialCategories.map((category) => (
-                             <SelectItem key={category} value={category}>{category}</SelectItem>
+                             <SelectItem key={category} value={category} className="cursor-pointer hover:bg-muted focus:bg-muted">
+                               {category}
+                             </SelectItem>
                            ))}
                          </SelectContent>
                        </Select>
