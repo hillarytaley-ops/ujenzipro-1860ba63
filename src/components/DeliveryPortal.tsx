@@ -569,7 +569,7 @@ const DeliveryPortal = () => {
                            <SelectValue placeholder="Select quantity" />
                          </SelectTrigger>
                          <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto">
-                           {[1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300, 500, 1000].map((num) => (
+                           {Array.from({ length: 1000 }, (_, i) => i + 1).map((num) => (
                              <SelectItem key={num} value={num.toString()} className="cursor-pointer hover:bg-muted focus:bg-muted">
                                {num}
                              </SelectItem>
@@ -800,7 +800,7 @@ const DeliveryPortal = () => {
                            <SelectValue placeholder="Select quantity" />
                          </SelectTrigger>
                          <SelectContent className="bg-background border-border shadow-lg z-50 max-h-[200px] overflow-y-auto">
-                           {[1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300, 500, 1000].map((num) => (
+                           {Array.from({ length: 1000 }, (_, i) => i + 1).map((num) => (
                              <SelectItem key={num} value={num.toString()} className="cursor-pointer hover:bg-muted focus:bg-muted">
                                {num}
                              </SelectItem>
