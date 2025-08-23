@@ -13,7 +13,9 @@ import DrivingLicenseUpload from "@/components/DrivingLicenseUpload";
 import LiveDeliveryTracker from "@/components/LiveDeliveryTracker";
 import LiveTrackingViewer from "@/components/LiveTrackingViewer";
 import MapLocationPicker from "@/components/MapLocationPicker";
-import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown, Upload, FileText } from "lucide-react";
+import DeliveryCommunicationHub from "@/components/DeliveryCommunicationHub";
+import VoiceCallInterface from "@/components/VoiceCallInterface";
+import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown, Upload, FileText, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -503,6 +505,14 @@ const DeliveryPortal = () => {
             >
               <Truck className="h-4 w-4" />
               <span>Request Delivery</span>
+            </Button>
+            <Button
+              variant={activeSection === 'communication' ? 'default' : 'outline'}
+              onClick={() => setActiveSection('communication')}
+              className="flex items-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium transition-all hover:shadow-sm"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>Communication</span>
             </Button>
             <Button
               variant={activeSection === 'tracking' ? 'default' : 'outline'}
@@ -1056,6 +1066,19 @@ const DeliveryPortal = () => {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Communication Section */}
+        {activeSection === 'communication' && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Delivery Communication</h3>
+            <DeliveryCommunicationHub
+              deliveryRequestId="demo-request-1"
+              currentUserType="builder"
+              currentUserId="demo-user"
+              currentUserName="Demo User"
+            />
           </div>
         )}
 
