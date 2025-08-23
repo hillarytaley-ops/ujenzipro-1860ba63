@@ -62,8 +62,8 @@ export const BuilderSearch = ({
       {/* Filters */}
       <div className="flex flex-wrap gap-4 items-center justify-center">
         <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm font-medium text-foreground">Filters:</span>
+          <Filter className="h-4 w-4 text-white/70" />
+          <span className="text-sm font-medium text-white">Filters:</span>
         </div>
         
         <Select value={locationFilter} onValueChange={onLocationFilterChange}>
