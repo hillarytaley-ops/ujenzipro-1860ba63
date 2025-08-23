@@ -8,15 +8,83 @@ import ReceiptPortal from "@/components/ReceiptPortal";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
+const suppliers = [
+  {
+    name: "Bamburi Cement",
+    location: "Mombasa", 
+    rating: 4.8,
+    products: 150,
+    categories: ["Cement", "Concrete", "Building Solutions"],
+    logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop&crop=center"
+  },
+  {
+    name: "Simba Cement",
+    location: "Nairobi",
+    rating: 4.7,
+    products: 120,
+    categories: ["Cement", "Lime", "Concrete Products"],
+    logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop&crop=center"
+  },
+  {
+    name: "ARM Cement",
+    location: "Kaloleni",
+    rating: 4.6,
+    products: 110,
+    categories: ["Cement", "Steel", "Construction Materials"],
+    logo: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=80&h=80&fit=crop&crop=center"
+  },
+  {
+    name: "Devki Steel Mills",
+    location: "Ruiru",
+    rating: 4.9,
+    products: 200,
+    categories: ["Steel", "Iron Sheets", "Wire Products"],
+    logo: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=80&h=80&fit=crop&crop=center"
+  },
+  {
+    name: "Kenbro Industries",
+    location: "Nairobi",
+    rating: 4.5,
+    products: 180,
+    categories: ["Tiles", "Ceramics", "Sanitary Ware"],
+    logo: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=80&h=80&fit=crop&crop=center"
+  },
+  {
+    name: "Crown Paints Kenya",
+    location: "Nairobi",
+    rating: 4.7,
+    products: 300,
+    categories: ["Paint", "Coatings", "Construction Chemicals"],
+    logo: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=80&h=80&fit=crop&crop=center"
+  }
+];
+
 export const SuppliersContent = () => {
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
   const [supplierId, setSupplierId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All Categories");
+  const [filteredSuppliers, setFilteredSuppliers] = useState(suppliers);
 
   useEffect(() => {
     checkUserRole();
   }, []);
+
+  useEffect(() => {
+    const filtered = suppliers.filter(supplier => {
+      const matchesSearch = supplier.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           supplier.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           supplier.categories.some(cat => cat.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+      const matchesCategory = selectedCategory === "All Categories" || 
+                             supplier.categories.includes(selectedCategory);
+      
+      return matchesSearch && matchesCategory;
+    });
+    setFilteredSuppliers(filtered);
+  }, [searchTerm, selectedCategory]);
 
   const checkUserRole = async () => {
     try {
@@ -59,67 +127,31 @@ export const SuppliersContent = () => {
     }
   };
 
-  const suppliers = [
-    {
-      name: "Bamburi Cement",
-      location: "Mombasa", 
-      rating: 4.8,
-      products: 150,
-      categories: ["Cement", "Concrete", "Building Solutions"],
-      logo: "https://sl.bing.net/cQRoNrqCKWq"
-    },
-    {
-      name: "Simba Cement",
-      location: "Nairobi",
-      rating: 4.7,
-      products: 120,
-      categories: ["Cement", "Lime", "Concrete Products"],
-      logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop&crop=center"
-    },
-    {
-      name: "ARM Cement",
-      location: "Kaloleni",
-      rating: 4.6,
-      products: 110,
-      categories: ["Cement", "Steel", "Construction Materials"],
-      logo: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=80&h=80&fit=crop&crop=center"
-    },
-    {
-      name: "Devki Steel Mills",
-      location: "Ruiru",
-      rating: 4.9,
-      products: 200,
-      categories: ["Steel", "Iron Sheets", "Wire Products"],
-      logo: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=80&h=80&fit=crop&crop=center"
-    },
-    {
-      name: "Kenbro Industries",
-      location: "Nairobi",
-      rating: 4.5,
-      products: 180,
-      categories: ["Tiles", "Ceramics", "Sanitary Ware"],
-      logo: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=80&h=80&fit=crop&crop=center"
-    },
-    {
-      name: "Crown Paints Kenya",
-      location: "Nairobi",
-      rating: 4.7,
-      products: 300,
-      categories: ["Paint", "Coatings", "Construction Chemicals"],
-      logo: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=80&h=80&fit=crop&crop=center"
-    }
-  ];
 
   const categories = [
-    { name: "Cement & Concrete", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
-    { name: "Steel & Iron", image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=150&h=150&fit=crop" },
-    { name: "Tiles & Ceramics", image: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=150&h=150&fit=crop" },
-    { name: "Paint & Coatings", image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=150&h=150&fit=crop" },
-    { name: "Timber & Wood", image: "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=150&h=150&fit=crop" },
-    { name: "Hardware & Tools", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
-    { name: "Plumbing & Pipes", image: "https://images.unsplash.com/photo-1621905252472-e8be3d5a2c8d?w=150&h=150&fit=crop" },
-    { name: "Electrical & Wiring", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=150&h=150&fit=crop" }
+    { name: "All Categories", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Cement", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Steel", image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=150&h=150&fit=crop" },
+    { name: "Tiles", image: "https://images.unsplash.com/photo-1616047006789-b7af710a8688?w=150&h=150&fit=crop" },
+    { name: "Paint", image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=150&h=150&fit=crop" },
+    { name: "Timber", image: "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=150&h=150&fit=crop" },
+    { name: "Hardware", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=150&h=150&fit=crop" },
+    { name: "Plumbing", image: "https://images.unsplash.com/photo-1621905252472-e8be3d5a2c8d?w=150&h=150&fit=crop" },
+    { name: "Electrical", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=150&h=150&fit=crop" }
   ];
+
+  if (loading) {
+    return (
+      <div className="space-y-8 animate-pulse">
+        <div className="h-64 bg-muted rounded-lg"></div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="h-32 bg-muted rounded-lg"></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (showRegistrationForm) {
     return (
@@ -155,13 +187,15 @@ export const SuppliersContent = () => {
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto flex gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
               <Input 
                 placeholder="Search suppliers or materials..." 
-                className="pl-10 py-6 text-lg bg-white"
+                className="pl-10 py-6 text-lg bg-card text-card-foreground"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8">
+            <Button size="lg" className="bg-primary hover:bg-primary/90 px-8">
               Search
             </Button>
           </div>
@@ -174,7 +208,13 @@ export const SuppliersContent = () => {
           <h2 className="text-2xl font-bold text-center mb-8">Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
             {categories.map((category, index) => (
-              <Card key={index} className="text-center cursor-pointer hover:shadow-md transition-shadow">
+              <Card 
+                key={index} 
+                className={`text-center cursor-pointer hover:shadow-md transition-all ${
+                  selectedCategory === category.name ? 'ring-2 ring-primary bg-primary/5' : ''
+                }`}
+                onClick={() => setSelectedCategory(category.name)}
+              >
                 <CardContent className="py-6">
                   <div className="w-16 h-16 mx-auto mb-3 rounded-lg overflow-hidden bg-muted">
                     <img 
@@ -196,20 +236,20 @@ export const SuppliersContent = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-black">500+</div>
-              <div className="text-gray-600">Verified Suppliers</div>
+              <div className="text-3xl font-bold text-foreground">500+</div>
+              <div className="text-muted-foreground">Verified Suppliers</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600">15,000+</div>
-              <div className="text-gray-600">Products Listed</div>
+              <div className="text-3xl font-bold text-primary">15,000+</div>
+              <div className="text-muted-foreground">Products Listed</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-red-600">47</div>
-              <div className="text-gray-600">Counties Served</div>
+              <div className="text-3xl font-bold text-construction-orange">47</div>
+              <div className="text-muted-foreground">Counties Served</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-black">24/7</div>
-              <div className="text-gray-600">Customer Support</div>
+              <div className="text-3xl font-bold text-foreground">24/7</div>
+              <div className="text-muted-foreground">Customer Support</div>
             </div>
           </div>
         </div>
@@ -218,12 +258,35 @@ export const SuppliersContent = () => {
       {/* Suppliers Directory */}
       <section className="py-8">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Material Suppliers Across Kenya</h2>
+          <div>
+            <h2 className="text-3xl font-bold text-foreground">Material Suppliers Across Kenya</h2>
+            <p className="text-muted-foreground mt-2">
+              Showing {filteredSuppliers.length} of {suppliers.length} suppliers
+              {selectedCategory !== "All Categories" && ` in ${selectedCategory}`}
+              {searchTerm && ` matching "${searchTerm}"`}
+            </p>
+          </div>
           <Button variant="outline">View All Suppliers</Button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {suppliers.map((supplier, index) => (
+        {filteredSuppliers.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-4xl mb-4">🔍</div>
+            <h3 className="text-xl font-semibold mb-2">No suppliers found</h3>
+            <p className="text-muted-foreground mb-4">Try adjusting your search or filter criteria</p>
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setSearchTerm("");
+                setSelectedCategory("All Categories");
+              }}
+            >
+              Clear Filters
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredSuppliers.map((supplier, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader className="text-center">
                 <div className="w-20 h-20 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center overflow-hidden">
@@ -266,8 +329,9 @@ export const SuppliersContent = () => {
                 </Button>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Call to Action Section */}
