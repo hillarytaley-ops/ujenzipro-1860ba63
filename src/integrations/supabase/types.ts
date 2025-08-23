@@ -261,6 +261,11 @@ export type Database = {
           capacity_kg: number | null
           contact_person: string | null
           created_at: string
+          driving_license_class: string | null
+          driving_license_document_path: string | null
+          driving_license_expiry: string | null
+          driving_license_number: string | null
+          driving_license_verified: boolean | null
           email: string | null
           hourly_rate: number | null
           id: string
@@ -283,6 +288,11 @@ export type Database = {
           capacity_kg?: number | null
           contact_person?: string | null
           created_at?: string
+          driving_license_class?: string | null
+          driving_license_document_path?: string | null
+          driving_license_expiry?: string | null
+          driving_license_number?: string | null
+          driving_license_verified?: boolean | null
           email?: string | null
           hourly_rate?: number | null
           id?: string
@@ -305,6 +315,11 @@ export type Database = {
           capacity_kg?: number | null
           contact_person?: string | null
           created_at?: string
+          driving_license_class?: string | null
+          driving_license_document_path?: string | null
+          driving_license_expiry?: string | null
+          driving_license_number?: string | null
+          driving_license_verified?: boolean | null
           email?: string | null
           hourly_rate?: number | null
           id?: string

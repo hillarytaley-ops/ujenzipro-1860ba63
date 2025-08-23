@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import DeliveryRequestAlerts from "@/components/DeliveryRequestAlerts";
+import DrivingLicenseUpload from "@/components/DrivingLicenseUpload";
 import LiveDeliveryTracker from "@/components/LiveDeliveryTracker";
 import LiveTrackingViewer from "@/components/LiveTrackingViewer";
 import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle, ChevronDown } from "lucide-react";
@@ -95,7 +96,11 @@ const DeliveryPortal = () => {
     service_areas: [] as string[],
     capacity_kg: '',
     hourly_rate: '',
-    per_km_rate: ''
+    per_km_rate: '',
+    driving_license_number: '',
+    driving_license_expiry: '',
+    driving_license_class: '',
+    driving_license_document_path: ''
   });
 
   const [requestForm, setRequestForm] = useState({
@@ -126,6 +131,7 @@ const DeliveryPortal = () => {
 
   const vehicleTypes = ['Pickup Truck', 'Van', 'Large Truck', 'Motorcycle', 'Lorry', 'Trailer'];
   const kenyanCities = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret', 'Thika', 'Meru', 'Machakos'];
+  const licenseClasses = ['Class A', 'Class B', 'Class C', 'Class D', 'Class E', 'Motorcycle'];
 
   useEffect(() => {
     fetchProviders();
@@ -183,6 +189,19 @@ const DeliveryPortal = () => {
 
   const createProvider = async () => {
     try {
+      // Validate required driving license fields
+      if (!providerForm.driving_license_number || 
+          !providerForm.driving_license_expiry || 
+          !providerForm.driving_license_class ||
+          !providerForm.driving_license_document_path) {
+        toast({
+          title: "Missing driving license information",
+          description: "Please complete all driving license fields and upload your license document",
+          variant: "destructive"
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from('delivery_providers')
         .insert({
@@ -197,7 +216,11 @@ const DeliveryPortal = () => {
           service_areas: providerForm.service_areas,
           capacity_kg: providerForm.capacity_kg ? parseFloat(providerForm.capacity_kg) : null,
           hourly_rate: providerForm.hourly_rate ? parseFloat(providerForm.hourly_rate) : null,
-          per_km_rate: providerForm.per_km_rate ? parseFloat(providerForm.per_km_rate) : null
+          per_km_rate: providerForm.per_km_rate ? parseFloat(providerForm.per_km_rate) : null,
+          driving_license_number: providerForm.driving_license_number,
+          driving_license_expiry: providerForm.driving_license_expiry,
+          driving_license_class: providerForm.driving_license_class,
+          driving_license_document_path: providerForm.driving_license_document_path
         });
 
       if (error) throw error;
@@ -219,7 +242,11 @@ const DeliveryPortal = () => {
         service_areas: [],
         capacity_kg: '',
         hourly_rate: '',
-        per_km_rate: ''
+        per_km_rate: '',
+        driving_license_number: '',
+        driving_license_expiry: '',
+        driving_license_class: '',
+        driving_license_document_path: ''
       });
       fetchProviders();
     } catch (error) {
@@ -997,6 +1024,57 @@ const DeliveryPortal = () => {
                       />
                     </div>
                   </div>
+
+                      {/* Driving License Section */}
+                      <div className="space-y-6">
+                        <div className="border-t pt-6">
+                          <h3 className="text-lg font-semibold mb-4 text-foreground">Driving License Information</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="license-number">License Number *</Label>
+                              <Input
+                                id="license-number"
+                                value={providerForm.driving_license_number}
+                                onChange={(e) => setProviderForm({...providerForm, driving_license_number: e.target.value})}
+                                placeholder="Enter license number"
+                                required
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="license-class">License Class *</Label>
+                              <Select 
+                                value={providerForm.driving_license_class} 
+                                onValueChange={(value) => setProviderForm({...providerForm, driving_license_class: value})}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select license class" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {licenseClasses.map(cls => (
+                                    <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div>
+                              <Label htmlFor="license-expiry">License Expiry Date *</Label>
+                              <Input
+                                id="license-expiry"
+                                type="date"
+                                value={providerForm.driving_license_expiry}
+                                onChange={(e) => setProviderForm({...providerForm, driving_license_expiry: e.target.value})}
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Driving License Upload */}
+                        <DrivingLicenseUpload
+                          onFileUploaded={(filePath) => setProviderForm({...providerForm, driving_license_document_path: filePath})}
+                          currentFilePath={providerForm.driving_license_document_path}
+                        />
+                      </div>
 
                   <Button onClick={createProvider} className="w-full">
                     Apply as Delivery Provider
