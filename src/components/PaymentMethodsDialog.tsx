@@ -116,21 +116,6 @@ export const PaymentMethodsDialog = ({
 
       if (error) throw error;
 
-      // Log payment preference for future use
-      await supabase
-        .from("payment_preferences")
-        .upsert({
-          user_id: userProfile.id,
-          payment_method: data.paymentMethod,
-          payment_details: {
-            mpesa_number: data.mpesaNumber,
-            bank_account: data.bankAccount,
-            bank_name: data.bankName,
-            swift_code: data.swiftCode,
-            default_escrow_days: data.escrowDays
-          }
-        });
-
       toast.success("Payment method set successfully!");
       setOpen(false);
     } catch (error) {
