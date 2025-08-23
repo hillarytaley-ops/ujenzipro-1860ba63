@@ -4,32 +4,36 @@ import { FeedbackForm } from "@/components/FeedbackForm";
 
 export default function Feedback() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-construction">
       <Navigation />
       
-      <main 
-        className="container mx-auto px-4 py-16 bg-powder-blue relative"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/7cfcf7b9-f15f-4327-809e-aa6ddc908424.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="relative z-10">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">
-              <span className="text-black">We</span>{' '}
-              <span className="text-red-600">Value</span>{' '}
-              <span className="text-green-600">Your</span>{' '}
-              <span className="text-white">Feedback</span>
-            </h1>
-            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-              Help us improve by sharing your thoughts, suggestions, or reporting any issues you've encountered.
-            </p>
+      <header className="feedback-hero-background py-16 relative">
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="text-4xl font-bold mb-4">
+            <span className="text-white">We</span>{' '}
+            <span className="text-primary">Value</span>{' '}
+            <span className="text-construction-orange">Your</span>{' '}
+            <span className="text-white">Feedback</span>
+          </h1>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            Help us improve by sharing your thoughts, suggestions, or reporting any issues you've encountered.
+          </p>
+        </div>
+      </header>
+      
+      <main className="py-16 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Share Your Experience</h2>
+              <p className="text-muted-foreground mb-8">
+                Your feedback helps us build better solutions for Kenya's construction industry. 
+                We read every submission and use your insights to improve our platform.
+              </p>
+            </div>
+            
+            <FeedbackForm />
           </div>
-          
-          <FeedbackForm />
         </div>
       </main>
       
