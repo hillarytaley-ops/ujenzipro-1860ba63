@@ -179,4 +179,9 @@ All colors MUST be HSL.
     background-position: center;
     background-repeat: no-repeat;
   }
+  
+  /* Hover scale animation */
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
 }

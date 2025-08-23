@@ -61,31 +61,31 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-gradient-construction">
-        <Navigation />
+      <Navigation />
 
-        {/* Hero Section */}
-        <section className="hero-background py-20 relative">
-          <div className="container mx-auto px-4 text-center">
-            <Badge className="mb-4 bg-white/20 text-white border-white/30">
-              🇰🇪 Proudly Kenyan
-            </Badge>
-            <h1 className="text-5xl font-bold mb-6">
-              <span className="text-background">About</span>{' '}
-              <span className="text-primary">Ujenzi</span><span className="text-construction-orange">Pro</span>
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-background/90">
-              We're transforming Kenya's construction industry with comprehensive digital solutions - 
-              from supplier connections and procurement management to real-time delivery tracking, 
-              QR-coded material verification, and complete project visibility.
-            </p>
-          </div>
-        </section>
+      {/* Hero Section */}
+      <header className="hero-background py-20 relative">
+        <div className="container mx-auto px-4 text-center">
+          <Badge className="mb-4 bg-white/20 text-white border-white/30 animate-fade-in">
+            🇰🇪 Proudly Kenyan
+          </Badge>
+          <h1 className="text-5xl font-bold mb-6 animate-fade-in">
+            <span className="text-background">About</span>{' '}
+            <span className="text-primary">Ujenzi</span><span className="text-construction-orange">Pro</span>
+          </h1>
+          <p className="text-xl max-w-3xl mx-auto text-background/90 animate-fade-in">
+            We're transforming Kenya's construction industry with comprehensive digital solutions - 
+            from supplier connections and procurement management to real-time delivery tracking, 
+            QR-coded material verification, and complete project visibility.
+          </p>
+        </div>
+      </header>
 
       {/* Our Story Section */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-muted" aria-labelledby="story-heading">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">Our Story</h2>
+            <h2 id="story-heading" className="text-4xl font-bold text-center mb-12">Our Story</h2>
             <div className="prose prose-lg mx-auto">
               <p className="text-xl leading-relaxed mb-6 text-foreground">
                 UjenziPro was born from a simple observation: Kenya's construction industry needed 
@@ -113,34 +113,38 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-secondary">
+      <section className="py-20 bg-secondary" aria-labelledby="values-heading">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Values</h2>
+          <h2 id="values-heading" className="text-4xl font-bold text-center mb-12">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {values.map((value, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="mx-auto mb-4 p-4 bg-construction-orange/20 rounded-full w-fit">
-                    <value.icon className="h-8 w-8 text-construction-orange" />
-                  </div>
-                  <CardTitle className="text-xl">{value.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base">{value.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+            {values.map((value, index) => {
+              const IconComponent = value.icon;
+              return (
+                <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
+                  <CardHeader>
+                    <div className="mx-auto mb-4 p-4 bg-construction-orange/20 rounded-full w-fit">
+                      <IconComponent className="h-8 w-8 text-construction-orange" aria-hidden="true" />
+                    </div>
+                    <CardTitle className="text-xl">{value.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base">{value.description}</CardDescription>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-accent">
+      <section className="py-20 bg-accent" aria-labelledby="team-heading">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Meet Our Team</h2>
+          <h2 id="team-heading" className="text-4xl font-bold text-center mb-12">Meet Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {team.map((member, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+              <article key={index}>
+                <Card className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
                 <CardHeader>
                   <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full overflow-hidden">
                     <img 
@@ -157,19 +161,20 @@ const About = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">{member.description}</p>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* Platform Features Section */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-muted" aria-labelledby="features-heading">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Platform Capabilities</h2>
+          <h2 id="features-heading" className="text-4xl font-bold text-center mb-12">Platform Capabilities</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
               <CardHeader>
                 <div className="mx-auto mb-4 p-4 bg-construction-blue/20 rounded-full w-fit">
                   <FileText className="h-8 w-8 text-construction-blue" aria-hidden="true" />
@@ -183,7 +188,7 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
               <CardHeader>
                 <div className="mx-auto mb-4 p-4 bg-primary/20 rounded-full w-fit">
                   <QrCode className="h-8 w-8 text-primary" aria-hidden="true" />
@@ -197,7 +202,7 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
               <CardHeader>
                 <div className="mx-auto mb-4 p-4 bg-construction-orange/20 rounded-full w-fit">
                   <Truck className="h-8 w-8 text-construction-orange" aria-hidden="true" />
@@ -211,7 +216,7 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
               <CardHeader>
                 <div className="mx-auto mb-4 p-4 bg-earth-brown/20 rounded-full w-fit">
                   <Camera className="h-8 w-8 text-earth-brown" aria-hidden="true" />
@@ -225,7 +230,7 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
               <CardHeader>
                 <div className="mx-auto mb-4 p-4 bg-primary/20 rounded-full w-fit">
                   <BarChart3 className="h-8 w-8 text-primary" aria-hidden="true" />
@@ -239,7 +244,7 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all duration-300 hover-scale">
               <CardHeader>
                 <div className="mx-auto mb-4 p-4 bg-construction-blue/20 rounded-full w-fit">
                   <Package className="h-8 w-8 text-construction-blue" aria-hidden="true" />
@@ -257,9 +262,9 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="stats-background py-20 relative">
+      <section className="stats-background py-20 relative" aria-labelledby="impact-heading">
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl font-bold text-center mb-12 text-background">Our Impact</h2>
+          <h2 id="impact-heading" className="text-4xl font-bold text-center mb-12 text-background">Our Impact</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold mb-2 text-background">1,000+</div>
@@ -297,24 +302,24 @@ const About = () => {
       </section>
 
       {/* Future Vision Section */}
-      <section className="py-20 bg-accent">
+      <section className="py-20 bg-accent" aria-labelledby="future-heading">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-8">Building the Future</h2>
+            <h2 id="future-heading" className="text-4xl font-bold mb-8">Building the Future</h2>
             <p className="text-xl leading-relaxed mb-8 text-foreground">
               We're not just digitizing construction - we're reimagining it. Our platform combines 
               cutting-edge technology with deep industry knowledge to create solutions that address 
               real construction challenges.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-              <Card className="p-6">
+              <Card className="p-6 hover-scale transition-all duration-300">
                 <h3 className="text-xl font-semibold mb-4">For Builders</h3>
                 <p className="text-muted-foreground">
                   Professional procurement tools, real-time material tracking, and complete 
                   project visibility to manage construction projects with confidence.
                 </p>
               </Card>
-              <Card className="p-6">
+              <Card className="p-6 hover-scale transition-all duration-300">
                 <h3 className="text-xl font-semibold mb-4">For Suppliers</h3>
                 <p className="text-muted-foreground">
                   Professional delivery documentation, direct customer communication, and 
