@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MessageSquare, Users, Truck, Building2, User } from 'lucide-react';
+import DeliveryCommunicationHub from '@/components/DeliveryCommunicationHub';
 import CommunicationInterface from '@/components/CommunicationInterface';
 
 export const CommunicationContent: React.FC = () => {
@@ -135,11 +136,25 @@ export const CommunicationContent: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <CommunicationInterface
-        userType={userType}
-        userId={userId}
-        userName={userName}
-      />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Delivery Communication Hub</h3>
+          <DeliveryCommunicationHub
+            deliveryRequestId="demo-request-1"
+            currentUserType={userType}
+            currentUserId={userId}
+            currentUserName={userName}
+          />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Communication Interface</h3>
+          <CommunicationInterface
+            userType={userType}
+            userId={userId}
+            userName={userName}
+          />
+        </div>
+      </div>
     </div>
   );
 };
