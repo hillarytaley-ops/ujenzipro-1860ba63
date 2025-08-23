@@ -24,7 +24,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Package, Truck, Clock, MapPin, Phone, Eye, AlertCircle, User, FileText, Building2 } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Plus, Package, Truck, Clock, MapPin, Phone, Eye, AlertCircle, User, FileText, Building2, Menu, ChevronDown } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Link } from 'react-router-dom';
 
@@ -511,64 +512,86 @@ const DeliveryManagement: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        {/* Mini Menu Bar for Mobile */}
+        {/* Dropdown Menu Bar for Mobile */}
         <div className="md:hidden">
-          <TabsList className="flex w-full overflow-x-auto scrollbar-hide p-1 bg-muted rounded-lg gap-1">
-            <TabsTrigger value="tracker" className="flex-shrink-0 text-xs px-3 py-2 min-w-fit">
-              Track
-            </TabsTrigger>
-            {user && (userRole === 'admin' || userRole === 'supplier') && (
-              <TabsTrigger 
-                value="orders"
-                onClick={() => handleSecureTabAccess('orders')}
-                className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="w-full justify-between bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <span className="flex items-center gap-2">
+                  <Menu className="h-4 w-4" />
+                  {activeTab === 'tracker' && 'Tracking'}
+                  {activeTab === 'orders' && 'Orders'}
+                  {activeTab === 'material-tracking' && 'Material Tracking'}
+                  {activeTab === 'camera' && 'Cameras'}
+                  {activeTab === 'qr-scanner' && 'QR Scanner'}
+                  {activeTab === 'live-monitor' && 'Live Monitor'}
+                  {activeTab === 'drone-control' && 'Aerial Control'}
+                  {activeTab === 'delivery-management' && 'Manage Deliveries'}
+                </span>
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-screen max-w-xs bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border shadow-lg">
+              <DropdownMenuItem 
+                onClick={() => setActiveTab('tracker')}
+                className="cursor-pointer py-3 px-4"
               >
-                Orders
-              </TabsTrigger>
-            )}
-            <TabsTrigger 
-              value="material-tracking"
-              onClick={() => handleSecureTabAccess('material-tracking')}
-              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
-            >
-              Materials
-            </TabsTrigger>
-            <TabsTrigger 
-              value="camera"
-              onClick={() => handleSecureTabAccess('camera')}
-              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
-            >
-              Cameras
-            </TabsTrigger>
-            <TabsTrigger 
-              value="qr-scanner"
-              onClick={() => handleSecureTabAccess('qr-scanner')}
-              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
-            >
-              QR
-            </TabsTrigger>
-            <TabsTrigger 
-              value="live-monitor"
-              onClick={() => handleSecureTabAccess('live-monitor')}
-              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
-            >
-              Monitor
-            </TabsTrigger>
-            <TabsTrigger 
-              value="drone-control"
-              onClick={() => handleSecureTabAccess('drone-control')}
-              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit"
-            >
-              Aerial
-            </TabsTrigger>
-            <TabsTrigger 
-              value="delivery-management"
-              onClick={() => handleSecureTabAccess('delivery-management')}
-              className="flex-shrink-0 text-xs px-3 py-2 min-w-fit ml-4"
-            >
-              Manage
-            </TabsTrigger>
-          </TabsList>
+                <Package className="h-4 w-4 mr-2" />
+                Tracking
+              </DropdownMenuItem>
+              {user && (userRole === 'admin' || userRole === 'supplier') && (
+                <DropdownMenuItem 
+                  onClick={() => handleSecureTabAccess('orders')}
+                  className="cursor-pointer py-3 px-4"
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  Orders
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuItem 
+                onClick={() => handleSecureTabAccess('material-tracking')}
+                className="cursor-pointer py-3 px-4"
+              >
+                <Truck className="h-4 w-4 mr-2" />
+                Material Tracking
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => handleSecureTabAccess('camera')}
+                className="cursor-pointer py-3 px-4"
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                Cameras
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => handleSecureTabAccess('qr-scanner')}
+                className="cursor-pointer py-3 px-4"
+              >
+                <AlertCircle className="h-4 w-4 mr-2" />
+                QR Scanner
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => handleSecureTabAccess('live-monitor')}
+                className="cursor-pointer py-3 px-4"
+              >
+                <Clock className="h-4 w-4 mr-2" />
+                Live Monitor
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => handleSecureTabAccess('drone-control')}
+                className="cursor-pointer py-3 px-4"
+              >
+                <MapPin className="h-4 w-4 mr-2" />
+                Aerial Control
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => handleSecureTabAccess('delivery-management')}
+                className="cursor-pointer py-3 px-4 border-t border-border/50 mt-2 pt-3"
+              >
+                <Building2 className="h-4 w-4 mr-2" />
+                Manage Deliveries
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Full Menu Bar for Desktop */}
