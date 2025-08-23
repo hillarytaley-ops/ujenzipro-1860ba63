@@ -18,11 +18,27 @@ import {
   ArrowRight,
   Target,
   Globe,
-  Award
+  Award,
+  Image
 } from "lucide-react";
+
+// Import workflow diagrams
+import completeWorkflowDiagram from "@/assets/ujenzipro-complete-workflow.png";
+import detailedWorkflowDiagram from "@/assets/ujenzipro-detailed-workflow.png";
+import systemArchitectureDiagram from "@/assets/ujenzipro-system-architecture.png";
+import stakeholderEcosystemDiagram from "@/assets/ujenzipro-stakeholder-ecosystem.png";
 
 const UjenziProPresentationViewer = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const downloadWorkflowDiagram = (imageSrc: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = imageSrc;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const downloadPresentation = () => {
     const presentationContent = `
@@ -680,6 +696,111 @@ This comprehensive presentation covers the complete UjenziPro ecosystem and work
           Next
           <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
+      </div>
+
+      {/* Downloadable Workflow Diagrams */}
+      <div className="mt-12 bg-gradient-to-r from-primary/5 to-construction-orange/5 p-8 rounded-lg border">
+        <h3 className="text-xl font-bold mb-6 flex items-center">
+          <Image className="mr-3 h-6 w-6 text-primary" />
+          Downloadable Workflow Diagrams
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={completeWorkflowDiagram} 
+                alt="Complete UjenziPro Workflow" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">Complete Workflow Diagram</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                End-to-end platform workflow showing all user interactions
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(completeWorkflowDiagram, 'UjenziPro_Complete_Workflow.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={detailedWorkflowDiagram} 
+                alt="Detailed UjenziPro Workflow" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">Detailed Workflow Diagram</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Comprehensive breakdown of each process step
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(detailedWorkflowDiagram, 'UjenziPro_Detailed_Workflow.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={systemArchitectureDiagram} 
+                alt="System Architecture Diagram" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">System Architecture</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Technical infrastructure and component layout
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(systemArchitectureDiagram, 'UjenziPro_System_Architecture.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden hover-scale transition-all duration-300">
+            <div className="aspect-video bg-muted/50 p-4">
+              <img 
+                src={stakeholderEcosystemDiagram} 
+                alt="Stakeholder Ecosystem Diagram" 
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+            <CardContent className="p-4">
+              <h4 className="font-semibold mb-2">Stakeholder Ecosystem</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Complete network of platform participants
+              </p>
+              <Button 
+                onClick={() => downloadWorkflowDiagram(stakeholderEcosystemDiagram, 'UjenziPro_Stakeholder_Ecosystem.png')}
+                className="w-full"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PNG
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       {/* Summary */}
