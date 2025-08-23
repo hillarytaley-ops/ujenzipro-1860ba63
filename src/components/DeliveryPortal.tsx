@@ -8,11 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Truck, User, Building2, Star, MapPin, Phone, Mail, Calendar, Package, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import DeliveryLocationPicker from "@/components/DeliveryLocationPicker";
-import DeliveryMenuBar from "@/components/DeliveryMenuBar";
 
 interface DeliveryProvider {
   id: string;
@@ -401,7 +400,7 @@ const DeliveryPortal = () => {
       </div>
 
       {!userProfile && (
-        <Alert className="hidden md:block">
+        <Alert className="mb-6">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
             Please sign in to access delivery services and provider registration.
@@ -409,18 +408,18 @@ const DeliveryPortal = () => {
         </Alert>
       )}
 
-      <DeliveryMenuBar 
-        activeTab={activeTab} 
-        onTabChange={setActiveTab} 
-        userProfile={userProfile} 
-      />
+      <Tabs defaultValue="providers" className="w-full">
+        <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsTrigger value="providers" className="text-sm">Available Providers</TabsTrigger>
+          <TabsTrigger value="request" className="text-sm">Request Delivery</TabsTrigger>
+          <TabsTrigger value="apply" className="text-sm">Apply as Provider</TabsTrigger>
+        </TabsList>
 
-      <div className="w-full">
-        {activeTab === 'providers' && (
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
-              {userProfile && userProfile.role === 'admin' && (
+        {/* Available Delivery Providers Tab */}
+        <TabsContent value="providers" className="space-y-6">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
+            {userProfile && userProfile.role === 'admin' && (
               <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
                 <DialogTrigger asChild>
                   <Button>Request Provider Service</Button>
@@ -512,10 +511,10 @@ const DeliveryPortal = () => {
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="under-5000">Under KSh 5,000</SelectItem>
+                            <SelectItem value="1000-5000">KSh 1,000 - 5,000</SelectItem>
                             <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
                             <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
-                            <SelectItem value="over-20000">Over KSh 20,000</SelectItem>
+                            <SelectItem value="20000+">KSh 20,000+</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -526,77 +525,73 @@ const DeliveryPortal = () => {
                         id="special_instructions"
                         value={requestForm.special_instructions}
                         onChange={(e) => setRequestForm({...requestForm, special_instructions: e.target.value})}
-                        placeholder="Any special handling requirements or instructions"
+                        placeholder="Any special handling requirements..."
+                        rows={3}
                       />
                     </div>
                     <Button onClick={createRequest} className="w-full">
                       Submit Request
                     </Button>
-                   </div>
-                 </DialogContent>
-               </Dialog>
-              )}
-            </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            )}
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {providers.map((provider) => (
-              <Card key={provider.id} className="hover:shadow-lg transition-shadow">
+              <Card key={provider.id} className="hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg">{provider.provider_name}</CardTitle>
-                    <Badge variant={provider.provider_type === 'individual' ? 'default' : 'secondary'}>
-                      {provider.provider_type === 'individual' ? (
-                        <><User className="h-3 w-3 mr-1" />Individual</>
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center gap-2">
+                      {provider.provider_type === 'organization' ? (
+                        <Building2 className="h-5 w-5 text-blue-600" />
                       ) : (
-                        <><Building2 className="h-3 w-3 mr-1" />Organization</>
+                        <User className="h-5 w-5 text-green-600" />
                       )}
-                    </Badge>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                      <span className="text-sm">{provider.rating.toFixed(1)}</span>
+                      <CardTitle className="text-lg">{provider.provider_name}</CardTitle>
                     </div>
-                    <Badge variant="outline" className="text-xs">
-                      {provider.total_deliveries} deliveries
-                    </Badge>
-                    {provider.is_verified && (
-                      <Badge variant="default" className="text-xs">Verified</Badge>
-                    )}
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 text-yellow-500" />
+                      <span className="text-sm font-medium">{provider.rating.toFixed(1)}</span>
+                    </div>
                   </div>
+                  {provider.contact_person && (
+                    <CardDescription>Contact: {provider.contact_person}</CardDescription>
+                  )}
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Phone className="h-4 w-4 mr-2" />
-                    {provider.phone}
+                  <div className="flex items-center gap-2 text-sm">
+                    <Phone className="h-4 w-4 text-gray-500" />
+                    <span>{provider.phone}</span>
                   </div>
                   {provider.email && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Mail className="h-4 w-4 mr-2" />
-                      {provider.email}
+                    <div className="flex items-center gap-2 text-sm">
+                      <Mail className="h-4 w-4 text-gray-500" />
+                      <span>{provider.email}</span>
                     </div>
                   )}
                   {provider.address && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <MapPin className="h-4 w-4 mr-2" />
-                      {provider.address}
+                    <div className="flex items-center gap-2 text-sm">
+                      <MapPin className="h-4 w-4 text-gray-500" />
+                      <span className="truncate">{provider.address}</span>
                     </div>
                   )}
                   
-                  {provider.vehicle_types.length > 0 && (
+                  {provider.vehicle_types && provider.vehicle_types.length > 0 && (
                     <div>
                       <p className="text-sm font-medium mb-1">Vehicle Types:</p>
                       <div className="flex flex-wrap gap-1">
-                        {provider.vehicle_types.map((type, idx) => (
+                        {provider.vehicle_types.map((vehicle, idx) => (
                           <Badge key={idx} variant="outline" className="text-xs">
-                            {type}
+                            {vehicle}
                           </Badge>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {provider.service_areas.length > 0 && (
+                  {provider.service_areas && provider.service_areas.length > 0 && (
                     <div>
                       <p className="text-sm font-medium mb-1">Service Areas:</p>
                       <div className="flex flex-wrap gap-1">
@@ -623,247 +618,196 @@ const DeliveryPortal = () => {
                 </CardContent>
               </Card>
             ))}
-           </div>
           </div>
-        )}
+        </TabsContent>
 
-        {activeTab === 'requests' && (
+        {/* Request Delivery Tab */}
+        <TabsContent value="request" className="space-y-6">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Delivery Requests</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {requests.map((request) => (
-              <Card key={request.id}>
+            <h3 className="text-lg font-semibold">Submit Delivery Request</h3>
+            
+            {!userProfile ? (
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Please sign in to submit delivery requests.
+                </AlertDescription>
+              </Alert>
+            ) : userProfile.role !== 'builder' ? (
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Only builders can submit delivery requests.
+                </AlertDescription>
+              </Alert>
+            ) : (
+              <Card>
                 <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{request.material_type}</CardTitle>
-                    <Badge variant={
-                      request.status === 'pending' ? 'outline' :
-                      request.status === 'assigned' ? 'default' :
-                      request.status === 'completed' ? 'secondary' : 'destructive'
-                    }>
-                      {request.status}
-                    </Badge>
-                  </div>
+                  <CardTitle>Submit Delivery Request to Admin</CardTitle>
                   <CardDescription>
-                    Quantity: {request.quantity} {request.weight_kg && `| Weight: ${request.weight_kg} kg`}
+                    Submit your delivery request to admin for processing and provider assignment
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="text-sm">
-                    <p><span className="font-medium">From:</span> {request.pickup_address}</p>
-                    <p><span className="font-medium">To:</span> {request.delivery_address}</p>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="builder_pickup_address">Pickup Address</Label>
+                      <Input
+                        id="builder_pickup_address"
+                        value={builderRequestForm.pickup_address}
+                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_address: e.target.value})}
+                        placeholder="Enter pickup location"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="builder_delivery_address">Delivery Address</Label>
+                      <Input
+                        id="builder_delivery_address"
+                        value={builderRequestForm.delivery_address}
+                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, delivery_address: e.target.value})}
+                        placeholder="Enter delivery destination"
+                      />
+                    </div>
                   </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {new Date(request.pickup_date).toLocaleDateString()}
-                    {request.preferred_time && ` at ${request.preferred_time}`}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="builder_material_type">Material Type</Label>
+                      <Input
+                        id="builder_material_type"
+                        value={builderRequestForm.material_type}
+                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, material_type: e.target.value})}
+                        placeholder="e.g., Cement, Bricks, Steel"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="builder_quantity">Quantity</Label>
+                      <Input
+                        id="builder_quantity"
+                        type="number"
+                        value={builderRequestForm.quantity}
+                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, quantity: e.target.value})}
+                        placeholder="Number of items"
+                      />
+                    </div>
                   </div>
-                  {request.budget_range && (
-                    <Badge variant="outline" className="text-xs">
-                      Budget: {request.budget_range}
-                    </Badge>
-                  )}
-                  {request.special_instructions && (
-                    <p className="text-sm text-gray-600 mt-2">
-                      <span className="font-medium">Instructions:</span> {request.special_instructions}
-                    </p>
-                  )}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="builder_weight_kg">Weight (kg)</Label>
+                      <Input
+                        id="builder_weight_kg"
+                        type="number"
+                        value={builderRequestForm.weight_kg}
+                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, weight_kg: e.target.value})}
+                        placeholder="Estimated weight"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="builder_pickup_date">Pickup Date</Label>
+                      <Input
+                        id="builder_pickup_date"
+                        type="date"
+                        value={builderRequestForm.pickup_date}
+                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_date: e.target.value})}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="builder_preferred_time">Preferred Time</Label>
+                      <Input
+                        id="builder_preferred_time"
+                        type="time"
+                        value={builderRequestForm.preferred_time}
+                        onChange={(e) => setBuilderRequestForm({...builderRequestForm, preferred_time: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="builder_budget_range">Budget Range</Label>
+                      <Select value={builderRequestForm.budget_range} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, budget_range: value})}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select budget range" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1000-5000">KSh 1,000 - 5,000</SelectItem>
+                          <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
+                          <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
+                          <SelectItem value="20000+">KSh 20,000+</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="builder_special_instructions">Special Instructions</Label>
+                    <Textarea
+                      id="builder_special_instructions"
+                      value={builderRequestForm.special_instructions}
+                      onChange={(e) => setBuilderRequestForm({...builderRequestForm, special_instructions: e.target.value})}
+                      placeholder="Any special handling requirements..."
+                      rows={3}
+                    />
+                  </div>
+                  <Button onClick={createBuilderRequest} className="w-full">
+                    Submit Request to Admin
+                  </Button>
                 </CardContent>
               </Card>
-            ))}
-            </div>
+            )}
+
+            {/* Show existing requests */}
+            {builderRequests.length > 0 && (
+              <div className="space-y-4">
+                <h4 className="font-semibold">Your Delivery Requests</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {builderRequests.map((request) => (
+                    <Card key={request.id}>
+                      <CardHeader>
+                        <div className="flex justify-between items-start">
+                          <CardTitle className="text-lg">{request.material_type}</CardTitle>
+                          <Badge variant={
+                            request.status === 'pending' ? 'outline' :
+                            request.status === 'assigned' ? 'default' :
+                            request.status === 'completed' ? 'secondary' : 'destructive'
+                          }>
+                            {request.status}
+                          </Badge>
+                        </div>
+                        <CardDescription>
+                          Quantity: {request.quantity} {request.weight_kg && `| Weight: ${request.weight_kg} kg`}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="text-sm">
+                          <p><span className="font-medium">From:</span> {request.pickup_address}</p>
+                          <p><span className="font-medium">To:</span> {request.delivery_address}</p>
+                        </div>
+                        <div className="flex items-center text-sm text-muted-foreground">
+                          <Calendar className="h-4 w-4 mr-2" />
+                          {new Date(request.pickup_date).toLocaleDateString()}
+                          {request.preferred_time && ` at ${request.preferred_time}`}
+                        </div>
+                        {request.budget_range && (
+                          <Badge variant="outline" className="text-xs">
+                            Budget: {request.budget_range}
+                          </Badge>
+                        )}
+                        {request.special_instructions && (
+                          <p className="text-sm text-muted-foreground mt-2">
+                            <span className="font-medium">Instructions:</span> {request.special_instructions}
+                          </p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </TabsContent>
 
-        {activeTab === 'builder-requests' && (
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold">Builder Delivery Requests</h3>
-              {userProfile && userProfile.role === 'builder' && (
-              <Dialog open={showBuilderRequestForm} onOpenChange={setShowBuilderRequestForm}>
-                <DialogTrigger asChild>
-                  <Button>Submit Request to Admin</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>Submit Delivery Request</DialogTitle>
-                    <DialogDescription>
-                      Submit your delivery request to admin for processing
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4 max-h-96 overflow-y-auto">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_pickup_address">Pickup Address</Label>
-                        <Input
-                          id="builder_pickup_address"
-                          value={builderRequestForm.pickup_address}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_address: e.target.value})}
-                          placeholder="Enter pickup location"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_delivery_address">Delivery Address</Label>
-                        <Input
-                          id="builder_delivery_address"
-                          value={builderRequestForm.delivery_address}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, delivery_address: e.target.value})}
-                          placeholder="Enter delivery destination"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_material_type">Material Type</Label>
-                        <Input
-                          id="builder_material_type"
-                          value={builderRequestForm.material_type}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, material_type: e.target.value})}
-                          placeholder="e.g., Cement, Bricks, Steel"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_quantity">Quantity</Label>
-                        <Input
-                          id="builder_quantity"
-                          type="number"
-                          value={builderRequestForm.quantity}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, quantity: e.target.value})}
-                          placeholder="Number of items"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_weight_kg">Weight (kg)</Label>
-                        <Input
-                          id="builder_weight_kg"
-                          type="number"
-                          value={builderRequestForm.weight_kg}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, weight_kg: e.target.value})}
-                          placeholder="Estimated weight"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_pickup_date">Pickup Date</Label>
-                        <Input
-                          id="builder_pickup_date"
-                          type="date"
-                          value={builderRequestForm.pickup_date}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, pickup_date: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="builder_preferred_time">Preferred Time</Label>
-                        <Input
-                          id="builder_preferred_time"
-                          type="time"
-                          value={builderRequestForm.preferred_time}
-                          onChange={(e) => setBuilderRequestForm({...builderRequestForm, preferred_time: e.target.value})}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="builder_budget_range">Budget Range</Label>
-                        <Select value={builderRequestForm.budget_range} onValueChange={(value) => setBuilderRequestForm({...builderRequestForm, budget_range: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select budget range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="under-5000">Under KSh 5,000</SelectItem>
-                            <SelectItem value="5000-10000">KSh 5,000 - 10,000</SelectItem>
-                            <SelectItem value="10000-20000">KSh 10,000 - 20,000</SelectItem>
-                            <SelectItem value="over-20000">Over KSh 20,000</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                     <div>
-                       <Label htmlFor="builder_special_instructions">Special Instructions</Label>
-                       <Textarea
-                         id="builder_special_instructions"
-                         value={builderRequestForm.special_instructions}
-                         onChange={(e) => setBuilderRequestForm({...builderRequestForm, special_instructions: e.target.value})}
-                         placeholder="Any special handling requirements or instructions"
-                       />
-                     </div>
-                     
-                     <div className="space-y-4">
-                       <h4 className="font-medium">Pickup Location Pin</h4>
-                       <DeliveryLocationPicker
-                         onLocationSelect={(location) => setBuilderRequestForm({...builderRequestForm, pickup_location: location})}
-                         initialLocation={builderRequestForm.pickup_location}
-                       />
-                     </div>
-                     
-                     <div className="space-y-4">
-                       <h4 className="font-medium">Delivery Location Pin</h4>
-                       <DeliveryLocationPicker
-                         onLocationSelect={(location) => setBuilderRequestForm({...builderRequestForm, delivery_location: location})}
-                         initialLocation={builderRequestForm.delivery_location}
-                       />
-                     </div>
-                     
-                     <Button onClick={createBuilderRequest} className="w-full">
-                       Submit Request
-                     </Button>
-                  </div>
-                 </DialogContent>
-               </Dialog>
-              )}
-            </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {builderRequests.map((request) => (
-              <Card key={request.id}>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{request.material_type}</CardTitle>
-                    <Badge variant={
-                      request.status === 'pending' ? 'outline' :
-                      request.status === 'assigned' ? 'default' :
-                      request.status === 'completed' ? 'secondary' : 'destructive'
-                    }>
-                      {request.status}
-                    </Badge>
-                  </div>
-                  <CardDescription>
-                    {request.builder?.company_name || request.builder?.full_name} | 
-                    Quantity: {request.quantity} {request.weight_kg && `| Weight: ${request.weight_kg} kg`}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="text-sm">
-                    <p><span className="font-medium">From:</span> {request.pickup_address}</p>
-                    <p><span className="font-medium">To:</span> {request.delivery_address}</p>
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {new Date(request.pickup_date).toLocaleDateString()}
-                    {request.preferred_time && ` at ${request.preferred_time}`}
-                  </div>
-                  {request.budget_range && (
-                    <Badge variant="outline" className="text-xs">
-                      Budget: {request.budget_range}
-                    </Badge>
-                  )}
-                  {request.special_instructions && (
-                    <p className="text-sm text-gray-600 mt-2">
-                      <span className="font-medium">Instructions:</span> {request.special_instructions}
-                    </p>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'apply' && (
-          <div className="space-y-4">
-            <Card>
-              <CardHeader>
+        {/* Apply as Provider Tab */}
+        <TabsContent value="apply" className="space-y-6">
+          <Card>
+            <CardHeader>
               <CardTitle>Apply as Delivery Service Provider</CardTitle>
               <CardDescription>
                 Join our network of delivery providers and start earning by helping builders get their materials delivered
@@ -1027,11 +971,10 @@ const DeliveryPortal = () => {
                   </Button>
                 </div>
               )}
-             </CardContent>
-            </Card>
-          </div>
-        )}
-      </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
