@@ -420,7 +420,7 @@ const DeliveryPortal = () => {
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold">Available Delivery Providers</h3>
-            {userProfile && userProfile.role === 'admin' && (
+              {userProfile && userProfile.role === 'admin' && (
               <Dialog open={showRequestForm} onOpenChange={setShowRequestForm}>
                 <DialogTrigger asChild>
                   <Button>Request Provider Service</Button>
@@ -532,11 +532,11 @@ const DeliveryPortal = () => {
                     <Button onClick={createRequest} className="w-full">
                       Submit Request
                     </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
+                   </div>
+                 </DialogContent>
+               </Dialog>
+              )}
+            </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {providers.map((provider) => (
@@ -623,13 +623,14 @@ const DeliveryPortal = () => {
                 </CardContent>
               </Card>
             ))}
+           </div>
           </div>
         )}
 
         {activeTab === 'requests' && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Delivery Requests</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {requests.map((request) => (
               <Card key={request.id}>
                 <CardHeader>
@@ -670,14 +671,15 @@ const DeliveryPortal = () => {
                 </CardContent>
               </Card>
             ))}
+            </div>
           </div>
         )}
 
         {activeTab === 'builder-requests' && (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Builder Delivery Requests</h3>
-            {userProfile && userProfile.role === 'builder' && (
+              <h3 className="text-lg font-semibold">Builder Delivery Requests</h3>
+              {userProfile && userProfile.role === 'builder' && (
               <Dialog open={showBuilderRequestForm} onOpenChange={setShowBuilderRequestForm}>
                 <DialogTrigger asChild>
                   <Button>Submit Request to Admin</Button>
@@ -807,10 +809,10 @@ const DeliveryPortal = () => {
                        Submit Request
                      </Button>
                   </div>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
+                 </DialogContent>
+               </Dialog>
+              )}
+            </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {builderRequests.map((request) => (
@@ -854,13 +856,14 @@ const DeliveryPortal = () => {
                 </CardContent>
               </Card>
             ))}
+            </div>
           </div>
         )}
 
         {activeTab === 'apply' && (
           <div className="space-y-4">
             <Card>
-            <CardHeader>
+              <CardHeader>
               <CardTitle>Apply as Delivery Service Provider</CardTitle>
               <CardDescription>
                 Join our network of delivery providers and start earning by helping builders get their materials delivered
@@ -1024,7 +1027,7 @@ const DeliveryPortal = () => {
                   </Button>
                 </div>
               )}
-            </CardContent>
+             </CardContent>
             </Card>
           </div>
         )}
