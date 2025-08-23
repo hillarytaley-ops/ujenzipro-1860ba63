@@ -13,8 +13,8 @@ const Tracking = () => {
         <div className="container mx-auto px-4 py-8">
           <Tabs defaultValue="tracking" className="w-full">
             <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-4">
-              <TabsTrigger value="tracking">Delivery Tracking</TabsTrigger>
-              <TabsTrigger value="manage">Manage Deliveries</TabsTrigger>
+              <TabsTrigger value="tracking">Live Tracking</TabsTrigger>
+              <TabsTrigger value="manage">Material Register</TabsTrigger>
             </TabsList>
             
             <TabsContent value="tracking">
