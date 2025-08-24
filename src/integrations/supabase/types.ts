@@ -645,6 +645,13 @@ export type Database = {
             referencedRelation: "delivery_providers"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "delivery_tracking_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_providers_discovery"
+            referencedColumns: ["id"]
+          },
         ]
       }
       delivery_updates: {
@@ -1382,7 +1389,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      delivery_providers_discovery: {
+        Row: {
+          capacity_kg: number | null
+          created_at: string | null
+          hourly_rate: number | null
+          id: string | null
+          is_active: boolean | null
+          is_verified: boolean | null
+          per_km_rate: number | null
+          provider_name: string | null
+          provider_type: string | null
+          rating: number | null
+          service_areas: string[] | null
+          total_deliveries: number | null
+          updated_at: string | null
+          vehicle_types: string[] | null
+        }
+        Insert: {
+          capacity_kg?: number | null
+          created_at?: string | null
+          hourly_rate?: number | null
+          id?: string | null
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          per_km_rate?: number | null
+          provider_name?: string | null
+          provider_type?: string | null
+          rating?: number | null
+          service_areas?: string[] | null
+          total_deliveries?: number | null
+          updated_at?: string | null
+          vehicle_types?: string[] | null
+        }
+        Update: {
+          capacity_kg?: number | null
+          created_at?: string | null
+          hourly_rate?: number | null
+          id?: string | null
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          per_km_rate?: number | null
+          provider_name?: string | null
+          provider_type?: string | null
+          rating?: number | null
+          service_areas?: string[] | null
+          total_deliveries?: number | null
+          updated_at?: string | null
+          vehicle_types?: string[] | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       can_access_grn: {
