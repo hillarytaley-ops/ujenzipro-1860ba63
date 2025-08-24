@@ -1138,6 +1138,36 @@ export type Database = {
         }
         Relationships: []
       }
+      profile_access_log: {
+        Row: {
+          access_type: string
+          accessed_at: string | null
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          viewed_profile_id: string | null
+          viewer_user_id: string | null
+        }
+        Insert: {
+          access_type: string
+          accessed_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          viewed_profile_id?: string | null
+          viewer_user_id?: string | null
+        }
+        Update: {
+          access_type?: string
+          accessed_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          viewed_profile_id?: string | null
+          viewer_user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -1851,6 +1881,10 @@ export type Database = {
           acknowledgement_uuid: string
           fields_accessed?: string[]
         }
+        Returns: undefined
+      }
+      log_profile_access: {
+        Args: { access_type_param: string; viewed_profile_uuid: string }
         Returns: undefined
       }
     }
