@@ -1,0 +1,130 @@
+-- Drop existing policies and create secure payment access system
+DROP POLICY IF EXISTS "Suppliers can view non-payment acknowledgement details" ON delivery_acknowledgements;
+DROP POLICY IF EXISTS "Admin can view payment access logs" ON payment_info_access_log;
+
+-- Create function to check if user can access payment information
+CREATE OR REPLACE FUNCTION public.can_access_payment_info(acknowledgement_record delivery_acknowledgements)
+RETURNS boolean
+LANGUAGE sql
+STABLE SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM profiles p
+    WHERE p.user_id = auth.uid() 
+    AND (
+      p.role = 'admin' OR
+      p.id = acknowledgement_record.acknowledger_id
+    )
+  );
+$$;
+
+-- Create new restricted policy for suppliers
+CREATE POLICY "Suppliers can view acknowledgement delivery status"
+ON delivery_acknowledgements
+FOR SELECT
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1 
+    FROM ((delivery_notes dn
+      JOIN suppliers s ON s.id = dn.supplier_id)
+      JOIN profiles p ON p.id = s.user_id)
+    WHERE p.user_id = auth.uid() 
+    AND dn.id = delivery_acknowledgements.delivery_note_id
+  )
+);
+
+-- Ensure payment access log table exists with proper policies
+CREATE TABLE IF NOT EXISTS public.payment_info_access_log (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES auth.users(id),
+  acknowledgement_id uuid REFERENCES delivery_acknowledgements(id),
+  accessed_at timestamp with time zone DEFAULT now(),
+  access_type text NOT NULL,
+  ip_address inet,
+  user_agent text,
+  payment_fields_accessed text[]
+);
+
+-- Enable RLS if not already enabled
+DO $$ 
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_tables 
+    WHERE tablename = 'payment_info_access_log' 
+    AND schemaname = 'public' 
+    AND rowsecurity = true
+  ) THEN
+    ALTER TABLE public.payment_info_access_log ENABLE ROW LEVEL SECURITY;
+  END IF;
+END $$;
+
+-- Create policy for payment access logs
+CREATE POLICY "Admin can view payment access logs"
+ON public.payment_info_access_log
+FOR SELECT
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1 FROM profiles 
+    WHERE user_id = auth.uid() AND role = 'admin'
+  )
+);
+
+-- Create secure function to get acknowledgement data
+CREATE OR REPLACE FUNCTION public.get_secure_acknowledgement(acknowledgement_uuid uuid)
+RETURNS TABLE (
+  id uuid,
+  delivery_note_id uuid,
+  acknowledged_by text,
+  acknowledger_id uuid,
+  acknowledgement_date timestamptz,
+  digital_signature text,
+  comments text,
+  signed_document_path text,
+  created_at timestamptz,
+  updated_at timestamptz,
+  can_view_payment boolean,
+  payment_status text,
+  payment_method text,
+  payment_reference text
+)
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+  can_access_payment boolean;
+  record_data delivery_acknowledgements%ROWTYPE;
+BEGIN
+  -- Get the acknowledgement record
+  SELECT * INTO record_data 
+  FROM delivery_acknowledgements 
+  WHERE delivery_acknowledgements.id = acknowledgement_uuid;
+  
+  IF NOT FOUND THEN
+    RETURN;
+  END IF;
+  
+  -- Check if user can access payment information
+  SELECT public.can_access_payment_info(record_data) INTO can_access_payment;
+  
+  -- Return data with conditional payment information
+  RETURN QUERY SELECT
+    record_data.id,
+    record_data.delivery_note_id,
+    record_data.acknowledged_by,
+    record_data.acknowledger_id,
+    record_data.acknowledgement_date,
+    record_data.digital_signature,
+    record_data.comments,
+    record_data.signed_document_path,
+    record_data.created_at,
+    record_data.updated_at,
+    can_access_payment,
+    CASE WHEN can_access_payment THEN record_data.payment_status ELSE 'processed' END,
+    CASE WHEN can_access_payment THEN record_data.payment_method ELSE NULL END,
+    CASE WHEN can_access_payment THEN record_data.payment_reference ELSE NULL END;
+END;
+$$;
