@@ -1715,6 +1715,49 @@ export type Database = {
           weight_kg: number
         }[]
       }
+      get_my_provider_profile: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          address: string
+          availability_schedule: Json
+          capacity_kg: number
+          created_at: string
+          driving_license_class: string
+          driving_license_document_path: string
+          driving_license_expiry: string
+          driving_license_number: string
+          driving_license_verified: boolean
+          email: string
+          hourly_rate: number
+          id: string
+          is_active: boolean
+          is_verified: boolean
+          per_km_rate: number
+          phone: string
+          provider_name: string
+          provider_type: string
+          rating: number
+          service_areas: string[]
+          total_deliveries: number
+          updated_at: string
+          vehicle_types: string[]
+        }[]
+      }
+      get_provider_business_info: {
+        Args: { provider_uuid: string }
+        Returns: {
+          capacity_kg: number
+          id: string
+          is_active: boolean
+          is_verified: boolean
+          provider_name: string
+          provider_type: string
+          rating: number
+          service_areas: string[]
+          total_deliveries: number
+          vehicle_types: string[]
+        }[]
+      }
       get_secure_acknowledgement: {
         Args: { acknowledgement_uuid: string }
         Returns: {
