@@ -197,35 +197,12 @@ export const useDeliveryData = () => {
 
   const fetchDeliveries = async () => {
     try {
-      // First get the basic delivery list without sensitive data
-      const { data: basicDeliveries, error: basicError } = await supabase
-        .from('deliveries')
-        .select(`
-          id,
-          tracking_number,
-          material_type,
-          quantity,
-          weight_kg,
-          estimated_delivery_time,
-          actual_delivery_time,
-          status,
-          vehicle_details,
-          notes,
-          created_at,
-          updated_at,
-          builder_id,
-          supplier_id,
-          project_id,
-          projects (
-            id,
-            name,
-            location
-          )
-        `)
-        .order('created_at', { ascending: false });
+      // Use the secure function that handles all permission checks
+      const { data: secureDeliveries, error } = await supabase
+        .rpc('get_user_deliveries');
 
-      if (basicError) {
-        console.error('Error fetching deliveries:', basicError);
+      if (error) {
+        console.error('Error fetching secure deliveries:', error);
         toast({
           title: "Error",
           description: "Failed to fetch deliveries",
@@ -234,49 +211,31 @@ export const useDeliveryData = () => {
         return;
       }
 
-      // Now fetch secure delivery data for each delivery using the secure function
-      const secureDeliveries = await Promise.all(
-        (basicDeliveries || []).map(async (delivery) => {
-          try {
-            const { data: secureData, error: secureError } = await supabase
-              .rpc('get_secure_delivery', { delivery_uuid: delivery.id });
+      // Fetch project information for each delivery
+      const deliveriesWithProjects = await Promise.all(
+        (secureDeliveries || []).map(async (delivery) => {
+          if (delivery.project_id) {
+            try {
+              const { data: projectData } = await supabase
+                .from('projects')
+                .select('id, name, location')
+                .eq('id', delivery.project_id)
+                .single();
 
-            if (secureError) {
-              console.error('Error fetching secure delivery data:', secureError);
-              // Return basic delivery data without sensitive information
               return {
                 ...delivery,
-                pickup_address: 'Location protected',
-                delivery_address: 'Location protected',
-                driver_name: undefined,
-                driver_phone: undefined
+                projects: projectData
               };
+            } catch (error) {
+              console.error('Error fetching project:', error);
+              return delivery;
             }
-
-            // Use the secure data which conditionally includes sensitive information
-            return {
-              ...delivery,
-              pickup_address: secureData[0]?.pickup_address || 'Location protected',
-              delivery_address: secureData[0]?.delivery_address || 'Location protected',
-              driver_name: secureData[0]?.driver_name,
-              driver_phone: secureData[0]?.driver_phone,
-              can_view_locations: secureData[0]?.can_view_locations || false,
-              can_view_driver_contact: secureData[0]?.can_view_driver_contact || false
-            };
-          } catch (error) {
-            console.error('Error processing secure delivery:', error);
-            return {
-              ...delivery,
-              pickup_address: 'Location protected',
-              delivery_address: 'Location protected',
-              driver_name: undefined,
-              driver_phone: undefined
-            };
           }
+          return delivery;
         })
       );
 
-      setDeliveries(secureDeliveries as Delivery[]);
+      setDeliveries(deliveriesWithProjects as Delivery[]);
     } catch (error) {
       console.error('Error:', error);
       toast({
