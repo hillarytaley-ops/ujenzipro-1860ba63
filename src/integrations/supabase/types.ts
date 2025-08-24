@@ -1694,6 +1694,27 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_delivery_summaries: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          actual_delivery_time: string
+          builder_id: string
+          created_at: string
+          estimated_delivery_time: string
+          general_delivery_area: string
+          general_pickup_area: string
+          has_driver_assigned: boolean
+          id: string
+          material_type: string
+          project_id: string
+          quantity: number
+          status: string
+          supplier_id: string
+          tracking_number: string
+          updated_at: string
+          weight_kg: number
+        }[]
+      }
       get_secure_acknowledgement: {
         Args: { acknowledgement_uuid: string }
         Returns: {

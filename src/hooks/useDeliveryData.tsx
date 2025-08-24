@@ -197,12 +197,12 @@ export const useDeliveryData = () => {
 
   const fetchDeliveries = async () => {
     try {
-      // Use the secure function that handles all permission checks
-      const { data: secureDeliveries, error } = await supabase
-        .rpc('get_user_deliveries');
+      // Use the secure summary function that only returns safe data by default
+      const { data: deliverySummaries, error } = await supabase
+        .rpc('get_delivery_summaries');
 
       if (error) {
-        console.error('Error fetching secure deliveries:', error);
+        console.error('Error fetching delivery summaries:', error);
         toast({
           title: "Error",
           description: "Failed to fetch deliveries",
@@ -213,7 +213,7 @@ export const useDeliveryData = () => {
 
       // Fetch project information for each delivery
       const deliveriesWithProjects = await Promise.all(
-        (secureDeliveries || []).map(async (delivery) => {
+        (deliverySummaries || []).map(async (delivery) => {
           if (delivery.project_id) {
             try {
               const { data: projectData } = await supabase
@@ -224,14 +224,37 @@ export const useDeliveryData = () => {
 
               return {
                 ...delivery,
-                projects: projectData
+                projects: projectData,
+                // Map summary fields to expected interface
+                pickup_address: delivery.general_pickup_area,
+                delivery_address: delivery.general_delivery_area,
+                driver_name: delivery.has_driver_assigned ? 'Driver Assigned' : undefined,
+                driver_phone: undefined, // Never exposed in summaries
+                can_view_locations: false, // Require explicit access via secure functions
+                can_view_driver_contact: false // Require explicit access via secure functions
               };
             } catch (error) {
               console.error('Error fetching project:', error);
-              return delivery;
+              return {
+                ...delivery,
+                pickup_address: delivery.general_pickup_area,
+                delivery_address: delivery.general_delivery_area,
+                driver_name: delivery.has_driver_assigned ? 'Driver Assigned' : undefined,
+                driver_phone: undefined,
+                can_view_locations: false,
+                can_view_driver_contact: false
+              };
             }
           }
-          return delivery;
+          return {
+            ...delivery,
+            pickup_address: delivery.general_pickup_area,
+            delivery_address: delivery.general_delivery_area,
+            driver_name: delivery.has_driver_assigned ? 'Driver Assigned' : undefined,
+            driver_phone: undefined,
+            can_view_locations: false,
+            can_view_driver_contact: false
+          };
         })
       );
 

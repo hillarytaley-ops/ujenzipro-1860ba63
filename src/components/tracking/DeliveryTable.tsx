@@ -93,22 +93,16 @@ export const DeliveryTable: React.FC<DeliveryTableProps> = ({
               <TableCell>
                 <div className="flex items-center gap-1 text-sm">
                   <MapPin className="h-3 w-3 text-muted-foreground" />
-                  <span className="truncate max-w-32" title="Area only - full address protected">
-                    {delivery.pickup_address ? 
-                      delivery.pickup_address.split(',').pop()?.trim() || 'Pickup area' : 
-                      'Not specified'
-                    }
+                  <span className="truncate max-w-32" title="General area only - full address protected">
+                    {delivery.pickup_address || 'Not specified'}
                   </span>
                 </div>
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-1 text-sm">
                   <MapPin className="h-3 w-3 text-muted-foreground" />
-                  <span className="truncate max-w-32" title="Area only - full address protected">
-                    {delivery.delivery_address ? 
-                      delivery.delivery_address.split(',').pop()?.trim() || 'Delivery area' : 
-                      'Not specified'
-                    }
+                  <span className="truncate max-w-32" title="General area only - full address protected">
+                    {delivery.delivery_address || 'Not specified'}
                   </span>
                 </div>
               </TableCell>
