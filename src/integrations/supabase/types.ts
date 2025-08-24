@@ -976,6 +976,47 @@ export type Database = {
         }
         Relationships: []
       }
+      location_data_access_log: {
+        Row: {
+          access_type: string
+          accessed_at: string | null
+          data_fields_accessed: string[] | null
+          delivery_id: string | null
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          access_type: string
+          accessed_at?: string | null
+          data_fields_accessed?: string[] | null
+          delivery_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          access_type?: string
+          accessed_at?: string | null
+          data_fields_accessed?: string[] | null
+          delivery_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "location_data_access_log_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_materials: {
         Row: {
           batch_number: string | null
@@ -1621,6 +1662,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_access_driver_contact: {
+        Args: {
+          delivery_record: Database["public"]["Tables"]["deliveries"]["Row"]
+        }
+        Returns: boolean
+      }
       can_access_driver_info: {
         Args: {
           delivery_record: Database["public"]["Tables"]["deliveries"]["Row"]
@@ -1629,6 +1676,12 @@ export type Database = {
       }
       can_access_grn: {
         Args: { user_uuid: string }
+        Returns: boolean
+      }
+      can_access_location_data: {
+        Args: {
+          delivery_record: Database["public"]["Tables"]["deliveries"]["Row"]
+        }
         Returns: boolean
       }
       can_access_payment_info: {
@@ -1660,8 +1713,44 @@ export type Database = {
           updated_at: string
         }[]
       }
+      get_secure_delivery: {
+        Args: { delivery_uuid: string }
+        Returns: {
+          actual_delivery_time: string
+          builder_id: string
+          can_view_driver_contact: boolean
+          can_view_locations: boolean
+          created_at: string
+          delivery_address: string
+          delivery_date: string
+          driver_name: string
+          driver_phone: string
+          estimated_delivery_time: string
+          id: string
+          material_type: string
+          notes: string
+          pickup_address: string
+          pickup_date: string
+          project_id: string
+          quantity: number
+          status: string
+          supplier_id: string
+          tracking_number: string
+          updated_at: string
+          vehicle_details: string
+          weight_kg: number
+        }[]
+      }
       log_driver_info_access: {
         Args: { access_type_param: string; delivery_uuid: string }
+        Returns: undefined
+      }
+      log_location_data_access: {
+        Args: {
+          access_type_param: string
+          delivery_uuid: string
+          fields_accessed?: string[]
+        }
         Returns: undefined
       }
       log_payment_info_access: {
