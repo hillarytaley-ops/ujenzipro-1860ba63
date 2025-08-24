@@ -367,6 +367,68 @@ export type Database = {
         }
         Relationships: []
       }
+      delivery_provider_listings: {
+        Row: {
+          capacity_kg: number | null
+          created_at: string | null
+          hourly_rate: number | null
+          id: string
+          is_active: boolean | null
+          is_verified: boolean | null
+          per_km_rate: number | null
+          provider_id: string
+          provider_name: string
+          provider_type: string
+          rating: number | null
+          service_areas: string[] | null
+          total_deliveries: number | null
+          updated_at: string | null
+          vehicle_types: string[] | null
+        }
+        Insert: {
+          capacity_kg?: number | null
+          created_at?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          per_km_rate?: number | null
+          provider_id: string
+          provider_name: string
+          provider_type?: string
+          rating?: number | null
+          service_areas?: string[] | null
+          total_deliveries?: number | null
+          updated_at?: string | null
+          vehicle_types?: string[] | null
+        }
+        Update: {
+          capacity_kg?: number | null
+          created_at?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          per_km_rate?: number | null
+          provider_id?: string
+          provider_name?: string
+          provider_type?: string
+          rating?: number | null
+          service_areas?: string[] | null
+          total_deliveries?: number | null
+          updated_at?: string | null
+          vehicle_types?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_provider_listings_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: true
+            referencedRelation: "delivery_providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       delivery_providers: {
         Row: {
           address: string | null
