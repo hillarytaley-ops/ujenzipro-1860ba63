@@ -11,9 +11,9 @@ import { useToast } from "@/hooks/use-toast";
 
 interface DeliveryProvider {
   id: string;
+  provider_id: string; // Reference to the main provider record
   provider_name: string;
   provider_type: 'individual' | 'organization';
-  // Contact details are excluded for security - only shown for legitimate business relationships
   vehicle_types: string[];
   service_areas: string[];
   capacity_kg?: number;
@@ -45,24 +45,10 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
   const fetchProviders = async () => {
     try {
       setLoading(true);
-      // For discovery purposes, only fetch non-sensitive public information
-      // Contact details are filtered out for security and privacy
+      // Use the secure public discovery table that only contains non-sensitive information
       const { data, error } = await supabase
-        .from('delivery_providers')
-        .select(`
-          id,
-          provider_name,
-          provider_type,
-          vehicle_types,
-          service_areas,
-          capacity_kg,
-          hourly_rate,
-          per_km_rate,
-          is_verified,
-          is_active,
-          rating,
-          total_deliveries
-        `)
+        .from('delivery_providers_public')
+        .select('*')
         .eq('is_active', true)
         .order('rating', { ascending: false });
       
