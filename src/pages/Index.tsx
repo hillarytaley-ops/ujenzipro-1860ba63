@@ -116,8 +116,8 @@ const Index = () => {
               <Link to="/suppliers">
                 <Button 
                   size="lg" 
-                  variant="outline" 
-                  className="border-white/30 text-white hover:bg-white hover:text-foreground text-lg px-8 py-4 hover-scale transition-all duration-300"
+                  variant="secondary"
+                  className="text-lg px-8 py-4 hover-scale transition-all duration-300"
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
                   I'm a Supplier
