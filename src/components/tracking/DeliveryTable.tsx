@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Package, Phone, MapPin, MoreHorizontal } from 'lucide-react';
+import { Package, Phone, MapPin, MoreHorizontal, User } from 'lucide-react';
 import { Delivery, DeliveryStatus, UserRole } from '@/hooks/useDeliveryData';
 
 interface DeliveryTableProps {
@@ -66,7 +66,7 @@ export const DeliveryTable: React.FC<DeliveryTableProps> = ({
             <TableHead>Pickup</TableHead>
             <TableHead>Delivery</TableHead>
             <TableHead>Project</TableHead>
-            <TableHead>Driver</TableHead>
+            <TableHead>Driver Status</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -113,17 +113,17 @@ export const DeliveryTable: React.FC<DeliveryTableProps> = ({
                 )}
               </TableCell>
               <TableCell>
-                {delivery.driver_name && (
-                  <div className="text-sm">
-                    <div>{delivery.driver_name}</div>
-                    {delivery.driver_phone && (
-                      <div className="flex items-center gap-1 text-muted-foreground">
-                        <Phone className="h-3 w-3" />
-                        {delivery.driver_phone}
-                      </div>
-                    )}
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4 text-muted-foreground" />
+                  <div>
+                    <div className="font-medium text-sm">
+                      {delivery.driver_name ? 'Driver Assigned' : 'Not assigned'}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {delivery.driver_name ? 'Contact via secure channel' : 'Pending assignment'}
+                    </div>
                   </div>
-                )}
+                </div>
               </TableCell>
               <TableCell>
                 {userRole === 'supplier' && (

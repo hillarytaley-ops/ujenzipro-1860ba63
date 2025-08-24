@@ -836,6 +836,44 @@ export type Database = {
           },
         ]
       }
+      driver_info_access_log: {
+        Row: {
+          access_type: string
+          accessed_at: string | null
+          delivery_id: string | null
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          access_type: string
+          accessed_at?: string | null
+          delivery_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          access_type?: string
+          accessed_at?: string | null
+          delivery_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "driver_info_access_log_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       feedback: {
         Row: {
           category: string | null
@@ -1542,6 +1580,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_access_driver_info: {
+        Args: {
+          delivery_record: Database["public"]["Tables"]["deliveries"]["Row"]
+        }
+        Returns: boolean
+      }
       can_access_grn: {
         Args: { user_uuid: string }
         Returns: boolean
@@ -1549,6 +1593,10 @@ export type Database = {
       generate_access_code: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      log_driver_info_access: {
+        Args: { access_type_param: string; delivery_uuid: string }
+        Returns: undefined
       }
     }
     Enums: {

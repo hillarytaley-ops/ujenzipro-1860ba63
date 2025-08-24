@@ -207,6 +207,18 @@ export const useDeliveryData = () => {
         `)
         .order('created_at', { ascending: false });
 
+      // Log driver info access for audit purposes
+      if (data && data.length > 0) {
+        for (const delivery of data) {
+          if (delivery.driver_name || delivery.driver_phone) {
+            await supabase.rpc('log_driver_info_access', {
+              delivery_uuid: delivery.id,
+              access_type_param: 'view'
+            });
+          }
+        }
+      }
+
       if (error) {
         console.error('Error fetching deliveries:', error);
         toast({
