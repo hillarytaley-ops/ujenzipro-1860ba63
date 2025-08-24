@@ -1835,6 +1835,57 @@ export type Database = {
           weight_kg: number
         }[]
       }
+      get_secure_delivery_request: {
+        Args: { request_uuid: string }
+        Returns: {
+          budget_range: string
+          builder_id: string
+          can_view_addresses: boolean
+          created_at: string
+          delivery_address: string
+          delivery_latitude: number
+          delivery_longitude: number
+          id: string
+          material_type: string
+          pickup_address: string
+          pickup_date: string
+          pickup_latitude: number
+          pickup_longitude: number
+          preferred_time: string
+          provider_id: string
+          provider_response: string
+          quantity: number
+          required_vehicle_type: string
+          response_date: string
+          response_notes: string
+          special_instructions: string
+          status: string
+          updated_at: string
+          weight_kg: number
+        }[]
+      }
+      get_secure_purchase_order: {
+        Args: { order_uuid: string }
+        Returns: {
+          buyer_id: string
+          can_view_address: boolean
+          created_at: string
+          delivery_address: string
+          delivery_date: string
+          id: string
+          items: Json
+          payment_terms: string
+          po_number: string
+          qr_code_generated: boolean
+          qr_code_url: string
+          quotation_request_id: string
+          special_instructions: string
+          status: string
+          supplier_id: string
+          total_amount: number
+          updated_at: string
+        }[]
+      }
       get_user_deliveries: {
         Args: Record<PropertyKey, never>
         Returns: {
