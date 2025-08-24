@@ -26,6 +26,8 @@ export interface Delivery {
   supplier_id?: string;
   project_id?: string;
   projects?: { id: string; name: string; location: string; };
+  can_view_locations?: boolean;
+  can_view_driver_contact?: boolean;
 }
 
 export interface Builder {
@@ -195,10 +197,25 @@ export const useDeliveryData = () => {
 
   const fetchDeliveries = async () => {
     try {
-      const { data, error } = await supabase
+      // First get the basic delivery list without sensitive data
+      const { data: basicDeliveries, error: basicError } = await supabase
         .from('deliveries')
         .select(`
-          *,
+          id,
+          tracking_number,
+          material_type,
+          quantity,
+          weight_kg,
+          estimated_delivery_time,
+          actual_delivery_time,
+          status,
+          vehicle_details,
+          notes,
+          created_at,
+          updated_at,
+          builder_id,
+          supplier_id,
+          project_id,
           projects (
             id,
             name,
@@ -207,30 +224,66 @@ export const useDeliveryData = () => {
         `)
         .order('created_at', { ascending: false });
 
-      // Log driver info access for audit purposes
-      if (data && data.length > 0) {
-        for (const delivery of data) {
-          if (delivery.driver_name || delivery.driver_phone) {
-            await supabase.rpc('log_driver_info_access', {
-              delivery_uuid: delivery.id,
-              access_type_param: 'view'
-            });
-          }
-        }
-      }
-
-      if (error) {
-        console.error('Error fetching deliveries:', error);
+      if (basicError) {
+        console.error('Error fetching deliveries:', basicError);
         toast({
           title: "Error",
           description: "Failed to fetch deliveries",
           variant: "destructive",
         });
-      } else {
-        setDeliveries(data as Delivery[]);
+        return;
       }
+
+      // Now fetch secure delivery data for each delivery using the secure function
+      const secureDeliveries = await Promise.all(
+        (basicDeliveries || []).map(async (delivery) => {
+          try {
+            const { data: secureData, error: secureError } = await supabase
+              .rpc('get_secure_delivery', { delivery_uuid: delivery.id });
+
+            if (secureError) {
+              console.error('Error fetching secure delivery data:', secureError);
+              // Return basic delivery data without sensitive information
+              return {
+                ...delivery,
+                pickup_address: 'Location protected',
+                delivery_address: 'Location protected',
+                driver_name: undefined,
+                driver_phone: undefined
+              };
+            }
+
+            // Use the secure data which conditionally includes sensitive information
+            return {
+              ...delivery,
+              pickup_address: secureData[0]?.pickup_address || 'Location protected',
+              delivery_address: secureData[0]?.delivery_address || 'Location protected',
+              driver_name: secureData[0]?.driver_name,
+              driver_phone: secureData[0]?.driver_phone,
+              can_view_locations: secureData[0]?.can_view_locations || false,
+              can_view_driver_contact: secureData[0]?.can_view_driver_contact || false
+            };
+          } catch (error) {
+            console.error('Error processing secure delivery:', error);
+            return {
+              ...delivery,
+              pickup_address: 'Location protected',
+              delivery_address: 'Location protected',
+              driver_name: undefined,
+              driver_phone: undefined
+            };
+          }
+        })
+      );
+
+      setDeliveries(secureDeliveries as Delivery[]);
     } catch (error) {
       console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch deliveries",
+        variant: "destructive",
+      });
     }
   };
 

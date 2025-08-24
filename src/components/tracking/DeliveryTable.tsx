@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Package, Phone, MapPin, MoreHorizontal, User } from 'lucide-react';
 import { Delivery, DeliveryStatus, UserRole } from '@/hooks/useDeliveryData';
+import { SecureDriverInfo } from '@/components/SecureDriverInfo';
 
 interface DeliveryTableProps {
   deliveries: Delivery[];
@@ -119,17 +120,13 @@ export const DeliveryTable: React.FC<DeliveryTableProps> = ({
                 )}
               </TableCell>
               <TableCell>
-                <div className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium text-sm">
-                      {delivery.driver_name ? 'Driver Assigned' : 'Not assigned'}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {delivery.driver_name ? 'Contact via secure channel' : 'Pending assignment'}
-                    </div>
-                  </div>
-                </div>
+                <SecureDriverInfo
+                  deliveryId={delivery.id}
+                  driverName={delivery.driver_name}
+                  driverPhone={delivery.driver_phone}
+                  userRole={userRole || 'builder'}
+                  canAccess={delivery.can_view_driver_contact || false}
+                />
               </TableCell>
               <TableCell>
                 {userRole === 'supplier' && (
