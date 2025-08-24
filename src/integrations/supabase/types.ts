@@ -834,6 +834,13 @@ export type Database = {
             referencedRelation: "deliveries"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "delivery_updates_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries_safe"
+            referencedColumns: ["id"]
+          },
         ]
       }
       driver_info_access_log: {
@@ -872,6 +879,13 @@ export type Database = {
             referencedRelation: "deliveries"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "driver_info_access_log_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries_safe"
+            referencedColumns: ["id"]
+          },
         ]
       }
       feedback: {
@@ -908,6 +922,13 @@ export type Database = {
             columns: ["delivery_id"]
             isOneToOne: false
             referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feedback_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries_safe"
             referencedColumns: ["id"]
           },
           {
@@ -1013,6 +1034,13 @@ export type Database = {
             columns: ["delivery_id"]
             isOneToOne: false
             referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "location_data_access_log_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries_safe"
             referencedColumns: ["id"]
           },
         ]
@@ -1411,6 +1439,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "receipt_uploads_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries_safe"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "receipt_uploads_scanned_supply_id_fkey"
             columns: ["scanned_supply_id"]
             isOneToOne: false
@@ -1493,6 +1528,13 @@ export type Database = {
             columns: ["delivery_id"]
             isOneToOne: false
             referencedRelation: "deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "scanned_receivables_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries_safe"
             referencedColumns: ["id"]
           },
           {
@@ -1655,11 +1697,111 @@ export type Database = {
             referencedRelation: "deliveries"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "tracking_updates_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "deliveries_safe"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
     Views: {
-      [_ in never]: never
+      deliveries_safe: {
+        Row: {
+          actual_delivery_time: string | null
+          builder_id: string | null
+          created_at: string | null
+          delivery_address: string | null
+          delivery_date: string | null
+          driver_name: string | null
+          driver_phone: string | null
+          estimated_delivery_time: string | null
+          id: string | null
+          material_type: string | null
+          notes: string | null
+          pickup_address: string | null
+          pickup_date: string | null
+          project_id: string | null
+          quantity: number | null
+          status: string | null
+          supplier_id: string | null
+          tracking_number: string | null
+          updated_at: string | null
+          vehicle_details: string | null
+          weight_kg: number | null
+        }
+        Insert: {
+          actual_delivery_time?: string | null
+          builder_id?: string | null
+          created_at?: string | null
+          delivery_address?: never
+          delivery_date?: string | null
+          driver_name?: never
+          driver_phone?: never
+          estimated_delivery_time?: string | null
+          id?: string | null
+          material_type?: string | null
+          notes?: string | null
+          pickup_address?: never
+          pickup_date?: string | null
+          project_id?: string | null
+          quantity?: number | null
+          status?: string | null
+          supplier_id?: string | null
+          tracking_number?: string | null
+          updated_at?: string | null
+          vehicle_details?: string | null
+          weight_kg?: number | null
+        }
+        Update: {
+          actual_delivery_time?: string | null
+          builder_id?: string | null
+          created_at?: string | null
+          delivery_address?: never
+          delivery_date?: string | null
+          driver_name?: never
+          driver_phone?: never
+          estimated_delivery_time?: string | null
+          id?: string | null
+          material_type?: string | null
+          notes?: string | null
+          pickup_address?: never
+          pickup_date?: string | null
+          project_id?: string | null
+          quantity?: number | null
+          status?: string | null
+          supplier_id?: string | null
+          tracking_number?: string | null
+          updated_at?: string | null
+          vehicle_details?: string | null
+          weight_kg?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deliveries_builder_id_fkey"
+            columns: ["builder_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deliveries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deliveries_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       can_access_driver_contact: {
