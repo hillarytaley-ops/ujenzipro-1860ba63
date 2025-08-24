@@ -1,0 +1,64 @@
+{
+  "name": "UjenziPro - Construction Management Platform",
+  "short_name": "UjenziPro",
+  "description": "Kenya's premier digital construction platform featuring QR material tracking, real-time delivery management, and comprehensive supply chain transparency.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fefbf7",
+  "theme_color": "#c2410c",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/lovable-uploads/e80300cc-d934-4228-938a-21f3516aa8fe.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/lovable-uploads/e80300cc-d934-4228-938a-21f3516aa8fe.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/lovable-uploads/b977c222-ce21-4393-bb5a-c35df9ce0000.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "UjenziPro Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Track Materials",
+      "short_name": "Tracking",
+      "description": "Track construction materials with QR codes",
+      "url": "/tracking",
+      "icons": [{ "src": "/lovable-uploads/e80300cc-d934-4228-938a-21f3516aa8fe.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Find Suppliers",
+      "short_name": "Suppliers",
+      "description": "Discover verified material suppliers",
+      "url": "/suppliers",
+      "icons": [{ "src": "/lovable-uploads/e80300cc-d934-4228-938a-21f3516aa8fe.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Manage Deliveries",
+      "short_name": "Delivery",
+      "description": "Coordinate construction material deliveries",
+      "url": "/delivery",
+      "icons": [{ "src": "/lovable-uploads/e80300cc-d934-4228-938a-21f3516aa8fe.png", "sizes": "96x96" }]
+    }
+  ],
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple"
+  ]
+}
