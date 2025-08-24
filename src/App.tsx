@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { OfflineDetector } from "@/components/OfflineDetector";
 import Index from "./pages/Index";
 import Builders from "./pages/Builders";
 import Suppliers from "./pages/Suppliers";
@@ -46,7 +47,8 @@ const App = () => {
   }, []);
 
   return (
-    <ErrorBoundary>
+    <OfflineDetector>
+      <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
@@ -70,6 +72,7 @@ const App = () => {
         </TooltipProvider>
       </QueryClientProvider>
     </ErrorBoundary>
+    </OfflineDetector>
   );
 };
 
