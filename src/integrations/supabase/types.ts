@@ -1026,6 +1026,47 @@ export type Database = {
           },
         ]
       }
+      payment_info_access_log: {
+        Row: {
+          access_type: string
+          accessed_at: string | null
+          acknowledgement_id: string | null
+          id: string
+          ip_address: unknown | null
+          payment_fields_accessed: string[] | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          access_type: string
+          accessed_at?: string | null
+          acknowledgement_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          payment_fields_accessed?: string[] | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          access_type?: string
+          accessed_at?: string | null
+          acknowledgement_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          payment_fields_accessed?: string[] | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_info_access_log_acknowledgement_id_fkey"
+            columns: ["acknowledgement_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_acknowledgements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       payment_preferences: {
         Row: {
           created_at: string
@@ -1590,12 +1631,45 @@ export type Database = {
         Args: { user_uuid: string }
         Returns: boolean
       }
+      can_access_payment_info: {
+        Args: {
+          acknowledgement_record: Database["public"]["Tables"]["delivery_acknowledgements"]["Row"]
+        }
+        Returns: boolean
+      }
       generate_access_code: {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_secure_acknowledgement: {
+        Args: { acknowledgement_uuid: string }
+        Returns: {
+          acknowledged_by: string
+          acknowledgement_date: string
+          acknowledger_id: string
+          can_view_payment: boolean
+          comments: string
+          created_at: string
+          delivery_note_id: string
+          digital_signature: string
+          id: string
+          payment_method: string
+          payment_reference: string
+          payment_status: string
+          signed_document_path: string
+          updated_at: string
+        }[]
+      }
       log_driver_info_access: {
         Args: { access_type_param: string; delivery_uuid: string }
+        Returns: undefined
+      }
+      log_payment_info_access: {
+        Args: {
+          access_type_param: string
+          acknowledgement_uuid: string
+          fields_accessed?: string[]
+        }
         Returns: undefined
       }
     }

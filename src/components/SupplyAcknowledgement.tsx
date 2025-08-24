@@ -149,11 +149,22 @@ const SupplyAcknowledgement: React.FC = () => {
       };
 
       // Store acknowledgement in a new table
-      const { error } = await supabase
+      const { data: insertedData, error } = await supabase
         .from('delivery_acknowledgements')
-        .insert(acknowledgementData);
+        .insert(acknowledgementData)
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Log payment information access for audit trail
+      if (paymentReference) {
+        await supabase.rpc('log_payment_info_access', {
+          acknowledgement_uuid: insertedData.id,
+          access_type_param: 'create',
+          fields_accessed: ['payment_reference', 'payment_status']
+        });
+      }
 
       // Send notification to supplier
       await sendAcknowledgementToSupplier(selectedNote, acknowledgementData);
