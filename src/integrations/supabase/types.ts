@@ -1788,6 +1788,14 @@ export type Database = {
           vehicle_types: string[]
         }[]
       }
+      get_provider_contact_for_delivery: {
+        Args: { delivery_request_uuid: string }
+        Returns: {
+          can_contact: boolean
+          phone: string
+          provider_name: string
+        }[]
+      }
       get_secure_acknowledgement: {
         Args: { acknowledgement_uuid: string }
         Returns: {
