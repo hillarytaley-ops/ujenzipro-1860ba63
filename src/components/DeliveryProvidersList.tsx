@@ -13,10 +13,7 @@ interface DeliveryProvider {
   id: string;
   provider_name: string;
   provider_type: 'individual' | 'organization';
-  contact_person?: string;
-  phone: string;
-  email?: string;
-  address?: string;
+  // Contact details are excluded for security - only shown for legitimate business relationships
   vehicle_types: string[];
   service_areas: string[];
   capacity_kg?: number;
@@ -48,9 +45,24 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
   const fetchProviders = async () => {
     try {
       setLoading(true);
+      // For discovery purposes, only fetch non-sensitive public information
+      // Contact details are filtered out for security and privacy
       const { data, error } = await supabase
         .from('delivery_providers')
-        .select('*')
+        .select(`
+          id,
+          provider_name,
+          provider_type,
+          vehicle_types,
+          service_areas,
+          capacity_kg,
+          hourly_rate,
+          per_km_rate,
+          is_verified,
+          is_active,
+          rating,
+          total_deliveries
+        `)
         .eq('is_active', true)
         .order('rating', { ascending: false });
       
@@ -70,8 +82,7 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
 
   const filteredProviders = providers
     .filter(provider => {
-      const matchesSearch = provider.provider_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          (provider.contact_person && provider.contact_person.toLowerCase().includes(searchTerm.toLowerCase()));
+      const matchesSearch = provider.provider_name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesArea = selectedArea === 'all-areas' || !selectedArea || provider.service_areas.includes(selectedArea);
       const matchesVehicle = selectedVehicleType === 'all-vehicles' || !selectedVehicleType || provider.vehicle_types.includes(selectedVehicleType);
       
@@ -242,11 +253,6 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
                       )}
                       <span className="truncate">{provider.provider_name}</span>
                     </CardTitle>
-                    {provider.contact_person && (
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Contact: {provider.contact_person}
-                      </p>
-                    )}
                   </div>
                   {provider.is_verified && (
                     <Badge variant="secondary" className="bg-green-100 text-green-800">
@@ -264,24 +270,7 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
               </CardHeader>
               
               <CardContent className="space-y-4">
-                {provider.address && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
-                    <span className="truncate">{provider.address}</span>
-                  </div>
-                )}
-                
-                <div className="flex items-center gap-2 text-sm">
-                  <Phone className="h-4 w-4" />
-                  <span>{provider.phone}</span>
-                </div>
-                
-                {provider.email && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <Mail className="h-4 w-4" />
-                    <span className="truncate">{provider.email}</span>
-                  </div>
-                )}
+                {/* Contact details are hidden for security - only shown for legitimate business relationships */}
                 
                 <div>
                   <p className="text-sm font-medium mb-2">Vehicle Types:</p>
@@ -328,7 +317,7 @@ export const DeliveryProvidersList: React.FC<DeliveryProvidersListProps> = ({ on
                   className="w-full" 
                   onClick={() => onProviderSelect?.(provider)}
                 >
-                  Contact Provider
+                  Request Quote
                 </Button>
               </CardContent>
             </Card>

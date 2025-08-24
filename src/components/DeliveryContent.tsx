@@ -111,7 +111,7 @@ export const DeliveryContent = () => {
             onProviderSelect={(provider) => {
               toast({
                 title: "Provider selected",
-                description: `Contact ${provider.provider_name} at ${provider.phone}`
+                description: `${provider.provider_name} has been selected. Contact details will be shared once you submit a delivery request.`
               });
             }}
           />
